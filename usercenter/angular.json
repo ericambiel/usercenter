@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "usercenter": {
+    "a8crud": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/usercenter",
+            "outputPath": "dist/a8crud",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -28,6 +28,7 @@
               "src/assets"
             ],
             "styles": [
+              "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
               "src/styles.scss"
             ],
             "scripts": []
@@ -66,18 +67,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "usercenter:build"
+            "browserTarget": "a8crud:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "usercenter:build:production"
+              "browserTarget": "a8crud:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "usercenter:build"
+            "browserTarget": "a8crud:build"
           }
         },
         "test": {
@@ -92,6 +93,7 @@
               "src/assets"
             ],
             "styles": [
+              "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
               "src/styles.scss"
             ],
             "scripts": []
@@ -114,19 +116,19 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "usercenter:serve"
+            "devServerTarget": "a8crud:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "usercenter:serve:production"
+              "devServerTarget": "a8crud:serve:production"
             }
           }
         }
       }
     }
   },
-  "defaultProject": "usercenter",
+  "defaultProject": "a8crud",
   "cli": {
-    "analytics": false
+    "analytics": "2a4870bc-9f46-4b5a-96a0-04d76cb96a33"
   }
 }

@@ -1,0 +1,18 @@
+<div class="container">
+  <h3 mat-dialog-title>APAGAR: Tem certeza?</h3>
+  <div mat-dialog-content>
+    Id: {{data.id}}
+    <p></p>
+    Estab. Fiscal: {{data.title}}
+    <p></p>
+    Parceiro: {{data.state}}
+    <p></p>
+    CNPJ: {{data.url}}
+    <p></p>
+  </div>
+
+  <div mat-dialog-actions>
+    <button mat-button [mat-dialog-close]="1" (click)="confirmDelete()">Deletar</button>
+    <button mat-button (click)="onNoClick()" tabindex="-1">Cancelar</button>
+  </div>
+</div>
