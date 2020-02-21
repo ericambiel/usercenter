@@ -152,7 +152,7 @@ export class ExampleDataSource extends DataSource<Contrato> {
     return merge(...displayDataChanges).pipe(map( () => {
         // Filter data
         this.filteredData = this._exampleDatabase.data.slice().filter((issue: Contrato) => {
-          const searchStr = (issue.id + issue.title + issue.url + issue.created_at).toLowerCase();
+          const searchStr = (issue.id + issue.title + issue.documento + issue.created_at).toLowerCase();
           return searchStr.indexOf(this.filter.toLowerCase()) !== -1;
         });
 
@@ -184,7 +184,7 @@ export class ExampleDataSource extends DataSource<Contrato> {
         case 'id': [propertyA, propertyB] = [a.id, b.id]; break;
         case 'title': [propertyA, propertyB] = [a.title, b.title]; break;
         case 'state': [propertyA, propertyB] = [a.state, b.state]; break;
-        case 'url': [propertyA, propertyB] = [a.url, b.url]; break;
+        case 'url': [propertyA, propertyB] = [a.documento, b.documento]; break;
         case 'created_at': [propertyA, propertyB] = [a.created_at, b.created_at]; break;
         case 'updated_at': [propertyA, propertyB] = [a.updated_at, b.updated_at]; break;
       }
