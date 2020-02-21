@@ -4,7 +4,7 @@ import {HttpClient} from '@angular/common/http';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
-import {Contrato} from './models/issue';
+import {Contrato} from './models/contrato';
 import {DataSource} from '@angular/cdk/collections';
 import {AddDialogComponent} from './dialogs/add/add.dialog.component';
 import {EditDialogComponent} from './dialogs/edit/edit.dialog.component';

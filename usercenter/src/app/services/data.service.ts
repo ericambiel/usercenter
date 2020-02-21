@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {BehaviorSubject} from 'rxjs';
-import {Contrato} from '../models/issue';
+import {Contrato} from '../models/contrato';
 import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 
 @Injectable()
