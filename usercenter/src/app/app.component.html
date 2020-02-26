@@ -25,29 +25,54 @@
       <mat-cell *matCellDef="let row" >{{row.id}}</mat-cell>
     </ng-container>
 
-    <ng-container matColumnDef="title">
-      <mat-header-cell *matHeaderCellDef mat-sort-header>Estab. Fiscal</mat-header-cell>
-      <mat-cell *matCellDef="let row"> {{row.title}}</mat-cell>
-    </ng-container>
-
-    <ng-container matColumnDef="state">
-      <mat-header-cell *matHeaderCellDef mat-sort-header>Parceiro</mat-header-cell>
-      <mat-cell *matCellDef="let row"> {{row.state}}</mat-cell>
-    </ng-container>
-
-    <ng-container matColumnDef="url">
-      <mat-header-cell *matHeaderCellDef mat-sort-header>CNPJ</mat-header-cell>
-      <mat-cell *matCellDef="let row"> {{row.url}}</mat-cell>
-    </ng-container>
-
-    <ng-container matColumnDef="created_at">
+    <ng-container matColumnDef="objeto">
       <mat-header-cell *matHeaderCellDef mat-sort-header>Objeto</mat-header-cell>
-      <mat-cell *matCellDef="let row"> {{row.created_at}}</mat-cell>
+      <mat-cell *matCellDef="let row"> {{row.objeto}}</mat-cell>
     </ng-container>
 
-    <ng-container matColumnDef="updated_at">
+    <ng-container matColumnDef="estabFiscal">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Estab. Fiscal</mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row.estabFiscal}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="parceiro">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Parceiro</mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row.parceiro}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="cnpj">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>CNPJ</mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row.cnpj}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="status">
       <mat-header-cell *matHeaderCellDef mat-sort-header>Status</mat-header-cell>
-      <mat-cell *matCellDef="let row"> {{row.updated_at}}</mat-cell>
+      <mat-cell *matCellDef="let row"> {{row.status}}</mat-cell>
+    </ng-container>
+
+        <ng-container matColumnDef="situacao">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>Situação</mat-header-cell>
+          <mat-cell *matCellDef="let row" >{{row.situacao}}</mat-cell>
+        </ng-container>
+
+    <ng-container matColumnDef="deptoPartList">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Deptos. Part.</mat-header-cell>
+      <mat-cell *matCellDef="let row" >{{row.deptoPartList}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="valTotal">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Valor Tot.</mat-header-cell>
+      <mat-cell *matCellDef="let row" >{{row.valTotal}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="dataInicio">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Início</mat-header-cell>
+      <mat-cell *matCellDef="let row" >{{row.dataInicio}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="dataFim">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Fim</mat-header-cell>
+      <mat-cell *matCellDef="let row" >{{row.dataFim}}</mat-cell>
     </ng-container>
 
     <!-- actions -->
@@ -59,11 +84,11 @@
       </mat-header-cell>
 
       <mat-cell *matCellDef="let row; let i=index;">
-        <button mat-icon-button color="accent" (click)="startEdit(i, row.id, row.title, row.state, row.url, row.created_at, row.updated_at)">
+        <button mat-icon-button color="accent" (click)="startEdit(i, row.id, row.objeto, row.estabFiscal, row.parceiro, row.cnpj, row.status, row.situacao, row.deptoPartList, row.valTotal, row.dataInicio, row.dataFim)">
           <mat-icon aria-label="Edit">edit</mat-icon>
         </button>
 
-        <button mat-icon-button color="accent" (click)="deleteItem(i, row.id, row.title, row.state, row.url)">
+        <button mat-icon-button color="accent" (click)="deleteItem(i, row.id, row.objeto, row.estabFiscal, row.parceiro)">
           <mat-icon aria-label="Delete">delete</mat-icon>
         </button>
       </mat-cell>

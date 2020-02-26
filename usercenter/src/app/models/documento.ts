@@ -3,6 +3,6 @@ export class Documento{
   nome: string;
   diretorio: string;
   tipo: string;
-  num_doc: number;
-  data_insert: string;
+  numDoc: number; // Quantidades de ducumentos anexos
+  dataInsert: string;
 }

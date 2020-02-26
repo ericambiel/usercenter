@@ -5,7 +5,7 @@ import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 
 @Injectable()
 export class DataService {
-  private readonly API_URL = ''//'https://api.github.com/repos/angular/angular/issues';
+  private readonly API_URL = ''// 'https://api.github.com/repos/angular/angular/contratos';
 
   dataChange: BehaviorSubject<Contrato[]> = new BehaviorSubject<Contrato[]>([]);
   // Temporarily stores data from dialogs
@@ -22,7 +22,7 @@ export class DataService {
   }
 
   /** CRUD METHODS */
-  getAllIssues(): void {
+  getTodosContratos(): void {
     this.httpClient.get<Contrato[]>(this.API_URL).subscribe(data => {
         this.dataChange.next(data);
       },
@@ -32,15 +32,15 @@ export class DataService {
   }
 
   // DEMO ONLY, you can find working methods below
-  addIssue(issue: Contrato): void {
-    this.dialogData = issue;
+  addContrato(contrato: Contrato): void {
+    this.dialogData = contrato;
   }
 
-  updateIssue(issue: Contrato): void {
-    this.dialogData = issue;
+  updateContrato(contrato: Contrato): void {
+    this.dialogData = contrato;
   }
 
-  deleteIssue(id: number): void {
+  deleteContrato(id: number): void {
     console.log(id);
   }
 }

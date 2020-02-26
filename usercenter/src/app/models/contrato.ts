@@ -2,22 +2,23 @@ import { Departamento } from './departamento';
 import { Documento } from './documento';
 
 export class Contrato {
+  // Dados exibido quando Mostar/Deletar
   id: number;
-  estab_fiscal: string;
+  objeto: string;           // Mudar para objeto
+  estabFiscal: string;
   parceiro: string;
   cnpj: number;
-  title: string; //Mudar para objeto
-  state: string; //Mudar para status
-  situacao:string;
-  ind_reajuste: string;
-  d_antecedencia: number; //Dias de antecedencia
-  ana_juridico: boolean; //Analise juridica
-  val_total: number; //Valor toral
-  created_at: string; // Mudar data_inicio
-  updated_at: string; // Mudara data_fim
-  depto_part: [Departamento]; //Departamentos Participantes
+  status: string;           // Mudar para status
+  situacao: string;
+  valTotal: number;         // Valor total
+  dataInicio: string;
+  dataFim: string;
+  deptoPartList: [Departamento]; // Lista de Departamentos associados
+  // Dados exibidos quando Inserir/Modificar
+  indReajuste: string;
+  diaAntecedencia: number;  // Dias de antecedencia
   obs: string;
   historico: string;
-
-  documento: [Documento]; //Mudar diretorio
+  anaJuridico: boolean;     // Analise juridica
+  documento: [Documento];   // Mudar diretorio
 }

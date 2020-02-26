@@ -12,7 +12,7 @@ import {Contrato} from '../../models/contrato';
 
 export class AddDialogComponent {
   constructor(public dialogRef: MatDialogRef<AddDialogComponent>,
-              @Inject(MAT_DIALOG_DATA) public data: Contrato,
+              @Inject(MAT_DIALOG_DATA) public dataContrato: Contrato,
               public dataService: DataService) { }
 
   formControl = new FormControl('', [
@@ -35,6 +35,6 @@ export class AddDialogComponent {
   }
 
   public confirmAdd(): void {
-    this.dataService.addIssue(this.data);
+    this.dataService.addContrato(this.dataContrato);
   }
 }
