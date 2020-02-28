@@ -3,6 +3,6 @@ export class Documento{
   nome: string;
   diretorio: string;
   tipo: string;
-  numDoc: number; // Quantidades de ducumentos anexos
-  dataInsert: string;
+  numAditivo: number; // Sequência logica do documento
+  dataInsert: string; // Mudar para tipo Date
 }

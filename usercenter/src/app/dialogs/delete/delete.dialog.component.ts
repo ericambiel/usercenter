@@ -11,13 +11,13 @@ import {DataService} from '../../services/data.service';
 export class DeleteDialogComponent {
 
   constructor(public dialogRef: MatDialogRef<DeleteDialogComponent>,
-              @Inject(MAT_DIALOG_DATA) public data: any, public dataService: DataService) { }
+              @Inject(MAT_DIALOG_DATA) public dataContrato: any, public dataService: DataService) { }
 
   onNoClick(): void {
     this.dialogRef.close();
   }
 
   confirmDelete(): void {
-    this.dataService.deleteContrato(this.data.id);
+    this.dataService.deleteContrato(this.dataContrato.id);
   }
 }

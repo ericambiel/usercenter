@@ -19,17 +19,17 @@ import {map} from 'rxjs/operators';
 })
 
 export class AppComponent implements OnInit {
-  displayedColumns = ['id', 
-                      'objeto', 
-                      'estabFiscal', 
-                      'parceiro', 
+  displayedColumns = ['id',
+                      'objeto',
+                      'estabFiscal',
+                      'parceiro',
                       'cnpj',
-                      'status', 
-                      'situacao', 
-                      'deptoPartList', 
-                      'valTotal', 
-                      'dataInicio', 
-                      'dataFim' , 
+                      'status',
+                      'situacao',
+                      'deptoPartList',
+                      'valTotal',
+                      'dataInicio',
+                      'dataFim' ,
                       'actions'];
   exampleDatabase: DataService | null;
   dataSource: ExampleDataSource | null;
@@ -54,7 +54,7 @@ export class AppComponent implements OnInit {
 
   addNew() {
     const dialogRef = this.dialog.open(AddDialogComponent, {
-      data: {contrato: {} }
+      dataContrato: {contrato: {} }
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -84,7 +84,7 @@ export class AppComponent implements OnInit {
     this.index = i;
     console.log(this.index);
     const dialogRef = this.dialog.open(EditDialogComponent, {
-      data: {id,
+      dataContrato: {id,
              objeto,
              estabFiscal,
              parceiro,
@@ -113,7 +113,7 @@ export class AppComponent implements OnInit {
     this.index = i;
     this.id = id;
     const dialogRef = this.dialog.open(DeleteDialogComponent, {
-      data: {id,
+      dataContrato: {id,
              objeto,
              estabFiscal,
              parceiro}
@@ -187,7 +187,7 @@ export class ExampleDataSource extends DataSource<Contrato> {
     return merge(...displayDataChanges).pipe(map( () => {
         // Filter data
         this.filteredData = this.exampleDatabase.data.slice().filter((contrato: Contrato) => {
-          const searchStr = (contrato.id + contrato.objeto + contrato.documento + contrato.dataInicio).toLowerCase();
+          const searchStr = (contrato.id + contrato.objeto + contrato.documentoList + contrato.dataInicio).toLowerCase();
           return searchStr.indexOf(this.filter.toLowerCase()) !== -1;
         });
 

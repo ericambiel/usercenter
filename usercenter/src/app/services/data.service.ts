@@ -5,7 +5,7 @@ import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 
 @Injectable()
 export class DataService {
-  private readonly API_URL = ''// 'https://api.github.com/repos/angular/angular/contratos';
+  private readonly API_URL = ''; // 'http://localhost:3000/contratos'; // 'https://api.github.com/repos/angular/angular';
 
   dataChange: BehaviorSubject<Contrato[]> = new BehaviorSubject<Contrato[]>([]);
   // Temporarily stores data from dialogs
@@ -24,11 +24,11 @@ export class DataService {
   /** CRUD METHODS */
   getTodosContratos(): void {
     this.httpClient.get<Contrato[]>(this.API_URL).subscribe(data => {
-        this.dataChange.next(data);
-      },
-      (error: HttpErrorResponse) => {
-      console.log (error.name + ' ' + error.message);
-      });
+      this.dataChange.next(data);
+    },
+    (error: HttpErrorResponse) => {
+    console.log (error.name + ' ' + error.message);
+    });
   }
 
   // DEMO ONLY, you can find working methods below
