@@ -31,10 +31,23 @@ export class DataService {
     });
   }
 
-  // DEMO ONLY, you can find working methods below
+  // // DEMO ONLY, you can find working methods below
+  // addContrato(contrato: Contrato): void {
+  //   this.dialogData = contrato;
+  // }
+
+  // ADD, POST METHOD
   addContrato(contrato: Contrato): void {
-    this.dialogData = contrato;
-  }
+    this.httpClient.post(this.API_URL, contrato).subscribe(data => {
+      this.dialogData = contrato;
+      console.log('Contrato adicionado com sucesso');
+      // this.toasterService.showToaster('Successfully added', 3000);
+      },
+      (err: HttpErrorResponse) => {
+      console.log('Um erro ocorreu: ' + err.name + ' ' + err.message);
+      // this.toasterService.showToaster('Error occurred. Details: ' + err.name + ' ' + err.message, 8000);
+    });
+   }
 
   updateContrato(contrato: Contrato): void {
     this.dialogData = contrato;
