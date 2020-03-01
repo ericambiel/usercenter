@@ -1,5 +1,4 @@
-export class Documento{
-  id: number;
+export class Documento {
   nome: string;
   diretorio: string;
   tipo: string;

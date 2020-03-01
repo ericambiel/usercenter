@@ -3,7 +3,7 @@ import { Documento } from './documento';
 
 export class Contrato {
   // Dados exibido quando Mostar/Deletar
-  id: number;
+  _id: string;
   objeto: string;               // Mudar para objeto
   estabFiscal: string;
   parceiro: string;

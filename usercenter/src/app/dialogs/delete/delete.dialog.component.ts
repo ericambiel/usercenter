@@ -18,6 +18,6 @@ export class DeleteDialogComponent {
   }
 
   confirmDelete(): void {
-    this.dataService.deleteContrato(this.dataContrato.id);
+    this.dataService.deleteContrato(this.dataContrato._id);
   }
 }

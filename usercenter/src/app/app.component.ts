@@ -19,7 +19,7 @@ import {map} from 'rxjs/operators';
 })
 
 export class AppComponent implements OnInit {
-  displayedColumns = ['id',
+  displayedColumns = ['_id',
                       'objeto',
                       'estabFiscal',
                       'parceiro',
@@ -34,7 +34,7 @@ export class AppComponent implements OnInit {
   exampleDatabase: DataService | null;
   dataSource: ExampleDataSource | null;
   index: number; // Posição da lista selecionada
-  id: number;
+  _id: string;
 
   constructor(public httpClient: HttpClient,
               public dialog: MatDialog,
@@ -54,7 +54,7 @@ export class AppComponent implements OnInit {
 
   addNew() {
     const dialogRef = this.dialog.open(AddDialogComponent, {
-      dataContrato: {contrato: {} }
+      data: { contrato: {} }
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -68,7 +68,7 @@ export class AppComponent implements OnInit {
   }
 
   startEdit(i: number,
-            id: number,
+            _id: string,
             objeto: string,
             estabFiscal: string,
             parceiro: string,
@@ -79,12 +79,12 @@ export class AppComponent implements OnInit {
             valTotal: string,
             dataInicio: string,
             dataFim: string) {
-    this.id = id;
+    this._id = _id;
     // index row is used just for debugging proposes and can be removed
     this.index = i;
     console.log(this.index);
     const dialogRef = this.dialog.open(EditDialogComponent, {
-      dataContrato: {id,
+      data: {_id,
              objeto,
              estabFiscal,
              parceiro,
@@ -99,8 +99,8 @@ export class AppComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result === 1) {
-        // When using an edit things are little different, firstly we find record inside DataService by id
-        const foundIndex = this.exampleDatabase.dataChange.value.findIndex(x => x.id === this.id);
+        // When using an edit things are little different, firstly we find record inside DataService by _id
+        const foundIndex = this.exampleDatabase.dataChange.value.findIndex(x => x._id === this._id);
         // Then you update that record using data from dialogData (values you enetered)
         this.exampleDatabase.dataChange.value[foundIndex] = this.dataService.getDialogData();
         // And lastly refresh table
@@ -109,11 +109,11 @@ export class AppComponent implements OnInit {
     });
   }
 
-  deleteItem(i: number, id: number, objeto: string, estabFiscal: string, parceiro: string) {
+  deleteItem(i: number, _id: string, objeto: string, estabFiscal: string, parceiro: string) {
     this.index = i;
-    this.id = id;
+    this._id = _id;
     const dialogRef = this.dialog.open(DeleteDialogComponent, {
-      dataContrato: {id,
+      data: {_id: _id,
              objeto,
              estabFiscal,
              parceiro}
@@ -121,7 +121,7 @@ export class AppComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result === 1) {
-        const foundIndex = this.exampleDatabase.dataChange.value.findIndex(x => x.id === this.id);
+        const foundIndex = this.exampleDatabase.dataChange.value.findIndex(x => x._id === this._id);
         // for delete we use splice in order to remove single object from DataService
         this.exampleDatabase.dataChange.value.splice(foundIndex, 1);
         this.refreshTable();
@@ -187,7 +187,7 @@ export class ExampleDataSource extends DataSource<Contrato> {
     return merge(...displayDataChanges).pipe(map( () => {
         // Filter data
         this.filteredData = this.exampleDatabase.data.slice().filter((contrato: Contrato) => {
-          const searchStr = (contrato.id + contrato.objeto + contrato.documentoList + contrato.dataInicio).toLowerCase();
+          const searchStr = (contrato._id + contrato.objeto + contrato.documentoList + contrato.dataInicio).toLowerCase();
           return searchStr.indexOf(this.filter.toLowerCase()) !== -1;
         });
 
@@ -216,7 +216,7 @@ export class ExampleDataSource extends DataSource<Contrato> {
       let propertyB: number | string = '';
 
       switch (this.sort.active) {
-        case 'id': [propertyA, propertyB] = [a.id, b.id]; break;
+        case '_id': [propertyA, propertyB] = [a._id, b._id]; break;
         case 'objeto': [propertyA, propertyB] = [a.objeto, b.objeto]; break;
         case 'estabFiscal' : [propertyA, propertyB] = [a.estabFiscal, b.estabFiscal]; break;
         case 'parceiro' : [propertyA, propertyB] = [a.parceiro, b.parceiro]; break;

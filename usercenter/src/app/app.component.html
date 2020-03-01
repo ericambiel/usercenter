@@ -20,9 +20,9 @@
           The actual rendered columns are set as a property on the row definition" -->
 
     <!-- ID Column -->
-    <ng-container matColumnDef="id">
+    <ng-container matColumnDef="_id">
       <mat-header-cell *matHeaderCellDef mat-sort-header>Id</mat-header-cell>
-      <mat-cell *matCellDef="let row" >{{row.id}}</mat-cell>
+      <mat-cell *matCellDef="let row" >{{row._id}}</mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="objeto">
@@ -84,11 +84,11 @@
       </mat-header-cell>
 
       <mat-cell *matCellDef="let row; let i=index;">
-        <button mat-icon-button color="accent" (click)="startEdit(i, row.id, row.objeto, row.estabFiscal, row.parceiro, row.cnpj, row.status, row.situacao, row.deptoPartList, row.valTotal, row.dataInicio, row.dataFim)">
+        <button mat-icon-button color="accent" (click)="startEdit(i, row._id, row.objeto, row.estabFiscal, row.parceiro, row.cnpj, row.status, row.situacao, row.deptoPartList, row.valTotal, row.dataInicio, row.dataFim)">
           <mat-icon aria-label="Edit">edit</mat-icon>
         </button>
 
-        <button mat-icon-button color="accent" (click)="deleteItem(i, row.id, row.objeto, row.estabFiscal, row.parceiro)">
+        <button mat-icon-button color="accent" (click)="deleteItem(i, row._id, row.objeto, row.estabFiscal, row.parceiro)">
           <mat-icon aria-label="Delete">delete</mat-icon>
         </button>
       </mat-cell>

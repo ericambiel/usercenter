@@ -1,11 +1,11 @@
 <div class="container">
-  <h3 mat-dialog-objeto>ID - Contrato: {{data.id}}</h3>
+  <h3 mat-dialog-objeto>ID - Contrato: {{data._id}}</h3>
 
   <form class="mat-dialog-content" (ngSubmit)="submit" #formControl="ngForm">
 
     <div class="form">
       <mat-form-field color="accent">
-        <input matInput #input class="form-control" placeholder="Id" [(ngModel)]="data.id" name="id" required >
+        <input matInput #input class="form-control" placeholder="Id" [(ngModel)]="data._id" name="_id" required >
         <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
       </mat-form-field>
     </div>
@@ -17,13 +17,13 @@
         <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
       </mat-form-field>
     </div>
-    
+
     <div class="form">
         <mat-form-field color="accent">
           <input matInput placeholder="Estabelecimento Fiscal" [(ngModel)]="data.estabFiscal" name="estabFiscal">
         </mat-form-field>
     </div>
-    
+
     <div class="form">
       <mat-form-field color="accent">
         <input matInput placeholder="Parceiro" [(ngModel)]="data.parceiro" name="parceiro">

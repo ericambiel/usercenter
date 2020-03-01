@@ -5,7 +5,7 @@ import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 
 @Injectable()
 export class DataService {
-  private readonly API_URL = ''; // 'http://localhost:3000/contratos'; // 'https://api.github.com/repos/angular/angular';
+  private readonly API_URL = 'http://localhost:3000/contratos'; // 'https://api.github.com/repos/angular/angular';
 
   dataChange: BehaviorSubject<Contrato[]> = new BehaviorSubject<Contrato[]>([]);
   // Temporarily stores data from dialogs
@@ -40,8 +40,8 @@ export class DataService {
     this.dialogData = contrato;
   }
 
-  deleteContrato(id: number): void {
-    console.log(id);
+  deleteContrato(_id: string): void {
+    console.log(_id);
   }
 }
 
@@ -62,7 +62,7 @@ export class DataService {
 
     // UPDATE, PUT METHOD
      updateItem(kanbanItem: KanbanItem): void {
-    this.httpClient.put(this.API_URL + kanbanItem.id, kanbanItem).subscribe(data => {
+    this.httpClient.put(this.API_URL + kanbanItem._id, kanbanItem).subscribe(data => {
         this.dialogData = kanbanItem;
         this.toasterService.showToaster('Successfully edited', 3000);
       },
@@ -73,8 +73,8 @@ export class DataService {
   }
 
   // DELETE METHOD
-  deleteItem(id: number): void {
-    this.httpClient.delete(this.API_URL + id).subscribe(data => {
+  deleteItem(_id: string): void {
+    this.httpClient.delete(this.API_URL + _id).subscribe(data => {
       console.log(data['']);
         this.toasterService.showToaster('Successfully deleted', 3000);
       },
