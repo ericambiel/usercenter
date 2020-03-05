@@ -21,8 +21,13 @@
 
     <!-- ID Column -->
     <ng-container matColumnDef="_id">
-      <mat-header-cell *matHeaderCellDef mat-sort-header>Id</mat-header-cell>
+      <mat-header-cell *matHeaderCellDef mat-sort-header>ID</mat-header-cell>
       <mat-cell *matCellDef="let row" >{{row._id}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="idSecondary">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>QConnect ID</mat-header-cell>
+      <mat-cell *matCellDef="let row" >{{row.idSecondary}}</mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="objeto">
@@ -55,9 +60,9 @@
       <mat-cell *matCellDef="let row" >{{row.situacao}}</mat-cell>
     </ng-container>
 
-    <ng-container matColumnDef="deptoPartList">
-      <mat-header-cell *matHeaderCellDef mat-sort-header>Deptos. Part.</mat-header-cell>
-      <mat-cell *matCellDef="let row" >{{row.deptoPartList}}</mat-cell>
+    <ng-container matColumnDef="deptoResponsavel">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Depto. Responsável</mat-header-cell>
+      <mat-cell *matCellDef="let row" >{{row.deptoResponsavel}}</mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="valTotal">
@@ -66,12 +71,12 @@
     </ng-container>
 
     <ng-container matColumnDef="dataInicio">
-      <mat-header-cell *matHeaderCellDef mat-sort-header>Início</mat-header-cell>
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Início Contrato</mat-header-cell>
       <mat-cell *matCellDef="let row" >{{row.dataInicio}}</mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="dataFim">
-      <mat-header-cell *matHeaderCellDef mat-sort-header>Fim</mat-header-cell>
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Fim Contrato</mat-header-cell>
       <mat-cell *matCellDef="let row" >{{row.dataFim}}</mat-cell>
     </ng-container>
 
@@ -84,12 +89,16 @@
       </mat-header-cell>
 
       <mat-cell *matCellDef="let row; let i=index;">
-        <button mat-icon-button color="accent" (click)="startEdit(i, row._id, row.objeto, row.estabFiscal, row.parceiro, row.cnpj, row.status, row.situacao, row.deptoPartList, row.valTotal, row.dataInicio, row.dataFim)">
-          <mat-icon aria-label="Edit">edit</mat-icon>
+        <button mat-icon-button color="accent" (click)="startEdit(i, row._id, row._second_id, row.objeto, row.estabFiscal, row.parceiro, row.cnpj, row.status, row.situacao, row.deptoResponsavel, row.valTotal, row.dataInicio, row.dataFim)">
+          <mat-icon aria-label="Editar">edit</mat-icon>
         </button>
 
-        <button mat-icon-button color="accent" (click)="deleteItem(i, row._id, row.objeto, row.estabFiscal, row.parceiro)">
-          <mat-icon aria-label="Delete">delete</mat-icon>
+        <button mat-icon-button color="accent" (click)="deleteItem(i, row._id, row.objeto, row.cnpj, row.estabFiscal)">
+          <mat-icon aria-label="Apagar">delete</mat-icon>
+        </button>
+
+        <button mat-icon-button color="accent" (click)="deleteItem(i, row._id, row.objeto, row.cnpj, row.estabFiscal)">
+          <mat-icon aria-label="Documentos">folder</mat-icon>
         </button>
       </mat-cell>
     </ng-container>
@@ -106,7 +115,7 @@
   <mat-paginator #paginator
                  [length]="dataSource.filteredData.length"
                  [pageIndex]="0"
-                 [pageSize]="10"
-                 [pageSizeOptions]="[5, 10, 25, 100]">
+                 [pageSize]="100"
+                 [pageSizeOptions]="[5, 10, 25, 100, 400]">
   </mat-paginator>
 </div>

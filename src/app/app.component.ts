@@ -19,15 +19,16 @@ import {map} from 'rxjs/operators';
 })
 
 export class AppComponent implements OnInit {
-  displayedColumns = ['_id',
+  displayedColumns = [// '_id',
+                      'idSecondary',
                       'objeto',
                       'estabFiscal',
                       'parceiro',
                       'cnpj',
                       'status',
                       'situacao',
-                      'deptoPartList',
-                      'valTotal',
+                      // 'valTotal',
+                      'deptoResponsavel',
                       'dataInicio',
                       'dataFim' ,
                       'actions'];
@@ -69,13 +70,14 @@ export class AppComponent implements OnInit {
 
   startEdit(i: number,
             _id: string,
+            idSecondary: number,
             objeto: string,
             estabFiscal: string,
             parceiro: string,
             cnpj: number,
             status: string,
             situacao: string,
-            deptoPartList: string,
+            deptoResponsavel: string,
             valTotal: string,
             dataInicio: string,
             dataFim: string) {
@@ -85,13 +87,14 @@ export class AppComponent implements OnInit {
     console.log(this.index);
     const dialogRef = this.dialog.open(EditDialogComponent, {
       data: {_id,
+             idSecondary,
              objeto,
              estabFiscal,
              parceiro,
              cnpj,
              status,
              situacao,
-             deptoPartList,
+             deptoResponsavel,
              valTotal,
              dataInicio,
              dataFim}
@@ -109,14 +112,14 @@ export class AppComponent implements OnInit {
     });
   }
 
-  deleteItem(i: number, _id: string, objeto: string, estabFiscal: string, parceiro: string) {
+  deleteItem(i: number, _id: string, objeto: string, cnpj: number, estabFiscal: string) {
     this.index = i;
     this._id = _id;
     const dialogRef = this.dialog.open(DeleteDialogComponent, {
       data: {_id: _id,
              objeto,
-             estabFiscal,
-             parceiro}
+             cnpj,
+             estabFiscal}
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -128,7 +131,6 @@ export class AppComponent implements OnInit {
       }
     });
   }
-
 
   private refreshTable() {
     this.paginator._changePageSize(this.paginator.pageSize);
@@ -187,7 +189,17 @@ export class ExampleDataSource extends DataSource<Contrato> {
     return merge(...displayDataChanges).pipe(map( () => {
         // Filter data
         this.filteredData = this.exampleDatabase.data.slice().filter((contrato: Contrato) => {
-          const searchStr = (contrato._id + contrato.objeto + contrato.documentoList + contrato.dataInicio).toLowerCase();
+          // searchStr recebe campos do objeto contrato que seram usados para serem filtrados.
+          const searchStr = (contrato.idSecondary +
+                             contrato.objeto +
+                             contrato.estabFiscal +
+                             contrato.parceiro +
+                             contrato.cnpj +
+                             contrato.status +
+                             contrato.situacao +
+                             contrato.deptoResponsavel +
+                             contrato.dataInicio +
+                             contrato.dataFim).toLowerCase();
           return searchStr.indexOf(this.filter.toLowerCase()) !== -1;
         });
 
@@ -214,19 +226,18 @@ export class ExampleDataSource extends DataSource<Contrato> {
     return dataContrato.sort((a, b) => {
       let propertyA: number | string = '';
       let propertyB: number | string = '';
-
+      // Campos que seram usados para ordenação;
       switch (this.sort.active) {
-        case '_id': [propertyA, propertyB] = [a._id, b._id]; break;
+        // case '_id': [propertyA, propertyB] = [a._id, b._id]; break;
+        case 'idSecondary': [propertyA, propertyB] = [a.idSecondary, b.idSecondary]; break;
         case 'objeto': [propertyA, propertyB] = [a.objeto, b.objeto]; break;
         case 'estabFiscal' : [propertyA, propertyB] = [a.estabFiscal, b.estabFiscal]; break;
         case 'parceiro' : [propertyA, propertyB] = [a.parceiro, b.parceiro]; break;
         case 'cnpj' : [propertyA, propertyB] = [a.cnpj, b.cnpj]; break;
         case 'status': [propertyA, propertyB] = [a.status, b.status]; break;
         case 'situacao' : [propertyA, propertyB] = [a.situacao, b.situacao]; break;
-        case 'deptoPartList' : [propertyA, propertyB] =
-          [a.deptoPartList[0].departamento, b.deptoPartList[0].departamento]; break; // Pegar todos os Deptos!!!
-        // Colocar quantidade de documentos aqui
-        case 'valTotal' : [propertyA, propertyB] = [a.valTotal, b.valTotal]; break;
+        // case 'valTotal' : [propertyA, propertyB] = [a.valTotal, b.valTotal]; break; // Não é necessário segundo usuário
+        case 'deptoResponsavel' : [propertyA, propertyB] = [a.deptoResponsavel[0], b.deptoResponsavel[0]]; break;
         case 'dataInicio': [propertyA, propertyB] = [a.dataInicio, b.dataInicio]; break;
         case 'dataFim': [propertyA, propertyB] = [a.dataFim, b.dataFim]; break;
       }

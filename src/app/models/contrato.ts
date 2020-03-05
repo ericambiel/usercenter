@@ -4,12 +4,14 @@ import { Documento } from './documento';
 export class Contrato {
   // Dados exibido quando Mostar/Deletar
   _id: string;
+  idSecondary: number;
   objeto: string;               // Mudar para objeto
   estabFiscal: string;
   parceiro: string;
   cnpj: number;
   status: string;               // Mudar para status
   situacao: string;
+  deptoResponsavel: string;
   valTotal: number;             // Valor total
   valMensal: number;
   dataInicio: string;           // Mudar para tipo Date
