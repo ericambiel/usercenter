@@ -1,0 +1,20 @@
+<div class="container">
+  <h3 mat-dialog-title>ID: {{dataContrato._id}} - Objeto: {{dataContrato.objeto}}</h3>
+  <div mat-dialog-content>
+    <mat-table #table [dataSource]="dataSource" matSort class="mat-cell">
+      <ng-container matColumnDef="numAditivo">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Numero do Ativo</mat-header-cell>
+        <mat-cell *matCellDef="let row" >{{row.numAditivo}}</mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="dataInsert">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Inserido em</mat-header-cell>
+        <mat-cell *matCellDef="let row" >{{row.dataInsert}}</mat-cell>
+      </ng-container>
+    </mat-table>
+
+  </div>
+
+  <div mat-dialog-actions>
+    <button mat-button (click)="onNoClick()" tabindex="-1">Sair</button>
+  </div>
+</div>

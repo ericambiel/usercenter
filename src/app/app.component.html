@@ -15,7 +15,7 @@
     </mat-form-field>
   </div>
 
-  <mat-table #table [dataSource]="dataSource" matSort class="mat-cell">
+  <mat-table #table [dataSource]="contratoDataSource" matSort class="mat-cell">
     <!--- Note that these columns can be defined in any order.
           The actual rendered columns are set as a property on the row definition" -->
 
@@ -83,21 +83,21 @@
     <!-- actions -->
     <ng-container matColumnDef="actions">
       <mat-header-cell *matHeaderCellDef>
-        <button mat-icon-button color="primary" (click)="addNew()">
+        <button mat-icon-button color="primary" (click)="insertContrato()">
           <mat-icon aria-label="Example icon-button with a heart icon">add</mat-icon>
         </button>
       </mat-header-cell>
 
       <mat-cell *matCellDef="let row; let i=index;">
-        <button mat-icon-button color="accent" (click)="startEdit(i, row._id, row._second_id, row.objeto, row.estabFiscal, row.parceiro, row.cnpj, row.status, row.situacao, row.deptoResponsavel, row.valTotal, row.dataInicio, row.dataFim)">
+        <button mat-icon-button color="accent" (click)="editContrato(i, row._id, row._second_id, row.objeto, row.estabFiscal, row.parceiro, row.cnpj, row.status, row.situacao, row.deptoResponsavel, row.valTotal, row.dataInicio, row.dataFim)">
           <mat-icon aria-label="Editar">edit</mat-icon>
         </button>
 
-        <button mat-icon-button color="accent" (click)="deleteItem(i, row._id, row.objeto, row.cnpj, row.estabFiscal)">
+        <button mat-icon-button color="accent" (click)="deleteContrato(i, row._id, row.objeto, row.cnpj, row.estabFiscal)">
           <mat-icon aria-label="Apagar">delete</mat-icon>
         </button>
 
-        <button mat-icon-button color="accent" (click)="deleteItem(i, row._id, row.objeto, row.cnpj, row.estabFiscal)">
+        <button mat-icon-button color="accent" (click)="showFile(i, row._id, row.objeto, row.documentoList)">
           <mat-icon aria-label="Documentos">folder</mat-icon>
         </button>
       </mat-cell>
@@ -108,12 +108,12 @@
   </mat-table>
 
 
-  <div class="no-results" [style.display]="dataSource.renderedData.length == 0 ? '' : 'none'">
+  <div class="no-results" [style.display]="contratoDataSource.renderedData.length == 0 ? '' : 'none'">
     Sem resultado(s)
   </div>
 
   <mat-paginator #paginator
-                 [length]="dataSource.filteredData.length"
+                 [length]="contratoDataSource.filteredData.length"
                  [pageIndex]="0"
                  [pageSize]="100"
                  [pageSizeOptions]="[5, 10, 25, 100, 400]">

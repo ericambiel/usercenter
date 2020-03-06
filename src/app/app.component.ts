@@ -11,6 +11,8 @@ import {EditDialogComponent} from './dialogs/edit/edit.dialog.component';
 import {DeleteDialogComponent} from './dialogs/delete/delete.dialog.component';
 import {BehaviorSubject, fromEvent, merge, Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
+import { FileDialogComponent } from './dialogs/file/file.dialog.component';
+import { Documento } from './models/documento';
 
 @Component({
   selector: 'app-root',
@@ -32,9 +34,9 @@ export class AppComponent implements OnInit {
                       'dataInicio',
                       'dataFim' ,
                       'actions'];
-  exampleDatabase: DataService | null;
-  dataSource: ExampleDataSource | null;
-  index: number; // Posição da lista selecionada
+  contratoDatabase: DataService | null;
+  contratoDataSource: ContratoDataSource | null;
+  // index: number; // Posição da lista selecionada
   _id: string;
 
   constructor(public httpClient: HttpClient,
@@ -53,7 +55,7 @@ export class AppComponent implements OnInit {
     this.loadData();
   }
 
-  addNew() {
+  insertContrato() {
     const dialogRef = this.dialog.open(AddDialogComponent, {
       data: { contrato: {} }
     });
@@ -62,29 +64,29 @@ export class AppComponent implements OnInit {
       if (result === 1) {
         // After dialog is closed we're doing frontend updates
         // For add we're just pushing a new row inside DataService
-        this.exampleDatabase.dataChange.value.push(this.dataService.getDialogData());
+        this.contratoDatabase.dataChange.value.push(this.dataService.getDialogData());
         this.refreshTable();
       }
     });
   }
 
-  startEdit(i: number,
-            _id: string,
-            idSecondary: number,
-            objeto: string,
-            estabFiscal: string,
-            parceiro: string,
-            cnpj: number,
-            status: string,
-            situacao: string,
-            deptoResponsavel: string,
-            valTotal: string,
-            dataInicio: string,
-            dataFim: string) {
+  editContrato(i: number,
+               _id: string,
+               idSecondary: number,
+               objeto: string,
+               estabFiscal: string,
+               parceiro: string,
+               cnpj: number,
+               status: string,
+               situacao: string,
+               deptoResponsavel: string,
+               valTotal: string,
+               dataInicio: string,
+               dataFim: string) {
     this._id = _id;
     // index row is used just for debugging proposes and can be removed
-    this.index = i;
-    console.log(this.index);
+    // this.index = i;
+    // console.log(this.index);
     const dialogRef = this.dialog.open(EditDialogComponent, {
       data: {_id,
              idSecondary,
@@ -103,20 +105,25 @@ export class AppComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result === 1) {
         // When using an edit things are little different, firstly we find record inside DataService by _id
-        const foundIndex = this.exampleDatabase.dataChange.value.findIndex(x => x._id === this._id);
+        const foundIndex = this.contratoDatabase.dataChange.value.findIndex(x => x._id === this._id);
         // Then you update that record using data from dialogData (values you enetered)
-        this.exampleDatabase.dataChange.value[foundIndex] = this.dataService.getDialogData();
+        this.contratoDatabase.dataChange.value[foundIndex] = this.dataService.getDialogData();
         // And lastly refresh table
         this.refreshTable();
       }
     });
   }
 
-  deleteItem(i: number, _id: string, objeto: string, cnpj: number, estabFiscal: string) {
-    this.index = i;
+  deleteContrato(i: number,
+                 _id: string,
+                 objeto: string,
+                 cnpj: number,
+                 estabFiscal: string) {
+    // this.index = i;
     this._id = _id;
-    const dialogRef = this.dialog.open(DeleteDialogComponent, {
-      data: {_id: _id,
+    const dialogRef = this.dialog.open(
+      DeleteDialogComponent,
+      {data: {_id,
              objeto,
              cnpj,
              estabFiscal}
@@ -124,11 +131,24 @@ export class AppComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result === 1) {
-        const foundIndex = this.exampleDatabase.dataChange.value.findIndex(x => x._id === this._id);
+        const foundIndex = this.contratoDatabase.dataChange.value.findIndex(x => x._id === this._id);
         // for delete we use splice in order to remove single object from DataService
-        this.exampleDatabase.dataChange.value.splice(foundIndex, 1);
+        this.contratoDatabase.dataChange.value.splice(foundIndex, 1);
         this.refreshTable();
       }
+    });
+  }
+
+  showFile(i: number,
+           _id: string,
+           objeto: string,
+           documentoList: Documento) {
+    this._id = _id;
+    this.dialog.open(
+      FileDialogComponent,
+      { data: {_id,
+               objeto,
+               documentoList }
     });
   }
 
@@ -137,21 +157,22 @@ export class AppComponent implements OnInit {
   }
 
   public loadData() {
-    this.exampleDatabase = new DataService(this.httpClient);
-    this.dataSource = new ExampleDataSource(this.exampleDatabase, this.paginator, this.sort);
+    this.contratoDatabase = new DataService(this.httpClient);
+    // Toda vez q é atualizado tambem atualiza mat-table em app.component.html atravez dos propertyBind
+    this.contratoDataSource = new ContratoDataSource(this.contratoDatabase, this.paginator, this.sort);
     fromEvent(this.filter.nativeElement, 'keyup')
       // .debounceTime(150)
       // .distinctUntilChanged()
       .subscribe(() => {
-        if (!this.dataSource) {
+        if (!this.contratoDataSource) {
           return;
         }
-        this.dataSource.filter = this.filter.nativeElement.value;
+        this.contratoDataSource.filter = this.filter.nativeElement.value;
       });
   }
 }
 
-export class ExampleDataSource extends DataSource<Contrato> {
+export class ContratoDataSource extends DataSource<Contrato> {
   filterChange = new BehaviorSubject('');
 
   get filter(): string {
@@ -165,7 +186,7 @@ export class ExampleDataSource extends DataSource<Contrato> {
   filteredData: Contrato[] = [];
   renderedData: Contrato[] = [];
 
-  constructor(public exampleDatabase: DataService,
+  constructor(public contratoDatabase: DataService,
               public paginator: MatPaginator,
               public sort: MatSort) {
     super();
@@ -177,18 +198,18 @@ export class ExampleDataSource extends DataSource<Contrato> {
   connect(): Observable<Contrato[]> {
     // Listen for any changes in the base data, sorting, filtering, or pagination
     const displayDataChanges = [
-      this.exampleDatabase.dataChange,
+      this.contratoDatabase.dataChange,
       this.sort.sortChange,
       this.filterChange,
       this.paginator.page
     ];
 
-    this.exampleDatabase.getTodosContratos();
+    this.contratoDatabase.getTodosContratos();
 
 
     return merge(...displayDataChanges).pipe(map( () => {
         // Filter data
-        this.filteredData = this.exampleDatabase.data.slice().filter((contrato: Contrato) => {
+        this.filteredData = this.contratoDatabase.data.slice().filter((contrato: Contrato) => {
           // searchStr recebe campos do objeto contrato que seram usados para serem filtrados.
           const searchStr = (contrato.idSecondary +
                              contrato.objeto +
