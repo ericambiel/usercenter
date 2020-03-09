@@ -4,32 +4,36 @@
   <div mat-dialog-content>
     <!-- Colunas (Configurar ordem das colunas em file.dialog.component.ts) -->
     <mat-table #table [dataSource]="dataContrato.documentoList" matSort class="mat-cell">
+      <!-- Coluna - Numero do Ativo -->
       <ng-container matColumnDef="numAditivo">
-        <mat-header-cell *matHeaderCellDef mat-sort-header>Numero do Ativo</mat-header-cell>
+        <mat-header-cell *matHeaderCellDef>Numero do Ativo</mat-header-cell>
         <mat-cell *matCellDef="let row" >{{row.numAditivo}}</mat-cell>
       </ng-container>
+      <!-- Coluna - Inserido em -->
       <ng-container matColumnDef="dataInsert">
-        <mat-header-cell *matHeaderCellDef mat-sort-header>Inserido em</mat-header-cell>
+        <mat-header-cell *matHeaderCellDef>Inserido em</mat-header-cell>
         <mat-cell *matCellDef="let row" >{{row.dataInsert}}</mat-cell>
       </ng-container>
 
       <!-- Botões de ação -->
-      <!-- <ng-container matColumnDef="actions">
-        <mat-header-cell *matHeaderCellDef>
-          <button mat-icon-button color="primary" (click)="downloadFile()">
-            <mat-icon aria-label="Example icon-button with a heart icon">add</mat-icon>
-          </button>
-        </mat-header-cell>
+      <ng-container matColumnDef="btnActions">
+        <mat-header-cell *matHeaderCellDef>Arquivo</mat-header-cell>
+
         <mat-cell *matCellDef="let row; let i=index;">
-          <button mat-icon-button color="accent" (click)="downloadFile(i, row._id)">
-            <mat-icon aria-label="Documentos">folder</mat-icon>
+          <button mat-icon-button color="accent" (click)="downloadFile(i, row.nome)">
+            <mat-icon aria-label="Documentos">insert_drive_file</mat-icon>
           </button>
         </mat-cell>
       </ng-container>
 
       <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row> -->
+      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+
     </mat-table>
+
+    <div class="no-results" [style.display]="dataContrato.length == 0 ? '' : 'none'">
+      Sem arquivos para esse contrato.
+    </div>
   </div>
 
   <div mat-dialog-actions>

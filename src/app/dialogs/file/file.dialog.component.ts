@@ -8,18 +8,29 @@ import { DataService } from 'src/app/services/data.service';
   styleUrls: ['./file.dialog.component.scss']
 })
 export class FileDialogComponent {
-  displayedColumns = ['numAditivo',
-                      'dataInsert'];
 
   constructor(public dialogRef: MatDialogRef<FileDialogComponent>,
               @Inject(MAT_DIALOG_DATA) public dataContrato: any,
               public contratoDataService: DataService) { }
+  displayedColumns = ['numAditivo',
+                      'dataInsert',
+                      'btnActions'];
 
   onSairClick(): void {
     this.dialogRef.close();
   }
 
-  downloadFile(): void{
-    // TODO metodo que baixa o arquivo na maquina do usuário.
+  // TODO: Verificar porque não é exibida extensão ao baixar arquivo.
+  downloadFile(i: number,
+               nome: string): void {
+    this.contratoDataService.getFileContrato(nome).subscribe(res => {
+      const file = URL.createObjectURL(res);
+      // const reader = new FileReader();
+      // reader.readAsDataURL(res);
+      // reader.addEventListener('load', () => {
+      //   window.open(reader.result, '_blank');
+      // }, false);
+      window.open(file, '_blank');
+    });
   }
 }

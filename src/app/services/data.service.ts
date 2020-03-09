@@ -1,7 +1,9 @@
-import {Injectable} from '@angular/core';
-import {BehaviorSubject} from 'rxjs';
-import {Contrato} from '../models/contrato';
-import {HttpClient, HttpErrorResponse} from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { Contrato } from '../models/contrato';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+
+// import { ResponseContentType } from '@angular/common/http';
 
 @Injectable()
 export class DataService {
@@ -22,12 +24,32 @@ export class DataService {
   }
 
   /** CRUD METHODS */
+
+  // getFileContrato(nome: string): void {
+  //   this.httpClient.get<Contrato[]>('http://localhost:3000/file/contrato/' + nome).subscribe(data => {
+  //       console.log(data['']);
+  //     },
+  //   (error: HttpErrorResponse) => {
+  //     console.log (error.name + ' ' + error.message);
+  //   });
+  // }
+
+  getFileContrato(nome: string): Observable<Blob> {
+    // const headers = new HttpHeaders({ 'Content-Type': 'application/json'});
+    const options = {  responseType: 'blob' as 'json' };
+
+    return this.httpClient.get<Blob>(
+      'http://localhost:3000/file/contrato/' + nome,
+      options
+    );
+  }
+
   getTodosContratos(): void {
     this.httpClient.get<Contrato[]>(this.API_URL).subscribe(data => {
       this.dataChange.next(data);
     },
     (error: HttpErrorResponse) => {
-    console.log (error.name + ' ' + error.message);
+      console.log (error.name + ' ' + error.message);
     });
   }
 
@@ -42,12 +64,12 @@ export class DataService {
       this.dialogData = contrato;
       console.log('Contrato adicionado com sucesso');
       // this.toasterService.showToaster('Successfully added', 3000);
-      },
-      (err: HttpErrorResponse) => {
+    },
+    (err: HttpErrorResponse) => {
       console.log('Um erro ocorreu: ' + err.name + ' ' + err.message);
       // this.toasterService.showToaster('Error occurred. Details: ' + err.name + ' ' + err.message, 8000);
-    });
-   }
+   });
+  }
 
   updateContrato(contrato: Contrato): void {
     this.dialogData = contrato;

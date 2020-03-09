@@ -19,6 +19,7 @@ import { DeleteDialogComponent } from './dialogs/delete/delete.dialog.component'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FileDialogComponent } from './dialogs/file/file.dialog.component';
+// import { MAT_DATE_LOCALE } from '@angular/material/core/datetime';
 
 
 @NgModule({
@@ -50,7 +51,8 @@ import { FileDialogComponent } from './dialogs/file/file.dialog.component';
     DeleteDialogComponent
   ],
   providers: [
-    DataService
+    DataService,
+    // {provide: MAT_DATE_LOCALE, useValue: 'pt-BR'}
   ],
   bootstrap: [AppComponent]
 })

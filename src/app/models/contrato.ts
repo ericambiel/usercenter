@@ -14,8 +14,8 @@ export class Contrato {
   deptoResponsavel: string;
   valTotal: number;             // Valor total
   valMensal: number;
-  dataInicio: string;           // Mudar para tipo Date
-  dataFim: string;              // Mudar para tipo Date
+  dataInicio: Date;           // Mudar para tipo Date
+  dataFim: Date;              // Mudar para tipo Date
   deptoPartList: [Departamento]; // Lista de Departamentos associados
   // Dados exibidos quando Inserir/Modificar
   indReajuste: string;

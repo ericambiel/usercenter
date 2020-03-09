@@ -1,23 +1,23 @@
-import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
-import {DataService} from './services/data.service';
-import {HttpClient} from '@angular/common/http';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { DataService } from './services/data.service';
+import { HttpClient } from '@angular/common/http';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
-import {Contrato} from './models/contrato';
-import {DataSource} from '@angular/cdk/collections';
-import {AddDialogComponent} from './dialogs/add/add.dialog.component';
-import {EditDialogComponent} from './dialogs/edit/edit.dialog.component';
-import {DeleteDialogComponent} from './dialogs/delete/delete.dialog.component';
-import {BehaviorSubject, fromEvent, merge, Observable} from 'rxjs';
-import {map} from 'rxjs/operators';
+import { Contrato } from './models/contrato';
+import { DataSource} from '@angular/cdk/collections';
+import { AddDialogComponent } from './dialogs/add/add.dialog.component';
+import { EditDialogComponent } from './dialogs/edit/edit.dialog.component';
+import { DeleteDialogComponent } from './dialogs/delete/delete.dialog.component';
 import { FileDialogComponent } from './dialogs/file/file.dialog.component';
+import { BehaviorSubject, fromEvent, merge, Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { Documento } from './models/documento';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.scss']
 })
 
 export class AppComponent implements OnInit {
@@ -33,7 +33,7 @@ export class AppComponent implements OnInit {
                       'deptoResponsavel',
                       'dataInicio',
                       'dataFim' ,
-                      'actions'];
+                      'btnActions'];
   contratoDatabase: DataService | null;
   contratoDataSource: ContratoDataSource | null;
   // index: number; // Posição da lista selecionada
@@ -81,8 +81,8 @@ export class AppComponent implements OnInit {
                situacao: string,
                deptoResponsavel: string,
                valTotal: string,
-               dataInicio: string,
-               dataFim: string) {
+               dataInicio: Date,
+               dataFim: Date) {
     this._id = _id;
     // index row is used just for debugging proposes and can be removed
     // this.index = i;
@@ -245,8 +245,8 @@ export class ContratoDataSource extends DataSource<Contrato> {
     }
 
     return dataContrato.sort((a, b) => {
-      let propertyA: number | string = '';
-      let propertyB: number | string = '';
+      let propertyA: number | Date | string = '';
+      let propertyB: number | Date | string = '';
       // Campos que seram usados para ordenação;
       switch (this.sort.active) {
         // case '_id': [propertyA, propertyB] = [a._id, b._id]; break;
