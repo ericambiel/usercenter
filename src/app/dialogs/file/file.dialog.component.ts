@@ -12,6 +12,7 @@ export class FileDialogComponent {
   constructor(public dialogRef: MatDialogRef<FileDialogComponent>,
               @Inject(MAT_DIALOG_DATA) public dataContrato: any,
               public contratoDataService: DataService) { }
+
   displayedColumns = ['numAditivo',
                       'dataInsert',
                       'btnActions'];

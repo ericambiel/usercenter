@@ -1,39 +1,40 @@
 <div class="container">
-  <h3 mat-dialog-objeto>ID - Contrato: {{data._id}}</h3>
+  <h3 mat-dialog-objeto>ID (BD): {{dataContrato._id}}</h3>
+  <!-- <h3 mat-dialog-objeto>ID - Contrato: {{dataContrato.idSecondary}}</h3> -->
 
   <form class="mat-dialog-content" (ngSubmit)="submit" #formControl="ngForm">
 
-    <div class="form">
+    <!-- <div class="form">
       <mat-form-field color="accent">
-        <input matInput #input class="form-control" placeholder="Id" [(ngModel)]="data._id" name="_id" required >
+        <input matInput #input class="form-control" placeholder="Id" [(ngModel)]="dataContrato._id" name="_id" required >
         <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
       </mat-form-field>
-    </div>
+    </div> -->
 
-    <!--Textarea for demo purposes-->
+    <!--Text area for demo purposes-->
     <div class="form">
       <mat-form-field color="accent">
-        <textarea matInput #input class="form-control" placeholder="Objeto" [(ngModel)]="data.objeto" name="objeto" required ></textarea>
+        <textarea matInput #input class="form-control" placeholder="Objeto" [(ngModel)]="dataContrato.objeto" name="objeto" required ></textarea>
         <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
       </mat-form-field>
     </div>
 
     <div class="form">
         <mat-form-field color="accent">
-          <input matInput placeholder="Estabelecimento Fiscal" [(ngModel)]="data.estabFiscal" name="estabFiscal">
+          <input matInput placeholder="Estabelecimento Fiscal" [(ngModel)]="dataContrato.estabFiscal" name="estabFiscal">
         </mat-form-field>
     </div>
 
     <div class="form">
       <mat-form-field color="accent">
-        <input matInput placeholder="Parceiro" [(ngModel)]="data.parceiro" name="parceiro">
+        <input matInput placeholder="Parceiro" [(ngModel)]="dataContrato.parceiro" name="parceiro">
       </mat-form-field>
     </div>
 
     <!--Contains mat-hint for characters count and has maxLengt set-->
     <div class="form">
       <mat-form-field color="accent">
-        <input matInput #inputstate class="form-control" placeholder="CNPJ" [(ngModel)]="data.cnpj" name="cnpj" maxlength="14" required >
+        <input matInput #inputstate class="form-control" placeholder="CNPJ" [(ngModel)]="dataContrato.cnpj" name="cnpj" maxlength="14" required >
         <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
         <mat-hint align="end">{{inputstate.value?.length || 0}}/14</mat-hint>
       </mat-form-field>
@@ -41,43 +42,115 @@
 
     <div class="form">
       <mat-form-field color="accent">
-        <input matInput placeholder="Status" [(ngModel)]="data.status" name="status">
+        <input matInput placeholder="Status" [(ngModel)]="dataContrato.status" name="status">
       </mat-form-field>
     </div>
 
     <div class="form">
       <mat-form-field color="accent">
-        <input matInput placeholder="Situação" [(ngModel)]="data.situacao" name="situacao">
+        <input matInput placeholder="Situação" [(ngModel)]="dataContrato.situacao" name="situacao">
       </mat-form-field>
     </div>
 
     <div class="form">
       <mat-form-field color="accent">
-        <input matInput placeholder="Depto. Particiantes" [(ngModel)]="data.deptoResponsavel" name="deptoResponsavel">
+        <input matInput placeholder="Depto. Responsavel" [(ngModel)]="dataContrato.deptoResponsavel" name="deptoResponsavel">
+      </mat-form-field>
+    </div>
+
+    <!--Lista de departamento Participantes-->
+    <div class="form">
+      <mat-table #table [dataSource]="dataContrato.deptoPartList" matSort class="mat-cell">
+
+        <ng-container matColumnDef="departamento"> <!--Coluna-->
+          <mat-header-cell *matHeaderCellDef mat-sort-header>Depto. Participantes</mat-header-cell><!--Nome coluna-->
+          <mat-cell *matCellDef="let row" >{{row.departamento}}</mat-cell><!--Dado na celular vindo de "contratoDataSource"-->
+        </ng-container>
+
+        <!-- Botões de ação -->
+        <ng-container matColumnDef="btnActions">
+          <mat-header-cell *matHeaderCellDef></mat-header-cell>
+
+          <mat-cell *matCellDef="let row; let i=index;">
+            <button mat-icon-button color="accent" (click)="removeDeptoPart(i, row.departamento)">
+              <mat-icon aria-label="Documentos">remove</mat-icon>
+            </button>
+          </mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+
+      </mat-table>
+    </div>
+    <!-- <div class="form">
+      <mat-form-field color="accent">
+        <input matInput placeholder="Depto. Participantes" [(ngModel)]="dataContrato.deptoPartList" name="deptoPartList">
+      </mat-form-field>
+    </div> -->
+
+    <div class="form">
+      <mat-form-field color="accent">
+        <input matInput placeholder="Valor Total" [(ngModel)]="dataContrato.valTotal" name="valTotal">
       </mat-form-field>
     </div>
 
     <div class="form">
       <mat-form-field color="accent">
-        <input matInput placeholder="Valor Total" [(ngModel)]="data.valTotal" name="valTotal">
+        <input matInput placeholder="Valor Mensal" [(ngModel)]="dataContrato.valMensal" name="valMensal">
       </mat-form-field>
     </div>
 
     <div class="form">
       <mat-form-field color="accent">
-        <input matInput placeholder="Início do Contrato" [(ngModel)]="data.dataInicio" name="dataInicio">
+        <input matInput placeholder="Início do Contrato" [(ngModel)]="dataContrato.dataInicio" name="dataInicio">
       </mat-form-field>
     </div>
 
     <div class="form">
       <mat-form-field color="accent">
-        <input matInput placeholder="Fim do Contrato" [(ngModel)]="data.dataFim" name="dataFim">
+        <input matInput placeholder="Fim do Contrato" [(ngModel)]="dataContrato.dataFim" name="dataFim">
       </mat-form-field>
     </div>
+
+    <div class="form">
+      <mat-form-field color="accent">
+        <input matInput placeholder="Índice de Reajuste" [(ngModel)]="dataContrato.indReajuste" name="indReajuste">
+      </mat-form-field>
+    </div>
+
+    <div class="form">
+      <mat-form-field color="accent">
+        <input matInput placeholder="Dias de Antecedência" [(ngModel)]="dataContrato.diaAntecedencia" name="diaAntecedencia">
+      </mat-form-field>
+    </div>
+
+    <div class="form">
+      <mat-form-field color="accent">
+        <textarea matInput #input class="form-control" placeholder="Observações" [(ngModel)]="dataContrato.obs" name="obs"></textarea>
+      </mat-form-field>
+    </div>
+
+    <div>
+      <mat-checkbox class="form" matInput [(ngModel)]="dataContrato.anaJuridico" name="anaJuridico">Análise Jurídica</mat-checkbox>
+    </div>
+
 
     <div mat-dialog-actions>
-      <button mat-button [type]="submit" [disabled]="!formControl.valid" [mat-dialog-close]="1" (click)="stopEdit()">Salvar</button>
-      <button mat-button (click)="onNoClick()" tabindex="-1">Cancelar</button>
+      <button mat-button>
+        Editar
+        <mat-icon aria-label="Documentos">edit</mat-icon>
+      </button>
+
+      <button mat-button [type]="submit" [disabled]="!formControl.valid" [mat-dialog-close]="1" (click)="stopEdit()">
+        Salvar
+        <mat-icon aria-label="Documentos">save</mat-icon>
+      </button>
+
+      <button mat-button (click)="onCancelarClick()" tabindex="-1">
+        Cancelar
+        <mat-icon aria-label="Documentos">cancel</mat-icon>
+      </button>
     </div>
   </form>
 </div>

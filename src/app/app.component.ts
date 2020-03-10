@@ -13,6 +13,7 @@ import { FileDialogComponent } from './dialogs/file/file.dialog.component';
 import { BehaviorSubject, fromEvent, merge, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Documento } from './models/documento';
+import { Departamento } from './models/departamento';
 
 @Component({
   selector: 'app-root',
@@ -70,36 +71,48 @@ export class AppComponent implements OnInit {
     });
   }
 
-  editContrato(i: number,
-               _id: string,
-               idSecondary: number,
-               objeto: string,
-               estabFiscal: string,
-               parceiro: string,
-               cnpj: number,
-               status: string,
-               situacao: string,
-               deptoResponsavel: string,
-               valTotal: string,
-               dataInicio: Date,
-               dataFim: Date) {
+  editContrato( i: number,
+                _id: string,
+                idSecondary: number,
+                objeto: string,
+                estabFiscal: string,
+                parceiro: string,
+                cnpj: number,
+                status: string,
+                situacao: string,
+                deptoResponsavel: string,
+                deptoPartList: Departamento,
+                valTotal: number,
+                valMensal: number,
+                indReajuste: string,
+                anaJuridico: boolean,
+                diaAntecedencia: number,
+                dataInicio: Date,
+                dataFim: Date,
+                obs: string ) {
     this._id = _id;
     // index row is used just for debugging proposes and can be removed
     // this.index = i;
     // console.log(this.index);
     const dialogRef = this.dialog.open(EditDialogComponent, {
-      data: {_id,
-             idSecondary,
-             objeto,
-             estabFiscal,
-             parceiro,
-             cnpj,
-             status,
-             situacao,
-             deptoResponsavel,
-             valTotal,
-             dataInicio,
-             dataFim}
+      data: { _id,
+              idSecondary,
+              objeto,
+              estabFiscal,
+              parceiro,
+              cnpj,
+              status,
+              situacao,
+              deptoResponsavel,
+              deptoPartList,
+              valTotal,
+              valMensal,
+              indReajuste,
+              dataInicio,
+              anaJuridico,
+              diaAntecedencia,
+              dataFim,
+              obs }
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -114,19 +127,19 @@ export class AppComponent implements OnInit {
     });
   }
 
-  deleteContrato(i: number,
-                 _id: string,
-                 objeto: string,
-                 cnpj: number,
-                 estabFiscal: string) {
+  deleteContrato( i: number,
+                  _id: string,
+                  objeto: string,
+                  cnpj: number,
+                  estabFiscal: string ) {
     // this.index = i;
     this._id = _id;
     const dialogRef = this.dialog.open(
       DeleteDialogComponent,
-      {data: {_id,
-             objeto,
-             cnpj,
-             estabFiscal}
+      { data: { _id,
+                objeto,
+                cnpj,
+                estabFiscal }
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -139,16 +152,16 @@ export class AppComponent implements OnInit {
     });
   }
 
-  showFile(i: number,
-           _id: string,
-           objeto: string,
-           documentoList: Documento) {
+  showFile( i: number,
+            _id: string,
+            objeto: string,
+            documentoList: Documento ) {
     this._id = _id;
     this.dialog.open(
       FileDialogComponent,
-      { data: {_id,
-               objeto,
-               documentoList }
+      { data: { _id,
+                objeto,
+                documentoList }
     });
   }
 
@@ -211,16 +224,16 @@ export class ContratoDataSource extends DataSource<Contrato> {
         // Filter data
         this.filteredData = this.contratoDatabase.data.slice().filter((contrato: Contrato) => {
           // searchStr recebe campos do objeto contrato que seram usados para serem filtrados.
-          const searchStr = (contrato.idSecondary +
-                             contrato.objeto +
-                             contrato.estabFiscal +
-                             contrato.parceiro +
-                             contrato.cnpj +
-                             contrato.status +
-                             contrato.situacao +
-                             contrato.deptoResponsavel +
-                             contrato.dataInicio +
-                             contrato.dataFim).toLowerCase();
+          const searchStr = ( contrato.idSecondary +
+                              contrato.objeto +
+                              contrato.estabFiscal +
+                              contrato.parceiro +
+                              contrato.cnpj +
+                              contrato.status +
+                              contrato.situacao +
+                              contrato.deptoResponsavel +
+                              contrato.dataInicio +
+                              contrato.dataFim).toLowerCase();
           return searchStr.indexOf(this.filter.toLowerCase()) !== -1;
         });
 

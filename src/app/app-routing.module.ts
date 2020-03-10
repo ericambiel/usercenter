@@ -4,7 +4,7 @@ import { BasicUserInfoComponent } from './basic-user-info/basic-user-info.compon
 
 
 const routes: Routes = [
-  //acessa a classe BasicUserInfoComponent colocando na URL /basic-user-info
+  // acessa a classe BasicUserInfoComponent colocando na URL /basic-user-info
   {path: 'basic-user-info', component: BasicUserInfoComponent}
 ];
 

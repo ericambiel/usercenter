@@ -2,12 +2,15 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { Contrato } from '../models/contrato';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import { AppConfig } from '../../config/app.config';
 
 // import { ResponseContentType } from '@angular/common/http';
 
 @Injectable()
 export class DataService {
-  private readonly API_URL = 'http://localhost:3000/contratos'; // 'https://api.github.com/repos/angular/angular';
+  private readonly API_URL = '/contratos'; // 'https://api.github.com/repos/angular/angular';
+
+  private appConfig = new AppConfig();
 
   dataChange: BehaviorSubject<Contrato[]> = new BehaviorSubject<Contrato[]>([]);
   // Temporarily stores data from dialogs
@@ -34,18 +37,19 @@ export class DataService {
   //   });
   // }
 
+  // Criar nova classe de serviço para colocar esse metodo
   getFileContrato(nome: string): Observable<Blob> {
     // const headers = new HttpHeaders({ 'Content-Type': 'application/json'});
     const options = {  responseType: 'blob' as 'json' };
 
     return this.httpClient.get<Blob>(
-      'http://localhost:3000/file/contrato/' + nome,
+      this.appConfig.getRestBaseUrl() + '/file/contrato/' + nome,
       options
     );
   }
 
   getTodosContratos(): void {
-    this.httpClient.get<Contrato[]>(this.API_URL).subscribe(data => {
+    this.httpClient.get<Contrato[]>(`${this.appConfig.getRestBaseUrl()}${this.API_URL}`).subscribe(data => {
       this.dataChange.next(data);
     },
     (error: HttpErrorResponse) => {
@@ -60,7 +64,7 @@ export class DataService {
 
   // ADD, POST METHOD
   addContrato(contrato: Contrato): void {
-    this.httpClient.post(this.API_URL, contrato).subscribe(data => {
+    this.httpClient.post(`${this.appConfig.getRestBaseUrl()}${this.API_URL}`, contrato).subscribe(data => {
       this.dialogData = contrato;
       console.log('Contrato adicionado com sucesso');
       // this.toasterService.showToaster('Successfully added', 3000);
@@ -86,7 +90,7 @@ export class DataService {
 
     // ADD, POST METHOD
     addItem(kanbanItem: KanbanItem): void {
-    this.httpClient.post(this.API_URL, kanbanItem).subscribe(data => {
+    this.httpClient.post(this.appConfig.getRestBaseUrl(), kanbanItem).subscribe(data => {
       this.dialogData = kanbanItem;
       this.toasterService.showToaster('Successfully added', 3000);
       },
@@ -97,7 +101,7 @@ export class DataService {
 
     // UPDATE, PUT METHOD
      updateItem(kanbanItem: KanbanItem): void {
-    this.httpClient.put(this.API_URL + kanbanItem._id, kanbanItem).subscribe(data => {
+    this.httpClient.put(this.appConfig.getRestBaseUrl() + kanbanItem._id, kanbanItem).subscribe(data => {
         this.dialogData = kanbanItem;
         this.toasterService.showToaster('Successfully edited', 3000);
       },
@@ -109,7 +113,7 @@ export class DataService {
 
   // DELETE METHOD
   deleteItem(_id: string): void {
-    this.httpClient.delete(this.API_URL + _id).subscribe(data => {
+    this.httpClient.delete(this.appConfig.getRestBaseUrl() + _id).subscribe(data => {
       console.log(data['']);
         this.toasterService.showToaster('Successfully deleted', 3000);
       },

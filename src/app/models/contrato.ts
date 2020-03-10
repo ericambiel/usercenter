@@ -13,9 +13,9 @@ export class Contrato {
   situacao: string;
   deptoResponsavel: string;
   valTotal: number;             // Valor total
-  valMensal: number;
-  dataInicio: Date;           // Mudar para tipo Date
-  dataFim: Date;              // Mudar para tipo Date
+  valMensal: number;            //Add ao Rest e BD Não existe
+  dataInicio: Date;
+  dataFim: Date;
   deptoPartList: [Departamento]; // Lista de Departamentos associados
   // Dados exibidos quando Inserir/Modificar
   indReajuste: string;
@@ -24,4 +24,16 @@ export class Contrato {
   historico: string;
   anaJuridico: boolean;         // Analise juridica
   documentoList: [Documento];   // Mudar diretorio
+
+  /**
+   * Formata CNPJ.
+   *
+   * @returns CNPJ formatado.
+   */
+  public getCNPJFormatado() {
+    return this.cnpj.toString().replace(/(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/g,
+      (grupo1, grupo2, grupo3, grupo4, grupo5) => {
+        return `${grupo1}.${grupo2}.${grupo3}/${grupo4}-${grupo5}`;
+    });
+  }
 }

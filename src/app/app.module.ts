@@ -2,14 +2,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, LOCALE_ID } from '@angular/core';
 import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
-import { MatButtonModule } from '@angular/material/button';
-import { MatDialogModule } from '@angular/material/dialog';
-import { MatIconModule } from '@angular/material/icon';
-import { MatInputModule } from '@angular/material/input';
-import { MatPaginatorModule } from '@angular/material/paginator';
-import { MatSortModule } from '@angular/material/sort';
-import { MatTableModule } from '@angular/material/table';
-import { MatToolbarModule } from '@angular/material/toolbar';
 import { DataService} from './services/data.service';
 import { AddDialogComponent } from './dialogs/add/add.dialog.component';
 import { EditDialogComponent } from './dialogs/edit/edit.dialog.component';
@@ -19,13 +11,23 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FileDialogComponent } from './dialogs/file/file.dialog.component';
 import { registerLocaleData } from '@angular/common';
 import localeBr from '@angular/common/locales/pt';
+/* Material Desing */
+import { MatButtonModule } from '@angular/material/button';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSortModule } from '@angular/material/sort';
+import { MatTableModule } from '@angular/material/table';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 import { AppConfig } from '../config/app.config';
 
 const appConfig = new AppConfig();
 
 /* Segundo parametro 'br' é opcional, serve de apelido
-para alinha importada se atentar somente com  parametpr
+para a import. Se atentar com parametr
 LOCALE_ID, deve ser o mesmo importado */
 registerLocaleData(localeBr, appConfig.getLocaleId());
 
@@ -50,6 +52,7 @@ registerLocaleData(localeBr, appConfig.getLocaleId());
     MatTableModule,
     MatToolbarModule,
     MatPaginatorModule,
+    MatCheckboxModule,
     ReactiveFormsModule
   ],
   entryComponents: [

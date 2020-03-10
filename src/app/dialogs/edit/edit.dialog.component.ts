@@ -11,8 +11,11 @@ import {FormControl, Validators} from '@angular/forms';
 export class EditDialogComponent {
 
   constructor(public dialogRef: MatDialogRef<EditDialogComponent>,
-              @Inject(MAT_DIALOG_DATA) public data: any,
-              public dataService: DataService) { }
+              @Inject(MAT_DIALOG_DATA) public dataContrato: any,
+              public contratoDataService: DataService) { }
+
+  displayedColumns = ['departamento',
+                      'btnActions'];
 
   formControl = new FormControl('', [
     Validators.required
@@ -25,15 +28,20 @@ export class EditDialogComponent {
         '';
   }
 
+  removeDeptoPart( i: number,
+                   departamento: string) {
+    // TODO: Criar metodo para remover departamento participante do contrato.
+  }
+
   submit() {
     // emppty stuff
   }
 
-  onNoClick(): void {
+  onCancelarClick(): void {
     this.dialogRef.close();
   }
 
   stopEdit(): void {
-    this.dataService.updateContrato(this.data);
+    this.contratoDataService.updateContrato(this.dataContrato);
   }
 }
