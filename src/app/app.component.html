@@ -21,12 +21,12 @@
 
     <!-- ID Column -->
     <ng-container matColumnDef="_id">
-      <mat-header-cell *matHeaderCellDef mat-sort-header>ID</mat-header-cell>
+      <mat-header-cell *matHeaderCellDef mat-sort-header>ID-BD</mat-header-cell>
       <mat-cell *matCellDef="let row" >{{row._id}}</mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="idSecondary">
-      <mat-header-cell *matHeaderCellDef mat-sort-header>QConnect ID</mat-header-cell>
+      <mat-header-cell *matHeaderCellDef mat-sort-header>ID</mat-header-cell>
       <mat-cell *matCellDef="let row" >{{row.idSecondary}}</mat-cell>
     </ng-container>
 
@@ -72,12 +72,12 @@
 
     <ng-container matColumnDef="dataInicio">
       <mat-header-cell *matHeaderCellDef mat-sort-header>Início Contrato</mat-header-cell>
-      <mat-cell *matCellDef="let row" >{{row.dataInicio}}</mat-cell>
+      <mat-cell *matCellDef="let row" >{{row.dataInicio | date:'shortDate'}}</mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="dataFim">
       <mat-header-cell *matHeaderCellDef mat-sort-header>Fim Contrato</mat-header-cell>
-      <mat-cell *matCellDef="let row" >{{row.dataFim}}</mat-cell>
+      <mat-cell *matCellDef="let row" >{{row.dataFim | date: 'shortDate'}}</mat-cell>
     </ng-container>
 
     <!-- actions -->

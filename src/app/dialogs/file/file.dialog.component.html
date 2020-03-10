@@ -12,7 +12,7 @@
       <!-- Coluna - Inserido em -->
       <ng-container matColumnDef="dataInsert">
         <mat-header-cell *matHeaderCellDef>Inserido em</mat-header-cell>
-        <mat-cell *matCellDef="let row" >{{row.dataInsert}}</mat-cell>
+        <mat-cell *matCellDef="let row" >{{row.dataInsert | date: 'short'}}</mat-cell>
       </ng-container>
 
       <!-- Botões de ação -->

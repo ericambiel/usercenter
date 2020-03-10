@@ -1,7 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
-
-
+import { NgModule, LOCALE_ID } from '@angular/core';
 import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
 import { MatButtonModule } from '@angular/material/button';
@@ -19,8 +17,17 @@ import { DeleteDialogComponent } from './dialogs/delete/delete.dialog.component'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FileDialogComponent } from './dialogs/file/file.dialog.component';
-// import { MAT_DATE_LOCALE } from '@angular/material/core/datetime';
+import { registerLocaleData } from '@angular/common';
+import localeBr from '@angular/common/locales/pt';
 
+import { AppConfig } from '../config/app.config';
+
+const appConfig = new AppConfig();
+
+/* Segundo parametro 'br' é opcional, serve de apelido
+para alinha importada se atentar somente com  parametpr
+LOCALE_ID, deve ser o mesmo importado */
+registerLocaleData(localeBr, appConfig.getLocaleId());
 
 @NgModule({
   declarations: [
@@ -52,7 +59,7 @@ import { FileDialogComponent } from './dialogs/file/file.dialog.component';
   ],
   providers: [
     DataService,
-    // {provide: MAT_DATE_LOCALE, useValue: 'pt-BR'}
+    { provide: LOCALE_ID, useValue: appConfig.getLocaleId() }
   ],
   bootstrap: [AppComponent]
 })
