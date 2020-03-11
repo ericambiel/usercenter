@@ -17,6 +17,15 @@ export class EditDialogComponent {
   displayedColumns = ['departamento',
                       'btnActions'];
 
+                    
+  cpfCnpjMask = varMasked => {
+    const withoutMask = varMasked.replace(/[^0-9]+/g, '')
+    if(withoutMask.length <=  11 )
+      return [ /\d/, /\d/, /\d/, '.', /\d/, /\d/, /\d/, '.', /\d/, /\d/, /\d/, '-', /\d/, /\d/ ]
+    else
+      return [ /\d/, /\d/, '.', /\d/, /\d/, /\d/, '.', /\d/, /\d/, /\d/, '/', /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/ ];
+    }
+
   formControl = new FormControl('', [
     Validators.required
     // Validators.email,

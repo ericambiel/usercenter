@@ -32,11 +32,11 @@
     </div>
 
     <!--Contains mat-hint for characters count and has maxLengt set-->
-    <div class="form">
+    <div class="form"> 
       <mat-form-field color="accent">
-        <input matInput #inputstate class="form-control" placeholder="CNPJ" [(ngModel)]="dataContrato.cnpj" name="cnpj" maxlength="14" required >
+        <input matInput [textMask]="{mask: cpfCnpjMask, guide: false }" #inputstate class="form-control" placeholder="CPF / CNPJ" [(ngModel)]="dataContrato.cnpj" name="cnpj" maxlength="18 " required >
         <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
-        <mat-hint align="end">{{inputstate.value?.length || 0}}/14</mat-hint>
+        <mat-hint align="end">{{inputstate.value?.length || 0}}/18</mat-hint>
       </mat-form-field>
     </div>
 
@@ -83,6 +83,7 @@
 
       </mat-table>
     </div>
+
     <!-- <div class="form">
       <mat-form-field color="accent">
         <input matInput placeholder="Depto. Participantes" [(ngModel)]="dataContrato.deptoPartList" name="deptoPartList">
@@ -91,13 +92,13 @@
 
     <div class="form">
       <mat-form-field color="accent">
-        <input matInput placeholder="Valor Total" [(ngModel)]="dataContrato.valTotal" name="valTotal">
+        <input matInput placeholder="Valor Total (R$)"  [ngModel]="dataContrato.valTotal |  number:'4.2-2'" (ngModelChange)="dataContrato.valTotal=$event" name="valTotal">
       </mat-form-field>
     </div>
 
     <div class="form">
       <mat-form-field color="accent">
-        <input matInput placeholder="Valor Mensal" [(ngModel)]="dataContrato.valMensal" name="valMensal">
+        <input matInput placeholder="Valor Mensal (R$)" [(ngModel)]="dataContrato.valMensal" name="valMensal">
       </mat-form-field>
     </div>
 

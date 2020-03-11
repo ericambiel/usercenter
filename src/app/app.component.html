@@ -69,7 +69,7 @@
 
     <ng-container matColumnDef="valTotal">
       <mat-header-cell *matHeaderCellDef mat-sort-header>Valor Tot.</mat-header-cell>
-      <mat-cell *matCellDef="let row" >{{row.valTotal}}</mat-cell>
+      <mat-cell *matCellDef="let row" >{{row.valTotal |  number:'4.5-5':'pt'}}</mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="dataInicio">
