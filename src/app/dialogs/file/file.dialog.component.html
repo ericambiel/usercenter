@@ -3,7 +3,7 @@
   <h3 mat-dialog-title>ID: {{dataContrato._id}}</h3>
   <div mat-dialog-content>
     <!-- Colunas (Configurar ordem das colunas em file.dialog.component.ts) -->
-    <mat-table #table [dataSource]="dataContrato.documentoList" matSort class="mat-cell">
+    <mat-table #table [dataSource]="dataContrato.documentoList">
       <!-- Coluna - Numero do Ativo -->
       <ng-container matColumnDef="numAditivo">
         <mat-header-cell *matHeaderCellDef>Numero do Ativo</mat-header-cell>

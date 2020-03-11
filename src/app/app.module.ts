@@ -21,6 +21,8 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatMomentDateModule } from '@angular/material-moment-adapter';
 
 import { AppConfig } from '../config/app.config';
 
@@ -40,11 +42,12 @@ registerLocaleData(localeBr, appConfig.getLocaleId());
     FileDialogComponent
   ],
   imports: [
+    HttpClientModule,
     BrowserModule,
     BrowserAnimationsModule,
-    HttpClientModule,
-    MatDialogModule,
     FormsModule,
+    ReactiveFormsModule,
+    MatDialogModule,
     MatButtonModule,
     MatInputModule,
     MatIconModule,
@@ -53,7 +56,8 @@ registerLocaleData(localeBr, appConfig.getLocaleId());
     MatToolbarModule,
     MatPaginatorModule,
     MatCheckboxModule,
-    ReactiveFormsModule
+    MatDatepickerModule,
+    MatMomentDateModule
   ],
   entryComponents: [
     AddDialogComponent,

@@ -59,11 +59,11 @@
     </div>
 
     <!--Lista de departamento Participantes-->
-    <div class="form">
-      <mat-table #table [dataSource]="dataContrato.deptoPartList" matSort class="mat-cell">
+    <div class="container mat-elevation-z1">
+      <mat-table #table [dataSource]="dataContrato.deptoPartList">
 
         <ng-container matColumnDef="departamento"> <!--Coluna-->
-          <mat-header-cell *matHeaderCellDef mat-sort-header>Depto. Participantes</mat-header-cell><!--Nome coluna-->
+          <mat-header-cell *matHeaderCellDef>Depto. Participantes</mat-header-cell><!--Nome coluna-->
           <mat-cell *matCellDef="let row" >{{row.departamento}}</mat-cell><!--Dado na celular vindo de "contratoDataSource"-->
         </ng-container>
 
@@ -102,15 +102,24 @@
     </div>
 
     <div class="form">
-      <mat-form-field color="accent">
-        <input matInput placeholder="Início do Contrato" [(ngModel)]="dataContrato.dataInicio" name="dataInicio">
-      </mat-form-field>
-    </div>
-
-    <div class="form">
-      <mat-form-field color="accent">
-        <input matInput placeholder="Fim do Contrato" [(ngModel)]="dataContrato.dataFim" name="dataFim">
-      </mat-form-field>
+      <table>
+        <tr>
+          <td>
+            <mat-form-field color="accent">
+              <input matInput placeholder="Início do Contrato" [matDatepicker]="dpDataInicio" [(ngModel)]="dataContrato.dataInicio" name="dataInicio">
+              <mat-datepicker-toggle matSuffix [for]="dpDataInicio"></mat-datepicker-toggle>
+              <mat-datepicker #dpDataInicio></mat-datepicker>
+            </mat-form-field>
+          </td>
+          <td>
+            <mat-form-field color="accent">
+              <input matInput placeholder="Fim do Contrato" [matDatepicker]="dpDataFim" [(ngModel)]="dataContrato.dataFim" name="dataFim">
+              <mat-datepicker-toggle matSuffix [for]="dpDataFim"></mat-datepicker-toggle>
+              <mat-datepicker #dpDataFim></mat-datepicker>
+            </mat-form-field>
+          </td>
+        </tr>
+      </table>
     </div>
 
     <div class="form">
