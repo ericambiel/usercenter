@@ -91,15 +91,20 @@
     </div> -->
 
     <div class="form">
-      <mat-form-field color="accent">
-        <input matInput placeholder="Valor Total (R$)"  [ngModel]="dataContrato.valTotal | currency:'BRL':'symbol':'4.2'" [ngModelOptions]="{updateOn:'blur'}" (ngModelChange)="dataContrato.valTotal=normalizeNumb($event)" name="valTotal">
-      </mat-form-field>
-    </div>
-
-    <div class="form">
-      <mat-form-field color="accent">
-        <input matInput placeholder="Valor Mensal (R$)" [(ngModel)]="dataContrato.valMensal" name="valMensal">
-      </mat-form-field>
+      <table>
+        <tr>
+          <td>
+            <mat-form-field color="accent">
+              <input matInput placeholder="Valor Total (R$)" currencyMask [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',', align: 'left'}" [(ngModel)]="dataContrato.valTotal"  name="valTotal">
+            </mat-form-field>
+          </td>
+          <td>
+            <mat-form-field color="accent">
+              <input matInput placeholder="Valor Mensal (R$)" currencyMask [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',',  align: 'left'}" [(ngModel)]="dataContrato.valMensal" name="valMensal">
+            </mat-form-field>
+          </td>
+        </tr>
+      </table>
     </div>
 
     <div class="form">

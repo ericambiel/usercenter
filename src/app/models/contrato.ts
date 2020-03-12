@@ -24,16 +24,4 @@ export class Contrato {
   historico: string;
   anaJuridico: boolean;         // Analise juridica
   documentoList: [Documento];   // Mudar diretorio
-
-  /**
-   * Formata CNPJ.
-   *
-   * @returns CNPJ formatado.
-   */
-  public getCNPJFormatado() {
-    return this.cnpj.toString().replace(/(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/g,
-      (grupo1, grupo2, grupo3, grupo4, grupo5) => {
-        return `${grupo1}.${grupo2}.${grupo3}/${grupo4}-${grupo5}`;
-    });
-  }
 }

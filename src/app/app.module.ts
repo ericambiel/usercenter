@@ -5,6 +5,8 @@ import { HttpClientModule } from '@angular/common/http'; // Requests HTTP
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { registerLocaleData } from '@angular/common'; // Localizar para sistema brasileiro ex: Data, moeda e etc.
 import localeBr from '@angular/common/locales/pt'; // Localizar para sistema brasileiro ex: Data, moeda e etc.
+import { TextMaskModule } from 'angular2-text-mask'; // Mascara campos, ex: CNPJ, CPF e etc.
+import { NgxCurrencyModule  } from 'ngx-currency'; // Trata campos para valores moéda/currency.
 
 /* Material Desing */
 import { MatButtonModule } from '@angular/material/button';
@@ -20,7 +22,6 @@ import { MatDatepickerModule } from '@angular/material/datepicker'; // Campo esp
 
 import { MatMomentDateModule } from '@angular/material-moment-adapter'; // Necessario para import MatDatepickerModule
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'; // Animações dos componentes Material
-import { TextMaskModule } from 'angular2-text-mask';
 
 /* Componentes internos Criados */
 import { AppComponent } from './app.component';
@@ -55,6 +56,7 @@ registerLocaleData(localeBr, appConfig.getLocaleId());
     FormsModule,
     ReactiveFormsModule,
     TextMaskModule,
+    NgxCurrencyModule,
     MatDialogModule,
     MatButtonModule,
     MatInputModule,

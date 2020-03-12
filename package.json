@@ -25,6 +25,7 @@
     "@angular/router": "^9.1.0-next.4",
     "angular2-text-mask": "^9.0.0",
     "moment": "^2.24.0",
+    "ngx-currency": "^2.2.2",
     "rxjs": "~6.5.4",
     "tslib": "^1.10.0",
     "zone.js": "~0.10.2"
