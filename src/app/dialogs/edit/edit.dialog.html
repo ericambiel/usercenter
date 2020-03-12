@@ -32,7 +32,7 @@
     </div>
 
     <!--Contains mat-hint for characters count and has maxLengt set-->
-    <div class="form"> 
+    <div class="form">
       <mat-form-field color="accent">
         <input matInput [textMask]="{mask: cpfCnpjMask, guide: false }" #inputstate class="form-control" placeholder="CPF / CNPJ" [(ngModel)]="dataContrato.cnpj" name="cnpj" maxlength="18 " required >
         <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
@@ -92,7 +92,7 @@
 
     <div class="form">
       <mat-form-field color="accent">
-        <input matInput placeholder="Valor Total (R$)"  [ngModel]="dataContrato.valTotal |  number:'4.2-2'" (ngModelChange)="dataContrato.valTotal=$event" name="valTotal">
+        <input matInput placeholder="Valor Total (R$)"  [ngModel]="dataContrato.valTotal | currency:'BRL':'symbol':'4.2'" [ngModelOptions]="{updateOn:'blur'}" (ngModelChange)="dataContrato.valTotal=normalizeNumb($event)" name="valTotal">
       </mat-form-field>
     </div>
 

@@ -17,19 +17,24 @@ export class EditDialogComponent {
   displayedColumns = ['departamento',
                       'btnActions'];
 
-                    
-  cpfCnpjMask = varMasked => {
-    const withoutMask = varMasked.replace(/[^0-9]+/g, '')
-    if(withoutMask.length <=  11 )
-      return [ /\d/, /\d/, /\d/, '.', /\d/, /\d/, /\d/, '.', /\d/, /\d/, /\d/, '-', /\d/, /\d/ ]
-    else
-      return [ /\d/, /\d/, '.', /\d/, /\d/, /\d/, '.', /\d/, /\d/, /\d/, '/', /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/ ];
-    }
-
   formControl = new FormControl('', [
     Validators.required
     // Validators.email,
   ]);
+
+  cpfCnpjMask = (varMasked: string) => {
+    const withoutMask = varMasked.replace(/[^0-9]+/g, '');
+    if (withoutMask.length <=  11 ) {
+      return [ /\d/, /\d/, /\d/, '.', /\d/, /\d/, /\d/, '.', /\d/, /\d/, /\d/, '-', /\d/, /\d/ ]
+    } else {
+      return [ /\d/, /\d/, '.', /\d/, /\d/, /\d/, '.', /\d/, /\d/, /\d/, '/', /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/ ];
+    }
+  }
+
+  normalizeNumb(varMasked: string): number {
+    const numb = varMasked.replace(/[^0-9]+/g, '');
+    return Number(numb);
+  }
 
   getErrorMessage() {
     return this.formControl.hasError('required') ? 'Campo obrigatório' :
