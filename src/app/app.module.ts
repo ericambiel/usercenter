@@ -18,6 +18,7 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatSelectModule } from '@angular/material/select'; // Caixa de seleção
 import { MatDatepickerModule } from '@angular/material/datepicker'; // Campo especializado em data/hora
 
 import { MatMomentDateModule } from '@angular/material-moment-adapter'; // Necessario para import MatDatepickerModule
@@ -41,6 +42,19 @@ para a import. Se atentar com parametr
 LOCALE_ID, deve ser o mesmo importado */
 registerLocaleData(localeBr, appConfig.getLocaleId());
 
+/* Configurações da mascara para campo moéda*/
+const customNgxCurrencyModule = {
+  align: 'left',
+  allowNegative: false,
+  allowZero: true,
+  decimal: '.',
+  precision: 2,
+  prefix: 'R$ ',
+  suffix: '',
+  thousands: '.',
+  nullable: true
+};
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -56,7 +70,7 @@ registerLocaleData(localeBr, appConfig.getLocaleId());
     FormsModule,
     ReactiveFormsModule,
     TextMaskModule,
-    NgxCurrencyModule,
+    NgxCurrencyModule.forRoot(customNgxCurrencyModule),
     MatDialogModule,
     MatButtonModule,
     MatInputModule,
@@ -67,6 +81,7 @@ registerLocaleData(localeBr, appConfig.getLocaleId());
     MatPaginatorModule,
     MatCheckboxModule,
     MatDatepickerModule,
+    MatSelectModule,
     MatMomentDateModule
   ],
   entryComponents: [

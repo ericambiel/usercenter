@@ -10,10 +10,10 @@
 
 .form {
   display: flex;
+  font-size: 0.85vw; /* 16px */
   padding-top: 6px;
 }
 
 .mat-form-field {
-  font-size: 16px;
   flex-grow: 1;
 }
