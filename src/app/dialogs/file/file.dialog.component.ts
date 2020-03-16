@@ -3,7 +3,7 @@ import { Component, Inject } from '@angular/core';
 import { DataService } from 'src/app/services/data.service';
 
 @Component({
-  selector: 'app-file.dialog',
+  selector: 'app-file',
   templateUrl: './file.dialog.component.html',
   styleUrls: ['./file.dialog.component.scss']
 })
@@ -14,11 +14,21 @@ export class FileDialogComponent {
               public contratoDataService: DataService) { }
 
   displayedColumns = ['numAditivo',
+                      'descricao',
                       'dataInsert',
+                      'nome',
                       'btnActions'];
 
   onSairClick(): void {
     this.dialogRef.close();
+  }
+
+  insertFile() {
+    // TODO: Método para inserir arquivos
+  }
+
+  deleteFile() {
+    // TODO: Método para deletar arquivo
   }
 
   // TODO: Verificar porque não é exibida extensão ao baixar arquivo.

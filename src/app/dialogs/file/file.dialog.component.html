@@ -1,25 +1,50 @@
 <div class="container">
-  <h2 mat-dialog-title>Objeto: {{dataContrato.objeto}}</h2>
-  <h3 mat-dialog-title>ID: {{dataContrato._id}}</h3>
+  <!-- <h2 mat-dialog-title>Objeto: {{dataContrato.objeto}}</h2>
+  <h3 mat-dialog-title>ID: {{dataContrato._id}}</h3> -->
   <div mat-dialog-content>
     <!-- Colunas (Configurar ordem das colunas em file.dialog.component.ts) -->
     <mat-table #table [dataSource]="dataContrato.documentoList">
       <!-- Coluna - Numero do Ativo -->
       <ng-container matColumnDef="numAditivo">
-        <mat-header-cell *matHeaderCellDef>Numero do Ativo</mat-header-cell>
-        <mat-cell *matCellDef="let row" >{{row.numAditivo}}</mat-cell>
+        <mat-header-cell *matHeaderCellDef>Aditivo</mat-header-cell>
+        <mat-cell style="justify-content: center " *matCellDef="let row">{{row.numAditivo}}</mat-cell>
       </ng-container>
+
+      <!-- Coluna - Descrição -->
+      <ng-container matColumnDef="descricao">
+        <mat-header-cell *matHeaderCellDef>Descrição</mat-header-cell>
+        <mat-cell *matCellDef="let row">
+          <mat-form-field color="accent" style="width:8vw">
+            <input matInput placeholder="" [(ngModel)]="row.descricao">
+          </mat-form-field>
+        </mat-cell>
+      </ng-container>
+
       <!-- Coluna - Inserido em -->
       <ng-container matColumnDef="dataInsert">
         <mat-header-cell *matHeaderCellDef>Inserido em</mat-header-cell>
         <mat-cell *matCellDef="let row" >{{row.dataInsert | date: 'short'}}</mat-cell>
       </ng-container>
 
+      <!-- Coluna - Inserido em -->
+      <ng-container matColumnDef="nome">
+        <mat-header-cell *matHeaderCellDef>Arquivo</mat-header-cell>
+        <mat-cell *matCellDef="let row" >{{row.nome}}</mat-cell>
+      </ng-container>
+
       <!-- Botões de ação -->
       <ng-container matColumnDef="btnActions">
-        <mat-header-cell *matHeaderCellDef>Arquivo</mat-header-cell>
+        <mat-header-cell *matHeaderCellDef>
+          <button mat-icon-button color="primary" (click)="insertFile()">
+            <mat-icon aria-label="Example icon-button with a heart icon">add</mat-icon>
+          </button>
+        </mat-header-cell>
 
         <mat-cell *matCellDef="let row; let i=index;">
+          <button mat-icon-button color="accent" (click)="deleteFile(i, row.nome)">
+            <mat-icon aria-label="Remover">remove</mat-icon>
+          </button>
+
           <button mat-icon-button color="accent" (click)="downloadFile(i, row.nome)">
             <mat-icon aria-label="Documentos">insert_drive_file</mat-icon>
           </button>
@@ -36,7 +61,7 @@
     </div>
   </div>
 
-  <div mat-dialog-actions>
+  <!-- <div mat-dialog-actions>
     <button mat-button (click)="onSairClick()" tabindex="-1">Sair</button>
-  </div>
+  </div> -->
 </div>
