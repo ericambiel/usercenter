@@ -1,8 +1,15 @@
-/* Structure */
 .container {
-  display: flex;
-  flex-direction: column;
-  //min-width: 500px;
+	display: flex;
+	flex-direction: column;
+	min-width: 450px;
+	>* {
+		width: 100%;
+	}
+}
+.form {
+	display: flex;
+	font-size: 0.85vw;
+	padding-top: 6px;
 }
 
 /* Mat table */
@@ -18,38 +25,23 @@
   font-size: 0.85vw; // Não existia
   padding: 0px 16px 0px 0px;
 	&:nth-child(1) {
-		flex: 0 0 10%;
+		flex: 0 0 80%;
 	}
 	&:nth-child(2) {
-		flex: 0 0 23%;
+    flex: 0 0 20%;
   }
-  &:nth-child(3) {
-		flex: 0 0 22%;
-  }
-  &:nth-child(4) {
-		flex: 0 0 15%;
-  }
-  &:nth-child(5) {
-		flex: 0 0 15%;
-	}
 }
 .mat-header-cell {
   padding: 0px 16px 0px 0px;
   white-space: nowrap;
   font-size: 0.9vw; // Não existia
 	&:nth-child(1) {
-		flex: 0 0 10%;
+		flex: 0 0 80%;
 	}
 	&:nth-child(2) {
-    flex: 0 0 23%;
+    flex: 0 0 20%;
   }
-  &:nth-child(3) {
-		flex: 0 0 22%;
-  }
-  &:nth-child(4) {
-		flex: 0 0 15%;
-  }
-  &:nth-child(5) {
-		flex: 0 0 15%;
-  }
+}
+.mat-form-field {
+  flex-grow: 1;
 }

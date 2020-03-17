@@ -1,7 +1,8 @@
-<div class="container">
+<h3 mat-dialog-title>Arquivos</h3>
+<div class="container" class="mat-elevation-z2">
   <!-- <h2 mat-dialog-title>Objeto: {{dataContrato.objeto}}</h2>
   <h3 mat-dialog-title>ID: {{dataContrato._id}}</h3> -->
-  <div mat-dialog-content>
+  <!-- <div mat-dialog-content> -->
     <!-- Colunas (Configurar ordem das colunas em file.dialog.component.ts) -->
     <mat-table #table [dataSource]="dataContrato.documentoList">
       <!-- Coluna - Numero do Ativo -->
@@ -14,7 +15,7 @@
       <ng-container matColumnDef="descricao">
         <mat-header-cell *matHeaderCellDef>Descrição</mat-header-cell>
         <mat-cell *matCellDef="let row">
-          <mat-form-field color="accent" style="width:8vw">
+          <mat-form-field color="accent">
             <input matInput placeholder="" [(ngModel)]="row.descricao">
           </mat-form-field>
         </mat-cell>
@@ -41,7 +42,7 @@
         </mat-header-cell>
 
         <mat-cell *matCellDef="let row; let i=index;">
-          <button mat-icon-button color="accent" (click)="deleteFile(i, row.nome)">
+          <button mat-icon-button color="accent" (click)="removeFile(i, row.nome)">
             <mat-icon aria-label="Remover">remove</mat-icon>
           </button>
 
@@ -56,10 +57,10 @@
 
     </mat-table>
 
-    <div class="no-results" [style.display]="dataContrato.length == 0 ? '' : 'none'">
+    <div class="no-results" [style.display]="dataContrato.documentoList.length >= 1 ? 'none' : ''">
       Sem arquivos para esse contrato.
     </div>
-  </div>
+  <!-- </div> -->
 
   <!-- <div mat-dialog-actions>
     <button mat-button (click)="onSairClick()" tabindex="-1">Sair</button>

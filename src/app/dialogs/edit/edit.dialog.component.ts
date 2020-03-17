@@ -8,7 +8,7 @@ import { MatTable } from '@angular/material/table';
 @Component({
   selector: 'app-edit.dialog',
   templateUrl: '../../dialogs/edit/edit.dialog.html',
-  styleUrls: ['../../dialogs/edit/edit.dialog.css']
+  styleUrls: ['../../dialogs/edit/edit.dialog.scss']
 })
 export class EditDialogComponent {
 

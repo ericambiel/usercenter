@@ -8,7 +8,7 @@
           <th>Coluna3</th>
         </tr>
         <tr>
-          <td colspan="2">
+          <td colspan="3">
             <div class="form">
               <td align="left" class="label" >
                 <div class="form">
@@ -17,11 +17,12 @@
                   </mat-form-field>
                 </div>
               </td>
-              <!-- <td align="left" class="label">
+              <td align="left" class="label">
                 <div class="form">
-                  <mat-form-field>
+                  <mat-form-field color="accent">
                     <mat-label>Natureza</mat-label>
-                    <mat-select [(ngModel)]="dataContrato.natureza" name="natureza">
+                    <!-- [(ngModel)]="dataContrato.natureza"  -->
+                    <mat-select name="natureza">
                       <mat-option>Natureza</mat-option>
                       <mat-option value="CLI" id="">Cliente</mat-option>
                       <mat-option value="COC" id="">Comodato Clientes</mat-option>
@@ -39,40 +40,39 @@
                     </mat-select>
                   </mat-form-field>
                 </div>
-              </td> -->
+              </td>
               <td align="left" class="label">
                 <div class="form">
-                  <mat-form-field color="accent" style="width:7vw">
+                  <mat-form-field color="accent" style="width:8vw">
                     <input matInput placeholder="Depto. Responsavel" [(ngModel)]="dataContrato.deptoResponsavel" name="deptoResponsavel">
                   </mat-form-field>
                 </div>
               </td>
-            </div>
-          </td>
-
-          <td align="left" class="label" >
-            <!--Lista de departamento Participantes-->
-            <div class="mat-elevation-z1">
-              <mat-table #table [dataSource]="dataContrato.deptoPartList">
-                <ng-container matColumnDef="departamento">
-                  <!--Coluna-->
-                  <mat-header-cell *matHeaderCellDef>Depto. Participantes</mat-header-cell>
-                  <!--Nome coluna-->
-                  <mat-cell *matCellDef="let row">{{row.departamento}}</mat-cell>
-                  <!--Dado na celular vindo de "contratoDataSource"-->
-                </ng-container>
-                <!-- Botões de ação -->
-                <ng-container matColumnDef="btnActions">
-                  <mat-header-cell *matHeaderCellDef></mat-header-cell>
-                  <mat-cell *matCellDef="let row; let i=index;">
-                    <button mat-icon-button color="accent" (click)="removeDeptoPart(i, row.departamento)">
-                      <mat-icon aria-label="Documentos">remove</mat-icon>
-                    </button>
-                  </mat-cell>
-                </ng-container>
-                <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-                <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
-              </mat-table>
+              <td align="left" class="label" >
+                <!--Lista de departamento Participantes-->
+                <div class="mat-elevation-z2">
+                  <mat-table #table [dataSource]="dataContrato.deptoPartList">
+                    <ng-container matColumnDef="departamento">
+                      <!--Coluna-->
+                      <mat-header-cell *matHeaderCellDef>Depto. Participantes</mat-header-cell>
+                      <!--Nome coluna-->
+                      <mat-cell *matCellDef="let row">{{row.departamento}}</mat-cell>
+                      <!--Dado na celular vindo de "contratoDataSource"-->
+                    </ng-container>
+                    <!-- Botões de ação -->
+                    <ng-container matColumnDef="btnActions">
+                      <mat-header-cell *matHeaderCellDef></mat-header-cell>
+                      <mat-cell *matCellDef="let row; let i=index;">
+                        <button mat-icon-button color="accent" (click)="removeDeptoPart(i, row.departamento)">
+                          <mat-icon aria-label="Documentos">remove</mat-icon>
+                        </button>
+                      </mat-cell>
+                    </ng-container>
+                    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+                  </mat-table>
+                </div>
+              </td>
             </div>
           </td>
         </tr>
