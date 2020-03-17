@@ -47,7 +47,7 @@ const customNgxCurrencyModule = {
   align: 'left',
   allowNegative: false,
   allowZero: true,
-  decimal: '.',
+  decimal: ',',
   precision: 2,
   prefix: 'R$ ',
   suffix: '',

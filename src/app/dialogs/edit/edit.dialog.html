@@ -2,11 +2,11 @@
   <form class="mat-dialog-content" (ngSubmit)="submit" #formControl="ngForm">
     <table align="center" cellspacing="0" cellpadding="3">
       <tbody>
-        <tr>
+        <!-- <tr>
           <th>Coluna1</th>
           <th>Coluna2</th>
           <th>Coluna3</th>
-        </tr>
+        </tr> -->
         <tr>
           <td colspan="3">
             <div class="form">
@@ -18,12 +18,11 @@
                 </div>
               </td>
               <td align="left" class="label">
-                <div class="form">
+                <!-- <div class="form">
                   <mat-form-field color="accent">
                     <mat-label>Natureza</mat-label>
-                    <!-- [(ngModel)]="dataContrato.natureza"  -->
-                    <mat-select name="natureza">
-                      <mat-option>Natureza</mat-option>
+                    <mat-select [(ngModel)]="dataContrato.natureza" name="natureza">
+                      <mat-option value={{dataContrato.natureza}}></mat-option>
                       <mat-option value="CLI" id="">Cliente</mat-option>
                       <mat-option value="COC" id="">Comodato Clientes</mat-option>
                       <mat-option value="COF" id="">Comodato Fornecedores</mat-option>
@@ -39,7 +38,7 @@
                       <mat-option value="SER" id="">Serviços</mat-option>
                     </mat-select>
                   </mat-form-field>
-                </div>
+                </div> -->
               </td>
               <td align="left" class="label">
                 <div class="form">

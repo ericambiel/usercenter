@@ -16,7 +16,7 @@
 .mat-cell {
   white-space: nowrap;
   font-size: 0.85vw; // Não existia
-  padding: 0px 16px 0px 0px;
+  padding: 0px 8px 0px 8px;
 	&:nth-child(1) {
 		flex: 0 0 10%;
 	}
@@ -34,7 +34,7 @@
 	}
 }
 .mat-header-cell {
-  padding: 0px 16px 0px 0px;
+  padding: 0px 8px 0px 8px;
   white-space: nowrap;
   font-size: 0.9vw; // Não existia
 	&:nth-child(1) {

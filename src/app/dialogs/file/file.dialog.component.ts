@@ -1,7 +1,6 @@
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Component, Inject, ViewChild } from '@angular/core';
 import { DataService } from 'src/app/services/data.service';
-import { Documento } from 'src/app/models/documento';
 import { Contrato } from 'src/app/models/contrato';
 import { MatTable } from '@angular/material/table';
 
@@ -50,13 +49,7 @@ export class FileDialogComponent {
   downloadFile(i: number,
                nome: string): void {
     this.contratoDataService.getFileContrato(nome).subscribe(res => {
-      const file = URL.createObjectURL(res);
-      // const reader = new FileReader();
-      // reader.readAsDataURL(res);
-      // reader.addEventListener('load', () => {
-      //   window.open(reader.result, '_blank');
-      // }, false);
-      window.open(file, '_blank');
+      this.contratoDataService.handleFileDownload(res, nome);
     });
   }
 }

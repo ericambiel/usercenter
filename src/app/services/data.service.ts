@@ -14,7 +14,7 @@ export class DataService {
 
   dataChange: BehaviorSubject<Contrato[]> = new BehaviorSubject<Contrato[]>([]);
   // Temporarily stores data from dialogs
-  dialogData: any;
+  dialogData: Contrato;
 
   constructor(private httpClient: HttpClient) {}
 
@@ -40,12 +40,46 @@ export class DataService {
   // Criar nova classe de serviço para colocar esse metodo
   getFileContrato(nome: string): Observable<Blob> {
     // const headers = new HttpHeaders({ 'Content-Type': 'application/json'});
-    const options = {  responseType: 'blob' as 'json' };
+    const options = { responseType: 'blob' as 'json',
+                      reportProgress: true }; // Informa o tamanho do arquivo ao navegar
 
     return this.httpClient.get<Blob>(
       this.appConfig.getRestBaseUrl() + '/file/contrato/' + nome,
       options
     );
+  }
+
+  // * Nomeia e baixa arquivo no navegado * /
+  handleFileDownload(res: any, fileName: string) {
+    const file = new Blob([res], {
+      type: res.type
+    });
+
+    // Browser - IE
+    if (navigator && navigator.msSaveOrOpenBlob) {
+      navigator.msSaveOrOpenBlob(file);
+      return;
+    }
+
+    // Browser - Chrome/Firefox
+    const blob = URL.createObjectURL(file);
+
+    const link = document.createElement('a');
+    link.href = blob; // Endereço do arquivo
+    link.download = fileName; // Adiciona nome/extensão ao arquivo
+
+    link.dispatchEvent(new MouseEvent('click', {
+      bubbles: true,
+      cancelable: true,
+      view: window
+    })); // Baixa arquivo.
+
+    // window.open(link.href, '_blank'); // Abrir em uma nova janela e exibir.
+
+    setTimeout(() => {
+      URL.revokeObjectURL(blob); // Revoga link blob gerado
+      link.remove(); // Revoga link virtual gerado
+    }, 100); // Sleep p/ firefox
   }
 
   getTodosContratos(): void {
@@ -62,7 +96,17 @@ export class DataService {
   //   this.dialogData = contrato;
   // }
 
+  // updateContrato(contrato: Contrato): void {
+  //   this.dialogData = contrato;
+  // }
+
+  deleteContrato(_id: string): void {
+    console.log(_id);
+  }
+
+  // ----------------
   // ADD, POST METHOD
+  // ----------------
   addContrato(contrato: Contrato): void {
     this.httpClient.post(`${this.appConfig.getRestBaseUrl()}${this.API_URL}`, contrato).subscribe(data => {
       this.dialogData = contrato;
@@ -75,12 +119,18 @@ export class DataService {
    });
   }
 
-  updateContrato(contrato: Contrato): void {
-    this.dialogData = contrato;
-  }
-
-  deleteContrato(_id: string): void {
-    console.log(_id);
+   // UPDATE, patch METHOD
+   updateContrato(contrato: Contrato): void {
+    this.httpClient.patch(`${this.appConfig.getRestBaseUrl()}${this.API_URL}/${contrato._id}`, contrato).subscribe(data => {
+        this.dialogData = contrato;
+        console.log('Contrato adicionado com sucesso');
+        // this.toasterService.showToaster('Successfully edited', 3000);
+      },
+      (err: HttpErrorResponse) => {
+        console.log('Um erro ocorreu: ' + err.name + ' ' + err.message);
+        // this.toasterService.showToaster('Error occurred. Details: ' + err.name + ' ' + err.message, 8000);
+      }
+    );
   }
 }
 
