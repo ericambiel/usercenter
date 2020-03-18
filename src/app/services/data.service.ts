@@ -28,6 +28,10 @@ export class DataService {
 
   /** CRUD METHODS */
 
+  /* ///////////////////////////////////////////////////////////////
+    INÍCIO - Criar nova classe de serviço para colocar esses metodos
+  /////////////////////////////////////////////////////////////// */
+
   // getFileContrato(nome: string): void {
   //   this.httpClient.get<Contrato[]>('http://localhost:3000/file/contrato/' + nome).subscribe(data => {
   //       console.log(data['']);
@@ -37,7 +41,7 @@ export class DataService {
   //   });
   // }
 
-  // Criar nova classe de serviço para colocar esse metodo
+  // Baixa arquivo do REST
   getFileContrato(nome: string): Observable<Blob> {
     // const headers = new HttpHeaders({ 'Content-Type': 'application/json'});
     const options = { responseType: 'blob' as 'json',
@@ -49,7 +53,7 @@ export class DataService {
     );
   }
 
-  // * Nomeia e baixa arquivo no navegado * /
+  // * Nomeia e entrega arquivo para navegado * /
   handleFileDownload(res: any, fileName: string) {
     const file = new Blob([res], {
       type: res.type
@@ -81,6 +85,10 @@ export class DataService {
       link.remove(); // Revoga link virtual gerado
     }, 100); // Sleep p/ firefox
   }
+
+  /* ///////////////////////////////////////////////////////////////
+    FIM - Criar nova classe de serviço para colocar esses metodos
+  /////////////////////////////////////////////////////////////// */
 
   getTodosContratos(): void {
     this.httpClient.get<Contrato[]>(`${this.appConfig.getRestBaseUrl()}${this.API_URL}`).subscribe(data => {

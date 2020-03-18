@@ -36,8 +36,9 @@
       <!-- Botões de ação -->
       <ng-container matColumnDef="btnActions">
         <mat-header-cell *matHeaderCellDef>
-          <button mat-icon-button color="primary" (click)="insertFile()">
+          <button mat-icon-button color="primary" (click)="fileInput.click()">
             <mat-icon aria-label="Example icon-button with a heart icon">add</mat-icon>
+            <input #fileInput type="file" (change)="onInsertFileClick($event)" style="display:none;" multiple/>
           </button>
         </mat-header-cell>
 
