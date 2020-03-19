@@ -38,16 +38,16 @@
         <mat-header-cell *matHeaderCellDef>
           <button mat-icon-button color="primary" (click)="fileInput.click()">
             <mat-icon aria-label="Example icon-button with a heart icon">add</mat-icon>
-            <input #fileInput type="file" (change)="onInsertFileClick($event)" style="display:none;" multiple/>
+            <input #fileInput type="file" (change)="onAdd($event)" style="display:none;" multiple/>
           </button>
         </mat-header-cell>
 
         <mat-cell *matCellDef="let row; let i=index;">
-          <button mat-icon-button color="accent" (click)="removeFile(i, row.nome)">
+          <button mat-icon-button color="accent" (click)="onRemoveFile(i, row.nome)">
             <mat-icon aria-label="Remover">remove</mat-icon>
           </button>
 
-          <button mat-icon-button color="accent" (click)="downloadFile(i, row.nome)">
+          <button mat-icon-button color="accent" (click)="onDownloadFile(i, row.nome)">
             <mat-icon aria-label="Documentos">insert_drive_file</mat-icon>
           </button>
         </mat-cell>
