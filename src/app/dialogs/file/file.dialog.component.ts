@@ -5,6 +5,7 @@ import { Contrato } from 'src/app/models/contrato';
 import { MatTable } from '@angular/material/table';
 import { FileService } from 'src/app/services/file.service';
 import { HttpEvent, HttpEventType } from '@angular/common/http';
+import { Documento } from 'src/app/models/documento';
 
 @Component({
   selector: 'app-file',
@@ -38,28 +39,31 @@ export class FileDialogComponent {
     console.log(event);
 
     this.files = new Set(); // Instancia do objeto do tipo Set<File>
-    const fileNames = []; // Array que contera os objetos do tipo Set<File>
+    const fileNames = []; // Array que contera os nomes dos arquivos
 
     // Add arquivo a lista para ser enviado
     for (let i = 0; i < selectedFiles.length; i++) {
       fileNames.push(selectedFiles[i].name); // Captura nome do arquivo
       this.files.add(selectedFiles[i]); // Adiciona o arquivo a um objeto do tipo arquivo
+      const newDocumento = new Documento();
 
-      // TODO: Add a lista de Doc novo arquivo inputado
+      newDocumento.dataInsert = new Date();
+      newDocumento.descricao = selectedFiles[i].name;
+      newDocumento.nome = `${this.dataContrato._id}_${selectedFiles[i].name}`;
+      newDocumento.tipo = selectedFiles[i].type;
 
-      // this.contratoDataService.dataChange.value.push(this.dataService.getDialogData())
+      this.dataContrato.documentoList.push(newDocumento);
+      this.refreshTableDocumento();
+      // TODO: Enviar no corpo o novo nome do arquivo.
     }
-  }
-
-  addNewFile() {
-
+    this.onUploadFile(fileNames);
   }
 
   /** Envia arquivo ao endPoint do fileServer */
-  onUploadFile() {
+  onUploadFile(fileNames: string[]) {
     // Faz o upload do arquivo
     if (this.files && this.files.size > 0) {
-      this.fileService.upLoadFile(this.files)
+      this.fileService.upLoadFile(this.files, fileNames)
         .subscribe((event: HttpEvent<object>) => {
           // console.log(event);
           if (event.type === HttpEventType.Response) {
@@ -88,10 +92,10 @@ export class FileDialogComponent {
     // Utilizado splice para remover somente objeto encontrado de dentro de dataContrato
     this.dataContrato.documentoList.splice(foundIndex, 1);
     // Atualiza tabela Departamentos Participantes na tela
-    this.refreshTableDeptPar();
+    this.refreshTableDocumento();
   }
 
-  private refreshTableDeptPar() {
+  private refreshTableDocumento() {
     this.table.renderRows();
   }
 

@@ -12,9 +12,12 @@ export class FileService {
 
   constructor(private http: HttpClient) { }
 
-  upLoadFile(files: Set<File>) {
+  upLoadFile(files: Set<File>, fileNames: string[]) {
     const formData = new FormData(); // Contem todos os arquivos a ser enviados.
-    files.forEach(file => formData.append('file', file, file.name));
+    // files.forEach(file => formData.append('file', file, file.name));
+    for (let i = 1; i <= files.size; i++) {
+      formData.append('file', files[i], fileNames[i - 1]);
+    }
 
     // Ou esse (Por tráz dos panos)
     // const request = new HttpRequest('POST', `${this.appConfig.getRestBaseUrl()}${this.API_URL}`, formData );
