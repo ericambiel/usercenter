@@ -43,13 +43,13 @@ export class FileDialogComponent {
 
     // Add arquivo a lista para ser enviado
     for (let i = 0; i < selectedFiles.length; i++) {
-      fileNames.push(selectedFiles[i].name); // Captura nome do arquivo
+      fileNames.push(`${this.dataContrato._id}_${selectedFiles[i].name}`); // Nome que sera enviado gravado
       this.files.add(selectedFiles[i]); // Adiciona o arquivo a um objeto do tipo arquivo
       const newDocumento = new Documento();
 
       newDocumento.dataInsert = new Date();
       newDocumento.descricao = selectedFiles[i].name;
-      newDocumento.nome = `${this.dataContrato._id}_${selectedFiles[i].name}`;
+      newDocumento.nome = `${this.dataContrato._id}_${selectedFiles[i].name}`; // Nome que sera enviado ao BD
       newDocumento.tipo = selectedFiles[i].type;
 
       this.dataContrato.documentoList.push(newDocumento);

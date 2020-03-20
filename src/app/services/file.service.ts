@@ -13,11 +13,12 @@ export class FileService {
   constructor(private http: HttpClient) { }
 
   upLoadFile(files: Set<File>, fileNames: string[]) {
+    let i = 0;
     const formData = new FormData(); // Contem todos os arquivos a ser enviados.
-    // files.forEach(file => formData.append('file', file, file.name));
-    for (let i = 1; i <= files.size; i++) {
-      formData.append('file', files[i], fileNames[i - 1]);
-    }
+    files.forEach((file) => {
+      formData.append('file', file, fileNames[i]);
+      i++;
+    }); // Usar file.name em terceiro parametro para enviar nome original
 
     // Ou esse (Por tráz dos panos)
     // const request = new HttpRequest('POST', `${this.appConfig.getRestBaseUrl()}${this.API_URL}`, formData );
