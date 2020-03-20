@@ -8,8 +8,16 @@
       <!-- Coluna - Numero do Ativo -->
       <ng-container matColumnDef="numAditivo">
         <mat-header-cell *matHeaderCellDef>Aditivo</mat-header-cell>
-        <mat-cell style="justify-content: center " *matCellDef="let row">{{row.numAditivo}}</mat-cell>
+        <mat-cell *matCellDef="let row">
+          <mat-form-field color="accent">
+            <input matInput placeholder="" [(ngModel)]="row.numAditivo">
+          </mat-form-field>
+        </mat-cell>
       </ng-container>
+      <!-- <ng-container matColumnDef="numAditivo">
+        <mat-header-cell *matHeaderCellDef>Aditivo</mat-header-cell>
+        <mat-cell style="justify-content: center " *matCellDef="let row">{{row.numAditivo}}</mat-cell>
+      </ng-container> -->
 
       <!-- Coluna - Descrição -->
       <ng-container matColumnDef="descricao">
@@ -27,7 +35,7 @@
         <mat-cell *matCellDef="let row" >{{row.dataInsert | date: 'short'}}</mat-cell>
       </ng-container>
 
-      <!-- Coluna - Inserido em -->
+      <!-- Coluna - Nome -->
       <ng-container matColumnDef="nome">
         <mat-header-cell *matHeaderCellDef>Arquivo</mat-header-cell>
         <mat-cell *matCellDef="let row" >{{row.nome}}</mat-cell>
