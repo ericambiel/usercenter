@@ -90,7 +90,8 @@ export class AppComponent implements OnInit {
                 dataInicio: Date,
                 dataFim: Date,
                 obs: string,
-                documentoList: Documento  ) {
+                documentoList: Documento,
+                natureza: string  ) {
     this._id = _id;
     // index row is used just for debugging proposes and can be removed
     // this.index = i;
@@ -114,7 +115,8 @@ export class AppComponent implements OnInit {
               diaAntecedencia,
               dataFim,
               obs,
-              documentoList }
+              documentoList,
+              natureza }
     });
 
     dialogRef.afterClosed().subscribe(result => {

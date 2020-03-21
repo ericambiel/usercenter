@@ -24,7 +24,7 @@ export class FileDialogComponent {
   displayedColumns = ['numAditivo',
                       'descricao',
                       'dataInsert',
-                      'nome',
+                      //'nome',
                       'btnActions'];
 
   files: Set<File>; // <...> Evita arquivos duplicados
@@ -54,7 +54,6 @@ export class FileDialogComponent {
 
       this.dataContrato.documentoList.push(newDocumento);
       this.refreshTableDocumento();
-      // TODO: Enviar no corpo o novo nome do arquivo.
     }
     this.onUploadFile(fileNames);
   }

@@ -1,77 +1,79 @@
-<h3 mat-dialog-title>Arquivos</h3>
-<div class="container" class="mat-elevation-z2">
-  <!-- <h2 mat-dialog-title>Objeto: {{dataContrato.objeto}}</h2>
-  <h3 mat-dialog-title>ID: {{dataContrato._id}}</h3> -->
-  <!-- <div mat-dialog-content> -->
-    <!-- Colunas (Configurar ordem das colunas em file.dialog.component.ts) -->
-    <mat-table #table [dataSource]="dataContrato.documentoList">
-      <!-- Coluna - Numero do Ativo -->
-      <ng-container matColumnDef="numAditivo">
-        <mat-header-cell *matHeaderCellDef>Aditivo</mat-header-cell>
-        <mat-cell *matCellDef="let row">
-          <mat-form-field color="accent">
-            <input matInput placeholder="" [(ngModel)]="row.numAditivo">
-          </mat-form-field>
-        </mat-cell>
-      </ng-container>
-      <!-- <ng-container matColumnDef="numAditivo">
-        <mat-header-cell *matHeaderCellDef>Aditivo</mat-header-cell>
-        <mat-cell style="justify-content: center " *matCellDef="let row">{{row.numAditivo}}</mat-cell>
-      </ng-container> -->
+<div class="container">
+  <h3 mat-dialog-title>Arquivos</h3>
+  <div class="mat-elevation-z2">
+    <!-- <h2 mat-dialog-title>Objeto: {{dataContrato.objeto}}</h2>
+    <h3 mat-dialog-title>ID: {{dataContrato._id}}</h3> -->
+    <!-- <div mat-dialog-content> -->
+      <!-- Colunas (Configurar ordem das colunas em file.dialog.component.ts) -->
+      <mat-table #table [dataSource]="dataContrato.documentoList">
+        <!-- Coluna - Numero do Ativo -->
+        <ng-container matColumnDef="numAditivo">
+          <mat-header-cell *matHeaderCellDef>Aditivo</mat-header-cell>
+          <mat-cell *matCellDef="let row">
+            <mat-form-field color="accent" style="width:2.5vw">
+              <input matInput placeholder="" [(ngModel)]="row.numAditivo">
+            </mat-form-field>
+          </mat-cell>
+        </ng-container>
+        <!-- <ng-container matColumnDef="numAditivo">
+          <mat-header-cell *matHeaderCellDef>Aditivo</mat-header-cell>
+          <mat-cell style="justify-content: center " *matCellDef="let row">{{row.numAditivo}}</mat-cell>
+        </ng-container> -->
 
-      <!-- Coluna - Descrição -->
-      <ng-container matColumnDef="descricao">
-        <mat-header-cell *matHeaderCellDef>Descrição</mat-header-cell>
-        <mat-cell *matCellDef="let row">
-          <mat-form-field color="accent">
-            <input matInput placeholder="" [(ngModel)]="row.descricao">
-          </mat-form-field>
-        </mat-cell>
-      </ng-container>
+        <!-- Coluna - Descrição -->
+        <ng-container matColumnDef="descricao">
+          <mat-header-cell *matHeaderCellDef>Descrição</mat-header-cell>
+          <mat-cell *matCellDef="let row">
+            <mat-form-field color="accent">
+              <input matInput placeholder="" [(ngModel)]="row.descricao">
+            </mat-form-field>
+          </mat-cell>
+        </ng-container>
 
-      <!-- Coluna - Inserido em -->
-      <ng-container matColumnDef="dataInsert">
-        <mat-header-cell *matHeaderCellDef>Inserido em</mat-header-cell>
-        <mat-cell *matCellDef="let row" >{{row.dataInsert | date: 'short'}}</mat-cell>
-      </ng-container>
+        <!-- Coluna - Inserido em -->
+        <ng-container matColumnDef="dataInsert">
+          <mat-header-cell *matHeaderCellDef>Inserido em</mat-header-cell>
+          <mat-cell *matCellDef="let row" >{{row.dataInsert | date: 'short'}}</mat-cell>
+        </ng-container>
 
-      <!-- Coluna - Nome -->
-      <ng-container matColumnDef="nome">
-        <mat-header-cell *matHeaderCellDef>Arquivo</mat-header-cell>
-        <mat-cell *matCellDef="let row" >{{row.nome}}</mat-cell>
-      </ng-container>
+        <!-- Coluna - Nome -->
+        <ng-container matColumnDef="nome">
+          <mat-header-cell *matHeaderCellDef>Arquivo</mat-header-cell>
+          <mat-cell *matCellDef="let row" >{{row.nome}}</mat-cell>
+        </ng-container>
 
-      <!-- Botões de ação -->
-      <ng-container matColumnDef="btnActions">
-        <mat-header-cell *matHeaderCellDef>
-          <button mat-icon-button color="primary" (click)="fileInput.click()">
-            <mat-icon aria-label="Example icon-button with a heart icon">add</mat-icon>
-            <input #fileInput type="file" (change)="onAdd($event)" style="display:none;" multiple/>
-          </button>
-        </mat-header-cell>
+        <!-- Botões de ação -->
+        <ng-container matColumnDef="btnActions">
+          <mat-header-cell *matHeaderCellDef>
+            <button mat-icon-button color="primary" (click)="fileInput.click()">
+              <mat-icon aria-label="Example icon-button with a heart icon">add</mat-icon>
+              <input #fileInput type="file" (change)="onAdd($event)" style="display:none;" multiple/>
+            </button>
+          </mat-header-cell>
 
-        <mat-cell *matCellDef="let row; let i=index;">
-          <button mat-icon-button color="accent" (click)="onRemoveFile(i, row.nome)">
-            <mat-icon aria-label="Remover">remove</mat-icon>
-          </button>
+          <mat-cell *matCellDef="let row; let i=index;">
+            <button mat-icon-button color="accent" (click)="onRemoveFile(i, row.nome)">
+              <mat-icon aria-label="Remover">remove</mat-icon>
+            </button>
 
-          <button mat-icon-button color="accent" (click)="onDownloadFile(i, row.nome)">
-            <mat-icon aria-label="Documentos">insert_drive_file</mat-icon>
-          </button>
-        </mat-cell>
-      </ng-container>
+            <button mat-icon-button color="accent" (click)="onDownloadFile(i, row.nome)">
+              <mat-icon aria-label="Documentos">insert_drive_file</mat-icon>
+            </button>
+          </mat-cell>
+        </ng-container>
 
-      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
 
-    </mat-table>
+      </mat-table>
 
-    <div class="no-results" [style.display]="dataContrato.documentoList.length >= 1 ? 'none' : ''">
-      Sem arquivos para esse contrato.
-    </div>
-  <!-- </div> -->
+      <div class="no-results" [style.display]="dataContrato.documentoList.length >= 1 ? 'none' : ''">
+        Sem arquivos para esse contrato.
+      </div>
+    <!-- </div> -->
 
-  <!-- <div mat-dialog-actions>
-    <button mat-button (click)="onSairClick()" tabindex="-1">Sair</button>
-  </div> -->
+    <!-- <div mat-dialog-actions>
+      <button mat-button (click)="onSairClick()" tabindex="-1">Sair</button>
+    </div> -->
+  </div>
 </div>
