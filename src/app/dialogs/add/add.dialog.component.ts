@@ -20,6 +20,19 @@ export class AddDialogComponent {
     // Validators.email,
   ]);
 
+  cpfCnpjMask = (fild: string) => {
+    const fildWithoutMask = fild.replace(/[^0-9]+/g, '');
+    if (fildWithoutMask.length <=  11 ) {
+      return [ /\d/, /\d/, /\d/, '.', /\d/, /\d/, /\d/, '.', /\d/, /\d/, /\d/, '-', /\d/, /\d/ ];
+    } else {
+      return [ /\d/, /\d/, '.', /\d/, /\d/, /\d/, '.', /\d/, /\d/, /\d/, '/', /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/ ];
+    }
+  }
+
+  unmask(fildMasked) {
+    return fildMasked.replace(/\D+/g, '');
+  }
+
   getErrorMessage() {
     return this.formControl.hasError('required') ? 'Campo obrigatório' :
       this.formControl.hasError('email') ? 'Não é um e-mail válido' :

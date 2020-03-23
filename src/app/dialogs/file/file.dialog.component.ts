@@ -41,6 +41,10 @@ export class FileDialogComponent {
     this.files = new Set(); // Instancia do objeto do tipo Set<File>
     const fileNames = []; // Array que contera os nomes dos arquivos
 
+    // if (!this.dataContrato.documentoList) { // Se documentoList vier sem valor "undefined"
+    //      this.dataContrato.documentoList = [new Documento()]; // Atribui um array com um documento
+    // }
+
     // Add arquivo a lista para ser enviado
     for (let i = 0; i < selectedFiles.length; i++) {
       fileNames.push(`${this.dataContrato._id}_${selectedFiles[i].name}`); // Nome que sera enviado gravado
@@ -52,7 +56,12 @@ export class FileDialogComponent {
       newDocumento.nome = `${this.dataContrato._id}_${selectedFiles[i].name}`; // Nome que sera enviado ao BD
       newDocumento.tipo = selectedFiles[i].type;
 
-      this.dataContrato.documentoList.push(newDocumento);
+      // Tratado em BD para nunca vir "undfined".
+      // if (!this.dataContrato.documentoList) { // Se documentoList vier sem valor "undefined"
+      //   this.dataContrato.documentoList = [newDocumento]; // Atribui um array com um documento
+      // } else {
+        this.dataContrato.documentoList.push(newDocumento); // Insere um documento no Array
+      // }
       this.refreshTableDocumento();
     }
     this.onUploadFile(fileNames);

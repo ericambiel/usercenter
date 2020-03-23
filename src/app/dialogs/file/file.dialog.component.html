@@ -67,7 +67,7 @@
 
       </mat-table>
 
-      <div class="no-results" [style.display]="dataContrato.documentoList.length >= 1 ? 'none' : ''">
+      <div class="no-results" [style.display]="dataContrato.documentoList && dataContrato.documentoList.length >= 1 ? 'none' : ''">
         Sem arquivos para esse contrato.
       </div>
     <!-- </div> -->

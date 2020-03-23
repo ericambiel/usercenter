@@ -12,7 +12,7 @@
             <div class="form">
               <td align="left" class="label" >
                 <!-- <div class="form"> -->
-                  <mat-form-field color="accent">
+                  <mat-form-field color="accent" style="width: 14vw;">
                     <input disabled matInput placeholder="ID (BD)" [(ngModel)]="dataContrato._id" name="_id">
                   </mat-form-field>
                 <!-- </div> -->
@@ -55,7 +55,11 @@
                     </ng-container>
                     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
                     <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+
                   </mat-table>
+                  <div class="no-results" [style.display]="dataContrato.documentoList && dataContrato.documentoList.length >= 1 ? 'none' : ''">
+                    Não há Departamentos Participantes.
+                  </div>
                 </div>
               </td>
             </div>
@@ -76,8 +80,16 @@
               <td>
                 <!-- <div class="form"> -->
                   <mat-form-field color="accent">
-                    <input matInput [textMask]="{mask: cpfCnpjMask, guide: false }" #inputstate class="form-control"
-                      placeholder="CPF / CNPJ" [(ngModel)]="dataContrato.cnpj" name="cnpj" maxlength="18 " required>
+                    <input matInput
+                           [textMask]="{mask: cpfCnpjMask, guide: false }"
+                           #inputstate
+                           class="form-control"
+                           placeholder="CPF / CNPJ"
+                           [ngModel]="dataContrato.cnpj"
+                           (ngModelChange)="dataContrato.cnpj = unmask($event)"
+                           name="cnpj"
+                           maxlength="18 "
+                           required>
                     <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
                     <mat-hint align="end">{{inputstate.value?.length || 0}}/18</mat-hint>
                   </mat-form-field>
@@ -187,14 +199,14 @@
           <td colspan="2">
             <div class="form">
               <td align="left" class="label">
-                <mat-form-field style="width:8vw" color="accent">
+                <mat-form-field style="width:9vw" color="accent">
                   <mat-select placeholder="Status" [(ngModel)]="dataContrato.status" name="selectedOptionStatus">
                     <mat-option *ngFor="let option of optionsStatus" [id]="option.id" [value]="option.value">{{ option.name }}</mat-option>
                   </mat-select>
                 </mat-form-field>
               </td>
               <td align="right" class="label">
-                <mat-form-field style="width:14vw" color="accent">
+                <mat-form-field style="width:17vw" color="accent">
                   <mat-select placeholder="Situação" [(ngModel)]="dataContrato.situacao" name="selectedOptionSituacao">
                     <mat-option *ngFor="let option of optionsSituacao" [id]="option.id" [value]="option.value">{{ option.name }}</mat-option>
                   </mat-select>

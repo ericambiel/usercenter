@@ -109,7 +109,7 @@ export class DataService {
   // }
 
   deleteContrato(_id: string): void {
-    console.log(_id);
+    console.log(`Contra: ${_id} apagado!!!`);
   }
 
   // ----------------
@@ -131,7 +131,7 @@ export class DataService {
    updateContrato(contrato: Contrato): void {
     this.httpClient.patch(`${this.appConfig.getRestBaseUrl()}${this.API_URL}/${contrato._id}`, contrato).subscribe(data => {
         this.dialogData = contrato;
-        console.log('Contrato adicionado com sucesso');
+        console.log('Contrato atualizado com sucesso');
         // this.toasterService.showToaster('Successfully edited', 3000);
       },
       (err: HttpErrorResponse) => {

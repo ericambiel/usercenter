@@ -66,7 +66,10 @@ export class AppComponent implements OnInit {
         // After dialog is closed we're doing frontend updates
         // For add we're just pushing a new row inside DataService
         this.contratoDatabase.dataChange.value.push(this.dataService.getDialogData());
-        this.refreshTable();
+        /* TODO: Necessário verificar meio de após inserir no banco, retornar para dataContrato,
+           novo id do Banco para edição do novo contrato sem necessidade de dar refresh() */
+        // this.refreshTable();
+        this.refresh();
       }
     });
   }
@@ -227,7 +230,7 @@ export class ContratoDataSource extends DataSource<Contrato> {
     return merge(...displayDataChanges).pipe(map( () => {
         // Filter data
         this.filteredData = this.contratoDatabase.data.slice().filter((contrato: Contrato) => {
-          // searchStr recebe campos do objeto contrato que seram usados para serem filtrados.
+          // searchStr recebe campos do objeto contrato que serão usados para serem filtrados.
           const searchStr = ( contrato.idSecondary +
                               contrato.objeto +
                               contrato.estabFiscal +

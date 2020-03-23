@@ -128,13 +128,17 @@ export class EditDialogComponent {
     // Validators.email,
   ]);
 
-  cpfCnpjMask = (varMasked: string) => {
-    const withoutMask = varMasked.replace(/[^0-9]+/g, '');
-    if (withoutMask.length <=  11 ) {
+  cpfCnpjMask = (fild: string) => {
+    const fildWithoutMask = fild.replace(/[^0-9]+/g, '');
+    if (fildWithoutMask.length <=  11 ) {
       return [ /\d/, /\d/, /\d/, '.', /\d/, /\d/, /\d/, '.', /\d/, /\d/, /\d/, '-', /\d/, /\d/ ];
     } else {
       return [ /\d/, /\d/, '.', /\d/, /\d/, /\d/, '.', /\d/, /\d/, /\d/, '/', /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/ ];
     }
+  }
+
+  unmask(fildMasked) {
+    return fildMasked.replace(/\D+/g, '');
   }
 
   getErrorMessage() {
