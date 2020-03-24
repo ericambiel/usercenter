@@ -20,6 +20,7 @@ export class AddDialogComponent {
     // Validators.email,
   ]);
 
+  // TODO: Criar uma classe "common" para colocar métodos incomuns
   cpfCnpjMask = (fild: string) => {
     const fildWithoutMask = fild.replace(/[^0-9]+/g, '');
     if (fildWithoutMask.length <=  11 ) {
@@ -48,6 +49,6 @@ export class AddDialogComponent {
   }
 
   public confirmAdd(): void {
-    this.dataService.addContrato(this.dataContrato);
+    this.dataService.insertContrato(this.dataContrato);
   }
 }

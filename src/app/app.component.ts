@@ -138,7 +138,7 @@ export class AppComponent implements OnInit {
                   _id: string,
                   objeto: string,
                   cnpj: number,
-                  estabFiscal: string ) {
+                  parceiro: string ) {
     // this.index = i;
     this._id = _id;
     const dialogRef = this.dialog.open(
@@ -146,7 +146,7 @@ export class AppComponent implements OnInit {
       { data: { _id,
                 objeto,
                 cnpj,
-                estabFiscal }
+                parceiro }
     });
 
     dialogRef.afterClosed().subscribe(result => {

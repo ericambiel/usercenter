@@ -127,7 +127,7 @@ export class EditDialogComponent {
     Validators.required
     // Validators.email,
   ]);
-
+  // TODO: Criar uma classe "common" para colocar métodos incomuns
   cpfCnpjMask = (fild: string) => {
     const fildWithoutMask = fild.replace(/[^0-9]+/g, '');
     if (fildWithoutMask.length <=  11 ) {
@@ -162,6 +162,35 @@ export class EditDialogComponent {
 
   submit() {
     // emppty stuff
+  }
+
+  /**
+   * Adiciona departamento em lista de Departamentos Participantes
+   * @param selectedDepto Departamento selecionado.
+   */
+  onAddDeptoPart(selectedDepto) {
+    let deptoExists: boolean;
+
+    if ( !selectedDepto || selectedDepto  === '' ) { // Se "Undefined ou '' "
+      return;
+    }
+
+    // Verifica se já esta na lista de Depto. Participantes
+    this.dataContrato.deptoPartList.every(departamento => {
+      // Do your thing, then:
+      if (departamento.departamento === selectedDepto) {
+        deptoExists = true;
+        return false;
+      } else {
+        return true;
+      }
+    });
+
+    if ( !deptoExists ) { // Add se não esta na lista
+      // Insere departamento selecionado a lista e atualiza tabela.
+      this.dataContrato.deptoPartList.push({departamento: selectedDepto});
+      this.refreshTableDeptPar();
+    }
   }
 
   onCancelarClick(): void {

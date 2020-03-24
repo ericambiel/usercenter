@@ -108,21 +108,21 @@ export class DataService {
   //   this.dialogData = contrato;
   // }
 
-  deleteContrato(_id: string): void {
-    console.log(`Contra: ${_id} apagado!!!`);
-  }
+  // deleteContrato(_id: string): void {
+  //   console.log(`Contra: ${_id} apagado!!!`);
+  // }
 
   // ----------------
   // ADD, POST METHOD
   // ----------------
-  addContrato(contrato: Contrato): void {
+  insertContrato(contrato: Contrato): void {
     this.httpClient.post(`${this.appConfig.getRestBaseUrl()}${this.API_URL}`, contrato).subscribe(data => {
       this.dialogData = contrato;
       console.log('Contrato adicionado com sucesso');
       // this.toasterService.showToaster('Successfully added', 3000);
     },
     (err: HttpErrorResponse) => {
-      console.log('Um erro ocorreu: ' + err.name + ' ' + err.message);
+      console.log(`Um erro ocorreu ao adicionar contrato, ${err.name} ${err.message}`);
       // this.toasterService.showToaster('Error occurred. Details: ' + err.name + ' ' + err.message, 8000);
    });
   }
@@ -135,8 +135,21 @@ export class DataService {
         // this.toasterService.showToaster('Successfully edited', 3000);
       },
       (err: HttpErrorResponse) => {
-        console.log('Um erro ocorreu: ' + err.name + ' ' + err.message);
+        console.log(`Um erro ocorreu ao atualizar contrato: ${contrato._id}, ${err.name} ${err.message}`);
         // this.toasterService.showToaster('Error occurred. Details: ' + err.name + ' ' + err.message, 8000);
+      }
+    );
+  }
+
+  // DELETE METHOD
+  deleteContrato(_id: string): void {
+    this.httpClient.delete(`${this.appConfig.getRestBaseUrl()}${this.API_URL}/${_id}`).subscribe(data => {
+      console.log(`Contrato apagado ${data['']}`);
+      // this.toasterService.showToaster('Successfully deleted', 3000);
+      },
+      (err: HttpErrorResponse) => {
+        //this.toasterService.showToaster('Error occurred. Details: ' + err.name + ' ' + err.message, 8000);
+        console.log(`Um erro ocorreu ao apagar contrato: ${_id}, ${err.name} ${err.message}`);
       }
     );
   }
@@ -147,7 +160,7 @@ export class DataService {
 /* REAL LIFE CRUD Methods I've used in projects. ToasterService uses Material Toasts for displaying messages:
 
     // ADD, POST METHOD
-    addItem(kanbanItem: KanbanItem): void {
+    insertItem(kanbanItem: KanbanItem): void {
     this.httpClient.post(this.appConfig.getRestBaseUrl(), kanbanItem).subscribe(data => {
       this.dialogData = kanbanItem;
       this.toasterService.showToaster('Successfully added', 3000);

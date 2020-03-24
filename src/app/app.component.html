@@ -17,7 +17,10 @@
     </mat-form-field>
   </div>
 
-  <mat-table #table [dataSource]="contratoDataSource" matSort class="mat-cell">
+  <mat-table #table [dataSource]="contratoDataSource"
+             matSort class="mat-cell"
+             matSortActive="created"
+             matSortDirection="desc">
     <!--- Note that these columns can be defined in any order.
           The actual rendered columns are set as a property on the row definition" -->
 
@@ -47,6 +50,7 @@
       <mat-cell *matCellDef="let row"> {{row.parceiro}}</mat-cell>
     </ng-container>
 
+    <!-- TODO: Mascarar campo CNPJ usar [textMask] -->
     <ng-container matColumnDef="cnpj">
       <mat-header-cell *matHeaderCellDef mat-sort-header>CNPJ</mat-header-cell>
       <mat-cell *matCellDef="let row"> {{row.cnpj}}</mat-cell>
@@ -115,7 +119,7 @@
           <mat-icon aria-label="Editar">edit</mat-icon>
         </button>
 
-        <button mat-icon-button color="accent" (click)="deleteContrato(i, row._id, row.objeto, row.cnpj, row.estabFiscal)">
+        <button mat-icon-button color="accent" (click)="deleteContrato(i, row._id, row.objeto, row.cnpj, row.parceiro)">
           <mat-icon aria-label="Apagar">delete</mat-icon>
         </button>
 
@@ -125,7 +129,7 @@
       </mat-cell>
     </ng-container>
 
-    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row><!--Recebe Array de string com o nome/ordem das colunas que seram mostradas ou não acima-->
+    <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row><!--Recebe Array de string com o nome/ordem das colunas que seram mostradas ou não acima-->
     <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
   </mat-table>
 

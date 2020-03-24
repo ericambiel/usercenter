@@ -13,7 +13,7 @@ import { Documento } from 'src/app/models/documento';
   styleUrls: ['./file.dialog.component.scss']
 })
 export class FileDialogComponent {
-
+ // TODO: Verifcar meio de habilitar para edição somente quando clicar em editar contrato.
   constructor(public dialogRef: MatDialogRef<FileDialogComponent>,
               @Inject(MAT_DIALOG_DATA) public dataContrato: Contrato,
               public contratoDataService: DataService,
@@ -32,7 +32,7 @@ export class FileDialogComponent {
 
   /**
    * Armazena arquivos em um Array para serem enviados
-   * @param event Evento contendo contendo informações do arquivo.
+   * @param event Evento contendo informações do arquivo.
    */
   onAdd(event) {
     const selectedFiles = event.srcElement.files as FileList;
@@ -60,7 +60,7 @@ export class FileDialogComponent {
       // if (!this.dataContrato.documentoList) { // Se documentoList vier sem valor "undefined"
       //   this.dataContrato.documentoList = [newDocumento]; // Atribui um array com um documento
       // } else {
-        this.dataContrato.documentoList.push(newDocumento); // Insere um documento no Array
+      this.dataContrato.documentoList.push(newDocumento); // Insere um documento no Array
       // }
       this.refreshTableDocumento();
     }
@@ -82,6 +82,7 @@ export class FileDialogComponent {
           }
       });
     }
+    // TODO: Colocar barra de progresso ao upar arquivo para cada linha da tabela.
     // document.getElementById('idDoInput').innerHTML = fileNames.join(', '); // Passa os nomes dos arquivos para algum input no HTML.
     this.uploadProgress = 0;
   }

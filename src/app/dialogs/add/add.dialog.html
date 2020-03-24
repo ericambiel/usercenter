@@ -31,7 +31,8 @@
                [ngModel]="dataContrato.cnpj"
                (ngModelChange)="dataContrato.cnpj = unmask($event)"
                name="cnpj"
-               required [textMask]="{ mask: cpfCnpjMask, guide: false }"
+               required
+               [textMask]="{ mask: cpfCnpjMask, guide: false }"
                maxlength="18 "
                #inputstate>
         <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
