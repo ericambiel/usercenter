@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpRequest } from '@angular/common/http';
-import { AppConfig } from 'src/config/app.config';
+// import { AppConfig } from 'src/config/app.config.js';
 
 @Injectable({
   providedIn: 'root'
 })
 export class FileService {
-  private readonly API_URL = '/file/contrato/';
+  private readonly API_URL = 'file/contrato/';
 
-  private appConfig = new AppConfig();
+  // private appConfig = new AppConfig();
 
   constructor(private http: HttpClient) { }
 
@@ -25,7 +25,7 @@ export class FileService {
     // return this.http.request(request);
 
     // Ou esse (Forma resumida)
-    return this.http.post( `${this.appConfig.getRestBaseUrl()}${this.API_URL}`, formData, {
+    return this.http.post( `api/${this.API_URL}`, formData, {
       observe: 'events',
       reportProgress: true
     });

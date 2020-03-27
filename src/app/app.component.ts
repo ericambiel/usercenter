@@ -23,7 +23,7 @@ import { Departamento } from './models/departamento';
 
 export class AppComponent implements OnInit {
   displayedColumns = [// '_id',
-                      'idSecondary',
+                      // 'idSecondary',
                       'objeto',
                       'estabFiscal',
                       'parceiro',
@@ -231,7 +231,8 @@ export class ContratoDataSource extends DataSource<Contrato> {
         // Filter data
         this.filteredData = this.contratoDatabase.data.slice().filter((contrato: Contrato) => {
           // searchStr recebe campos do objeto contrato que serão usados para serem filtrados.
-          const searchStr = ( contrato.idSecondary +
+          const searchStr = ( contrato._id +
+                              // contrato.idSecondary +
                               contrato.objeto +
                               contrato.estabFiscal +
                               contrato.parceiro +
@@ -270,7 +271,7 @@ export class ContratoDataSource extends DataSource<Contrato> {
       // Campos que seram usados para ordenação;
       switch (this.sort.active) {
         // case '_id': [propertyA, propertyB] = [a._id, b._id]; break;
-        case 'idSecondary': [propertyA, propertyB] = [a.idSecondary, b.idSecondary]; break;
+        // case 'idSecondary': [propertyA, propertyB] = [a.idSecondary, b.idSecondary]; break;
         case 'objeto': [propertyA, propertyB] = [a.objeto, b.objeto]; break;
         case 'estabFiscal' : [propertyA, propertyB] = [a.estabFiscal, b.estabFiscal]; break;
         case 'parceiro' : [propertyA, propertyB] = [a.parceiro, b.parceiro]; break;

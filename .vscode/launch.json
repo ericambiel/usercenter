@@ -28,7 +28,16 @@
         "request": "launch",
         "program": "${workspaceFolder}/node_modules/protractor/bin/protractor",
         "protocol": "inspector",
-        "args": ["${workspaceFolder}/protractor.conf.js"]
+        "args": [
+          "${workspaceFolder}/protractor.conf.js"
+        ]
+      },
+      {
+        "name": "Docker Node.js Launch",
+        "type": "docker",
+        "request": "launch",
+        "preLaunchTask": "docker-run: debug",
+        "platform": "node"
       }
     ]
   }

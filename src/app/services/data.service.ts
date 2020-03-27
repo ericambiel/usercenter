@@ -2,15 +2,15 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { Contrato } from '../models/contrato';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
-import { AppConfig } from '../../config/app.config';
+// import { AppConfig } from '../../config/app.config.js';
 
 // import { ResponseContentType } from '@angular/common/http';
 
 @Injectable()
 export class DataService {
-  private readonly API_URL = '/contratos'; // 'https://api.github.com/repos/angular/angular';
+  private readonly API_URL = 'contratos'; // 'https://api.github.com/repos/angular/angular';
 
-  private appConfig = new AppConfig();
+  // private appConfig = new AppConfig();
 
   dataChange: BehaviorSubject<Contrato[]> = new BehaviorSubject<Contrato[]>([]);
   // Temporarily stores data from dialogs
@@ -48,7 +48,7 @@ export class DataService {
                       reportProgress: true }; // Informa o tamanho do arquivo ao navegar
 
     return this.httpClient.get<Blob>(
-      this.appConfig.getRestBaseUrl() + '/file/contrato/' + nome,
+       'api/file/contrato/' + nome, // this.appConfig.getRestBaseUrl() +
       options
     );
   }
@@ -91,7 +91,7 @@ export class DataService {
   /////////////////////////////////////////////////////////////// */
 
   getTodosContratos(): void {
-    this.httpClient.get<Contrato[]>(`${this.appConfig.getRestBaseUrl()}${this.API_URL}`).subscribe(data => {
+    this.httpClient.get<Contrato[]>(`api/${this.API_URL}`).subscribe(data => {
       this.dataChange.next(data);
     },
     (error: HttpErrorResponse) => {
@@ -116,7 +116,7 @@ export class DataService {
   // ADD, POST METHOD
   // ----------------
   insertContrato(contrato: Contrato): void {
-    this.httpClient.post(`${this.appConfig.getRestBaseUrl()}${this.API_URL}`, contrato).subscribe(data => {
+    this.httpClient.post(`api/${this.API_URL}`, contrato).subscribe(data => {
       this.dialogData = contrato;
       console.log('Contrato adicionado com sucesso');
       // this.toasterService.showToaster('Successfully added', 3000);
@@ -129,7 +129,7 @@ export class DataService {
 
    // UPDATE, patch METHOD
    updateContrato(contrato: Contrato): void {
-    this.httpClient.patch(`${this.appConfig.getRestBaseUrl()}${this.API_URL}/${contrato._id}`, contrato).subscribe(data => {
+    this.httpClient.patch(`api/${this.API_URL}/${contrato._id}`, contrato).subscribe(data => {
         this.dialogData = contrato;
         console.log('Contrato atualizado com sucesso');
         // this.toasterService.showToaster('Successfully edited', 3000);
@@ -143,7 +143,7 @@ export class DataService {
 
   // DELETE METHOD
   deleteContrato(_id: string): void {
-    this.httpClient.delete(`${this.appConfig.getRestBaseUrl()}${this.API_URL}/${_id}`).subscribe(data => {
+    this.httpClient.delete(`api/${this.API_URL}/${_id}`).subscribe(data => {
       console.log(`Contrato apagado ${data['']}`);
       // this.toasterService.showToaster('Successfully deleted', 3000);
       },

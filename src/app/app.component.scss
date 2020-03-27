@@ -36,25 +36,25 @@
 }
 .mat-cell {
   font-size: 0.85vw; // Não existia
+	// &:nth-child(1) {
+	// 	flex: 0 0 2%;
+	// }
 	&:nth-child(1) {
-		flex: 0 0 2%;
-	}
-	&:nth-child(2) {
 		flex: 0 0 22%;
 	}
-  &:nth-child(4) {
+  &:nth-child(3) {
 		flex: 0 0 18%;
 	}
 }
 .mat-header-cell {
   font-size: 0.9vw; // Não existia
+	// &:nth-child(1) {
+	// 	flex: 0 0 2%;
+	// }
 	&:nth-child(1) {
-		flex: 0 0 2%;
-	}
-	&:nth-child(2) {
 		flex: 0 0 22%;
 	}
-  &:nth-child(4) {
+  &:nth-child(3) {
 		flex: 0 0 18%;
 	}
 }

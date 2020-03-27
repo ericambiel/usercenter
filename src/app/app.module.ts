@@ -21,7 +21,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatSelectModule } from '@angular/material/select'; // Caixa de seleção
 import { MatDatepickerModule } from '@angular/material/datepicker'; // Campo especializado em data/hora
 
-import { MatMomentDateModule } from '@angular/material-moment-adapter'; // Necessario para import MatDatepickerModule
+// import { MatMomentDateModule } from '@angular/material-moment-adapter'; // Necessario para import MatDatepickerModule
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'; // Animações dos componentes Material
 
 /* Componentes internos Criados */
@@ -31,16 +31,16 @@ import { AddDialogComponent } from './dialogs/add/add.dialog.component';
 import { EditDialogComponent } from './dialogs/edit/edit.dialog.component';
 import { DeleteDialogComponent } from './dialogs/delete/delete.dialog.component';
 import { FileDialogComponent } from './dialogs/file/file.dialog.component';
+import { MatNativeDateModule } from '@angular/material/core';
 
 /* Configurações gerais da APP */
-import { AppConfig } from '../config/app.config';
+// import { AppConfig } from '../config/app.config.js';
+// const appConfig = new AppConfig();
 
-const appConfig = new AppConfig();
-
-/* Segundo parametro 'br' é opcional, serve de apelido
-para a import. Se atentar com parametr
+/* Segundo parâmetro 'br' é opcional, serve de apelido
+para a import. Se atentar com parâmetro
 LOCALE_ID, deve ser o mesmo importado */
-registerLocaleData(localeBr, appConfig.getLocaleId());
+registerLocaleData(localeBr, 'pt'); // appConfig.getLocaleId()
 
 /* Configurações da mascara para campo moéda*/
 const customNgxCurrencyModule = {
@@ -82,7 +82,8 @@ const customNgxCurrencyModule = {
     MatCheckboxModule,
     MatDatepickerModule,
     MatSelectModule,
-    MatMomentDateModule
+    MatNativeDateModule
+    // MatMomentDateModule
   ],
   entryComponents: [
     AddDialogComponent,
@@ -91,7 +92,7 @@ const customNgxCurrencyModule = {
   ],
   providers: [
     DataService,
-    { provide: LOCALE_ID, useValue: appConfig.getLocaleId() }
+    { provide: LOCALE_ID, useValue: 'pt' }
   ],
   bootstrap: [AppComponent]
 })
