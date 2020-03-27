@@ -1,0 +1,45 @@
+.container {
+	display: flex;
+	flex-direction: column;
+	min-width: 450px;
+	>* {
+		width: 100%;
+  }
+  // height: 550px;
+}
+
+.form {
+  // TODO: Verificar meio de almentar tamanho da form para melhor exibição da Tabela de edição
+  display: flex;
+	//font-size: 0.85vw;
+	padding-top: 6px;
+}
+
+/* Tabela Depto.Part*/
+.no-results {
+	display: flex;
+	justify-content: center;
+	padding: 14px;
+	font-size: 14px;
+	font-style: italic;
+}
+.mat-header-cell {
+  //padding: 0px 16px 0px 0px;
+  white-space: nowrap;
+  width: 13vw;
+  //font-size: 0.9vw; // Não existia
+  &:nth-child(1) {
+    flex: 0 0 30%;
+  }
+}
+.mat-cell {
+  white-space: nowrap;
+  //font-size: 0.85vw; // Não existia
+  //padding: 0px 16px 0px 0px;
+	// &:nth-child(1) {
+	// 	flex: 0 0 100%;
+	// }
+}
+.mat-form-field {
+  flex-grow: 1;
+}

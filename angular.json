@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "a8crud": {
+    "usercenter": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/a8crud",
+            "outputPath": "dist/usercenter",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -67,18 +67,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "a8crud:build"
+            "browserTarget": "usercenter:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "a8crud:build:production"
+              "browserTarget": "usercenter:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "a8crud:build"
+            "browserTarget": "usercenter:build"
           }
         },
         "test": {
@@ -116,18 +116,18 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "a8crud:serve"
+            "devServerTarget": "usercenter:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "a8crud:serve:production"
+              "devServerTarget": "usercenter:serve:production"
             }
           }
         }
       }
     }
   },
-  "defaultProject": "a8crud",
+  "defaultProject": "usercenter",
   "cli": {
     "analytics": "2a4870bc-9f46-4b5a-96a0-04d76cb96a33"
   }

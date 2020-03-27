@@ -1,18 +1,19 @@
 <div class="container">
-  <h3 mat-dialog-title>APAGAR: Tem certeza?</h3>
+  <h3 mat-dialog-title>Tem certeza que deseja APAGAR esse contrato?</h3>
   <div mat-dialog-content>
     Id: {{dataContrato._id}}
     <p></p>
+    Parceiro: {{dataContrato.parceiro}}
+    <p></p>
     Objeto: {{dataContrato.objeto}}
+    <!-- TODO: Mascarar campo CNPJ usar [textMask] -->
     <p></p>
     CNPJ: {{dataContrato.cnpj}}
-    <p></p>
-    Estabelecimento Fiscal: {{dataContrato.estabFiscal}}
     <p></p>
   </div>
 
   <div mat-dialog-actions>
-    <button mat-button [mat-dialog-close]="1" (click)="confirmDelete()">Deletar</button>
+    <button mat-button [mat-dialog-close]="1" (click)="confirmDelete()">APAGAR!!!</button>
     <button mat-button (click)="onNoClick()" tabindex="-1">Cancelar</button>
   </div>
 </div>

@@ -1,7 +1,8 @@
 export class Documento {
   nome: string;
+  descricao: string;
   diretorio: string;
   tipo: string;
-  numAditivo: number; // Sequência logica do documento
-  dataInsert: string; // Mudar para tipo Date
+  numAditivo: number; // Sequência do aditivo após cadastro do contrato original
+  dataInsert: Date;
 }

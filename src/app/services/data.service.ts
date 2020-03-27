@@ -1,15 +1,20 @@
-import {Injectable} from '@angular/core';
-import {BehaviorSubject} from 'rxjs';
-import {Contrato} from '../models/contrato';
-import {HttpClient, HttpErrorResponse} from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { Contrato } from '../models/contrato';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import { AppConfig } from '../../config/app.config';
+
+// import { ResponseContentType } from '@angular/common/http';
 
 @Injectable()
 export class DataService {
-  private readonly API_URL = 'http://localhost:3000/contratos'; // 'https://api.github.com/repos/angular/angular';
+  private readonly API_URL = '/contratos'; // 'https://api.github.com/repos/angular/angular';
+
+  private appConfig = new AppConfig();
 
   dataChange: BehaviorSubject<Contrato[]> = new BehaviorSubject<Contrato[]>([]);
   // Temporarily stores data from dialogs
-  dialogData: any;
+  dialogData: Contrato;
 
   constructor(private httpClient: HttpClient) {}
 
@@ -22,12 +27,75 @@ export class DataService {
   }
 
   /** CRUD METHODS */
+
+  /* ///////////////////////////////////////////////////////////////
+    INÍCIO - Criar nova classe de serviço para colocar esses metodos
+  /////////////////////////////////////////////////////////////// */
+
+  // getFileContrato(nome: string): void {
+  //   this.httpClient.get<Contrato[]>('http://localhost:3000/file/contrato/' + nome).subscribe(data => {
+  //       console.log(data['']);
+  //     },
+  //   (error: HttpErrorResponse) => {
+  //     console.log (error.name + ' ' + error.message);
+  //   });
+  // }
+
+  // Baixa arquivo do REST
+  getFileContrato(nome: string): Observable<Blob> {
+    // const headers = new HttpHeaders({ 'Content-Type': 'application/json'});
+    const options = { responseType: 'blob' as 'json',
+                      reportProgress: true }; // Informa o tamanho do arquivo ao navegar
+
+    return this.httpClient.get<Blob>(
+      this.appConfig.getRestBaseUrl() + '/file/contrato/' + nome,
+      options
+    );
+  }
+
+  // * Nomeia e entrega arquivo para navegado * /
+  handleFileDownload(res: any, fileName: string) {
+    const file = new Blob([res], {
+      type: res.type
+    });
+
+    // Browser - IE
+    if (navigator && navigator.msSaveOrOpenBlob) {
+      navigator.msSaveOrOpenBlob(file);
+      return;
+    }
+
+    // Browser - Chrome/Firefox
+    const blob = URL.createObjectURL(file);
+
+    const link = document.createElement('a');
+    link.href = blob; // Endereço do arquivo
+    link.download = fileName; // Adiciona nome/extensão ao arquivo
+
+    link.dispatchEvent(new MouseEvent('click', {
+      bubbles: true,
+      cancelable: true,
+      view: window
+    })); // Baixa arquivo.
+
+    // window.open(link.href, '_blank'); // Abrir em uma nova janela e exibir.
+
+    setTimeout(() => {
+      URL.revokeObjectURL(blob); // Revoga link blob gerado
+      link.remove(); // Revoga link virtual gerado
+    }, 100); // Sleep p/ firefox
+  }
+
+  /* ///////////////////////////////////////////////////////////////
+    FIM - Criar nova classe de serviço para colocar esses metodos
+  /////////////////////////////////////////////////////////////// */
+
   getTodosContratos(): void {
-    this.httpClient.get<Contrato[]>(this.API_URL).subscribe(data => {
+    this.httpClient.get<Contrato[]>(`${this.appConfig.getRestBaseUrl()}${this.API_URL}`).subscribe(data => {
       this.dataChange.next(data);
     },
     (error: HttpErrorResponse) => {
-    console.log (error.name + ' ' + error.message);
+      console.log (error.name + ' ' + error.message);
     });
   }
 
@@ -36,25 +104,54 @@ export class DataService {
   //   this.dialogData = contrato;
   // }
 
+  // updateContrato(contrato: Contrato): void {
+  //   this.dialogData = contrato;
+  // }
+
+  // deleteContrato(_id: string): void {
+  //   console.log(`Contra: ${_id} apagado!!!`);
+  // }
+
+  // ----------------
   // ADD, POST METHOD
-  addContrato(contrato: Contrato): void {
-    this.httpClient.post(this.API_URL, contrato).subscribe(data => {
+  // ----------------
+  insertContrato(contrato: Contrato): void {
+    this.httpClient.post(`${this.appConfig.getRestBaseUrl()}${this.API_URL}`, contrato).subscribe(data => {
       this.dialogData = contrato;
       console.log('Contrato adicionado com sucesso');
       // this.toasterService.showToaster('Successfully added', 3000);
-      },
-      (err: HttpErrorResponse) => {
-      console.log('Um erro ocorreu: ' + err.name + ' ' + err.message);
+    },
+    (err: HttpErrorResponse) => {
+      console.log(`Um erro ocorreu ao adicionar contrato, ${err.name} ${err.message}`);
       // this.toasterService.showToaster('Error occurred. Details: ' + err.name + ' ' + err.message, 8000);
-    });
-   }
-
-  updateContrato(contrato: Contrato): void {
-    this.dialogData = contrato;
+   });
   }
 
+   // UPDATE, patch METHOD
+   updateContrato(contrato: Contrato): void {
+    this.httpClient.patch(`${this.appConfig.getRestBaseUrl()}${this.API_URL}/${contrato._id}`, contrato).subscribe(data => {
+        this.dialogData = contrato;
+        console.log('Contrato atualizado com sucesso');
+        // this.toasterService.showToaster('Successfully edited', 3000);
+      },
+      (err: HttpErrorResponse) => {
+        console.log(`Um erro ocorreu ao atualizar contrato: ${contrato._id}, ${err.name} ${err.message}`);
+        // this.toasterService.showToaster('Error occurred. Details: ' + err.name + ' ' + err.message, 8000);
+      }
+    );
+  }
+
+  // DELETE METHOD
   deleteContrato(_id: string): void {
-    console.log(_id);
+    this.httpClient.delete(`${this.appConfig.getRestBaseUrl()}${this.API_URL}/${_id}`).subscribe(data => {
+      console.log(`Contrato apagado ${data['']}`);
+      // this.toasterService.showToaster('Successfully deleted', 3000);
+      },
+      (err: HttpErrorResponse) => {
+        //this.toasterService.showToaster('Error occurred. Details: ' + err.name + ' ' + err.message, 8000);
+        console.log(`Um erro ocorreu ao apagar contrato: ${_id}, ${err.name} ${err.message}`);
+      }
+    );
   }
 }
 
@@ -63,8 +160,8 @@ export class DataService {
 /* REAL LIFE CRUD Methods I've used in projects. ToasterService uses Material Toasts for displaying messages:
 
     // ADD, POST METHOD
-    addItem(kanbanItem: KanbanItem): void {
-    this.httpClient.post(this.API_URL, kanbanItem).subscribe(data => {
+    insertItem(kanbanItem: KanbanItem): void {
+    this.httpClient.post(this.appConfig.getRestBaseUrl(), kanbanItem).subscribe(data => {
       this.dialogData = kanbanItem;
       this.toasterService.showToaster('Successfully added', 3000);
       },
@@ -75,7 +172,7 @@ export class DataService {
 
     // UPDATE, PUT METHOD
      updateItem(kanbanItem: KanbanItem): void {
-    this.httpClient.put(this.API_URL + kanbanItem._id, kanbanItem).subscribe(data => {
+    this.httpClient.put(this.appConfig.getRestBaseUrl() + kanbanItem._id, kanbanItem).subscribe(data => {
         this.dialogData = kanbanItem;
         this.toasterService.showToaster('Successfully edited', 3000);
       },
@@ -87,7 +184,7 @@ export class DataService {
 
   // DELETE METHOD
   deleteItem(_id: string): void {
-    this.httpClient.delete(this.API_URL + _id).subscribe(data => {
+    this.httpClient.delete(this.appConfig.getRestBaseUrl() + _id).subscribe(data => {
       console.log(data['']);
         this.toasterService.showToaster('Successfully deleted', 3000);
       },
