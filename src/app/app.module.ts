@@ -7,6 +7,7 @@ import { registerLocaleData } from '@angular/common'; // Localizar para sistema 
 import localeBr from '@angular/common/locales/pt'; // Localizar para sistema brasileiro ex: Data, moeda e etc.
 import { TextMaskModule } from 'angular2-text-mask'; // Mascara campos, ex: CNPJ, CPF e etc.
 import { NgxCurrencyModule  } from 'ngx-currency'; // Trata campos para valores moéda/currency.
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations'; // Animações dos componentes Material
 
 /* Material Desing */
 import { MatButtonModule } from '@angular/material/button';
@@ -20,9 +21,14 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatSelectModule } from '@angular/material/select'; // Caixa de seleção
 import { MatDatepickerModule } from '@angular/material/datepicker'; // Campo especializado em data/hora
+import { MatNativeDateModule } from '@angular/material/core';
+// tslint:disable-next-line: max-line-length
+// import { MatMomentDateModule } from '@angular/material-moment-adapter'; // MatDatepickerModule(Add + opções) Erro após compilar, não abre no navegador.
 
-// import { MatMomentDateModule } from '@angular/material-moment-adapter'; // Necessario para import MatDatepickerModule
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations'; // Animações dos componentes Material
+
+/* Modulos criados compartilhados */
+import { SharedModule } from './shared/shared.module'; // Ira conter módulos que serão comuns a todos como Toolbar/Sidebar
+import { AuthModule } from './auth/auth.module'; // Login no sistema
 
 /* Componentes internos Criados */
 import { AppComponent } from './app.component';
@@ -31,7 +37,6 @@ import { AddDialogComponent } from './dialogs/add/add.dialog.component';
 import { EditDialogComponent } from './dialogs/edit/edit.dialog.component';
 import { DeleteDialogComponent } from './dialogs/delete/delete.dialog.component';
 import { FileDialogComponent } from './dialogs/file/file.dialog.component';
-import { MatNativeDateModule } from '@angular/material/core';
 
 /* Configurações gerais da APP */
 // import { AppConfig } from '../config/app.config.js';
@@ -71,6 +76,7 @@ const customNgxCurrencyModule = {
     ReactiveFormsModule,
     TextMaskModule,
     NgxCurrencyModule.forRoot(customNgxCurrencyModule),
+
     MatDialogModule,
     MatButtonModule,
     MatInputModule,
@@ -82,8 +88,11 @@ const customNgxCurrencyModule = {
     MatCheckboxModule,
     MatDatepickerModule,
     MatSelectModule,
-    MatNativeDateModule
+    MatNativeDateModule,
     // MatMomentDateModule
+
+    SharedModule,
+    AuthModule
   ],
   entryComponents: [
     AddDialogComponent,
