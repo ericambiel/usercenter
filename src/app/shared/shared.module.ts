@@ -1,3 +1,4 @@
+import { RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
@@ -19,6 +20,7 @@ import { ColumnOneComponent } from './layouts/column-one/column-one.component';
     // BrowserModule,
     // BrowserAnimationsModule,
     // HttpClientModule,
+    RouterModule,
     MatToolbarModule,
     MatSidenavModule,
     MatListModule,

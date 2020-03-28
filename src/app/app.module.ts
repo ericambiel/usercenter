@@ -37,6 +37,7 @@ import { AddDialogComponent } from './dialogs/add/add.dialog.component';
 import { EditDialogComponent } from './dialogs/edit/edit.dialog.component';
 import { DeleteDialogComponent } from './dialogs/delete/delete.dialog.component';
 import { FileDialogComponent } from './dialogs/file/file.dialog.component';
+import { AppRoutingModule } from './app-routing.module';
 
 /* Configurações gerais da APP */
 // import { AppConfig } from '../config/app.config.js';
@@ -92,7 +93,8 @@ const customNgxCurrencyModule = {
     // MatMomentDateModule
 
     SharedModule,
-    AuthModule
+    AuthModule,
+    AppRoutingModule
   ],
   entryComponents: [
     AddDialogComponent,
