@@ -4,16 +4,16 @@
     <mat-tab-group mat-stretch-tabs class="example-stretched-tabs">
       <mat-tab label="Entrar">
           <mat-card-content>
-            <form #fEntrar="ngForm" action="">
+            <form #fEntrar="ngForm" (ngSubmit)="onSubmit(fEntrar)">
               <mat-form-field>
                 <input
                   matInput
                   placeholder="Usuário"
                   required
-                  name="usuario"
+                  name="userName"
                   ngModel
-                  #usuario="ngModel">
-                  <mat-error *ngIf="usuario.invalid">Digite seu usuário!</mat-error>
+                  #userName="ngModel">
+                  <mat-error *ngIf="userName.invalid">Digite seu usuário!</mat-error>
                 <mat-icon matSuffix>person</mat-icon>
               </mat-form-field>
               <mat-form-field>
@@ -75,13 +75,13 @@
             <mat-form-field>
               <input
                 matInput
-                placeholder="usuario"
+                placeholder="userName"
                 required
-                name="usuario"
+                name="userName"
                 ngModel
-                #usuario="ngModel">
-                <mat-error *ngIf="usuario.invalid">usuario is required</mat-error>
-              <mat-icon matSuffix>usuario</mat-icon>
+                #userName="ngModel">
+                <mat-error *ngIf="userName.invalid">userName is required</mat-error>
+              <mat-icon matSuffix>userName</mat-icon>
             </mat-form-field>
             <mat-form-field>
               <input

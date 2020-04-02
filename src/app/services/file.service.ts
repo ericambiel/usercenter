@@ -6,7 +6,7 @@ import { HttpClient, HttpRequest } from '@angular/common/http';
   providedIn: 'root'
 })
 export class FileService {
-  private readonly API_URL = 'file/contrato/';
+  private readonly CONTRATO_URL = 'file/contrato/';
 
   // private appConfig = new AppConfig();
 
@@ -25,7 +25,7 @@ export class FileService {
     // return this.http.request(request);
 
     // Ou esse (Forma resumida)
-    return this.http.post( `api/${this.API_URL}`, formData, {
+    return this.http.post( `api/${this.CONTRATO_URL}`, formData, {
       observe: 'events',
       reportProgress: true
     });
