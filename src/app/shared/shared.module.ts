@@ -16,7 +16,7 @@ import { ColumnOneComponent } from './layouts/column-one/column-one.component';
 @NgModule({
   declarations: [ColumnOneComponent, HeaderComponent],
   imports: [
-    // CommonModule,
+    CommonModule,
     // BrowserModule,
     // BrowserAnimationsModule,
     // HttpClientModule,

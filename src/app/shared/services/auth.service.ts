@@ -3,6 +3,9 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Auth } from '../../models/auth';
 import { map } from 'rxjs/operators';
 
+import { JwtHelperService } from '@auth0/angular-jwt'; // Ira verificar e decodificar o JWT enviado pelo rest
+import { User } from '../../models/user';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -10,19 +13,35 @@ export class AuthService {
 
   private readonly AUTH_URL = 'auth';
   private readonly LOGIN_PATH = '/login';
+  private jwtHelper = new JwtHelperService();
+  decodedToken: User;
 
   constructor(private httpClient: HttpClient) { }
 
   // ----------------
   // LOGIN, POST METHOD
   // ----------------
-  login(auth: Auth) {
-    return this.httpClient.post( `api/${this.AUTH_URL}${this.LOGIN_PATH}`, auth).pipe(
+  /**
+   * Ira logar o usuário no sistema e armazenar JWT
+   * no navegador.
+   * @param user Contem userName/Senha do usuário.
+   */
+  login(user: User) {
+    // this.decodedToken = new User();
+    return this.httpClient.post( `api/${this.AUTH_URL}${this.LOGIN_PATH}`, user).pipe(
       map((response: Auth) => {
         if (response.user.token) {
           localStorage.setItem('token', response.user.token); // Armazena token no navegador
+          // TODO: Retorno decodeToken esta sobrescrevendo objeto, não é possível acessar métodos após receber valores.
+          this.decodedToken = this.jwtHelper.decodeToken(response.user.token);
         }
       })
     );
+  }
+
+  /** Verifica se Token esta expirado */
+  tokenIsOk() {
+    const token = localStorage.getItem('token');
+    return !this.jwtHelper.isTokenExpired(token);
   }
 }

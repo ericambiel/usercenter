@@ -1,16 +1,21 @@
 <mat-toolbar color="primary">
   <mat-toolbar-row>
-    <button mat-icon-button>
-      <mat-icon (click)="sidenav.toggle()">menu</mat-icon>
+    <button mat-icon-button *ngIf="authService.tokenIsOk();">
+      <mat-icon (click)="sidenav.toggle();">menu</mat-icon>
     </button>
     <h1>TUBERFIL</h1>
     <span class="menu-spacer"></span>
-    <div>
-      <!--TODO: Criar rotas aqui-->
-      <a mat-button
-        [routerLink]="['login']" routerLinkActive="active" > Entrar </a>
-      <a mat-button> Contato </a>
-    </div>
+    <!--TODO: Criar rotas aqui-->
+    <a mat-button
+        [routerLink]="['login']"
+        routerLinkActive="active"
+        *ngIf="!authService.tokenIsOk();"> Entrar </a>
+    <a mat-button> Contato </a>
+    <span class="spacer"></span>
+    <a *ngIf="authService.tokenIsOk();">Bem vindo {{authService.decodedToken?.name}}</a> <!-- ? - diz ao angular que pode ser opcional -->
+    <button mat-icon-button *ngIf="authService.tokenIsOk();" (click)="logOut()">
+      <mat-icon>exit_to_app</mat-icon>
+    </button>
   </mat-toolbar-row>
 
   <mat-toolbar-row>
@@ -27,8 +32,8 @@
       <a mat-list-item> Demo2 </a>
       <a mat-list-item> Demo3 </a>
       <a mat-list-item> Demo4 </a>
-      <a mat-list-item (click)="sidenav.toggle()">
-        <mat-icon>ligature</mat-icon>
+      <a mat-list-item (click)="sidenav.toggle();">
+        <mat-icon>keyboard_backspace</mat-icon>
       </a>
 
     </mat-nav-list>

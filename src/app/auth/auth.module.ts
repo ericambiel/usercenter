@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { HttpClientModule } from '@angular/common/http'; // Requisições HTTP
 import { CommonModule } from '@angular/common';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms'; // Tratar entradas invalidas no formulário.
@@ -20,6 +21,7 @@ import { MatIconModule } from '@angular/material/icon';
     LoginComponent
   ],
   imports: [
+    HttpClientModule,
     CommonModule,
     // BrowserModule,
     BrowserAnimationsModule,

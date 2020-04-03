@@ -1,7 +1,14 @@
 export class User {
   userName: string;
+  name: string;
+  surname: string;
+  email: string;
   password: string;
   permissionLevel: [string];
-  token: string;
-  tokenExpire: Date;
+  image: string;
+  adUser: string;
+
+  public getFullName(): string {
+    return `${this.name} ${this.surname}`;
+  }
 }

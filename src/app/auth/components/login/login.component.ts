@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { NgForm } from '@angular/forms';
-import { Auth } from '../../../models/auth';
+import { User } from '../../../models/user';
 
 @Component({
   selector: 'app-login',
@@ -15,12 +15,12 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit(fEntrar: NgForm) {
-    const auth = new Auth();
+    let user = new User();
     const loginObserver = {
       next: x => console.log('Usuário entrou '),
       error: err => console.error('Um erro ocorreu ao validar usuário.')
     };
-    auth.user = fEntrar.value;
-    this.authService.login(auth).subscribe(loginObserver);
+    user = fEntrar.value;
+    this.authService.login(user).subscribe(loginObserver);
   }
 }

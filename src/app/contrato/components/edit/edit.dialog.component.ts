@@ -1,20 +1,20 @@
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import {Component, Inject, ViewChild} from '@angular/core';
-import {DataService} from '../../services/data.service';
-import {FormControl, Validators} from '@angular/forms';
+import { Component, Inject, ViewChild } from '@angular/core';
+import { ContratoService } from '../../services/contrato.service';
+import { FormControl, Validators } from '@angular/forms';
 import { Contrato } from 'src/app/models/contrato';
 import { MatTable } from '@angular/material/table';
 
 @Component({
-  selector: 'app-edit.dialog',
-  templateUrl: '../../dialogs/edit/edit.dialog.html',
-  styleUrls: ['../../dialogs/edit/edit.dialog.scss']
+  selector: 'app-edit-contrato',
+  templateUrl: 'edit.dialog.html',
+  styleUrls: ['edit.dialog.scss']
 })
 export class EditDialogComponent {
 
   constructor(public dialogRef: MatDialogRef<EditDialogComponent>,
               @Inject(MAT_DIALOG_DATA) public dataContrato: Contrato,
-              public contratoDataService: DataService) { }
+              public contratoDataService: ContratoService) { }
 
   @ViewChild(MatTable, {static: true}) table: MatTable<any>;
 

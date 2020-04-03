@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { Contrato } from '../models/contrato';
+import { Contrato } from '../../models/contrato';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 // import { AppConfig } from '../../config/app.config.js';
 
 // import { ResponseContentType } from '@angular/common/http';
 
 @Injectable()
-export class DataService {
+export class ContratoService {
   private readonly API_URL = 'contratos';
 
   // private appConfig = new AppConfig();
@@ -149,7 +149,7 @@ export class DataService {
       // this.toasterService.showToaster('Successfully deleted', 3000);
       },
       (err: HttpErrorResponse) => {
-        //this.toasterService.showToaster('Error occurred. Details: ' + err.name + ' ' + err.message, 8000);
+        // this.toasterService.showToaster('Error occurred. Details: ' + err.name + ' ' + err.message, 8000);
         console.log(`Um erro ocorreu ao apagar contrato: ${_id}, ${err.name} ${err.message}`);
       }
     );
