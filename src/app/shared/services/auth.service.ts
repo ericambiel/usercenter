@@ -31,8 +31,8 @@ export class AuthService {
     return this.httpClient.post( `api/${this.AUTH_URL}${this.LOGIN_PATH}`, user).pipe(
       map((response: Auth) => {
         if (response.user.token) {
-          localStorage.setItem('token', response.user.token); // Armazena token no navegador
-          // TODO: Retorno decodeToken esta sobrescrevendo objeto, não é possível acessar métodos após receber valores.
+          localStorage.setItem('x-access-token', response.user.token); // Armazena token no navegador
+          // TODO: Retorno decodeToken esta sobrescrevendo objeto, não é possível acessar métodos do objeto após receber valores.
           this.decodedToken = this.jwtHelper.decodeToken(response.user.token);
         }
       })
@@ -40,8 +40,8 @@ export class AuthService {
   }
 
   /** Verifica se Token esta expirado */
-  tokenIsOk() {
-    const token = localStorage.getItem('token');
-    return !this.jwtHelper.isTokenExpired(token);
+  isTokenExpired() {
+    const token = localStorage.getItem('x-access-token');
+    return this.jwtHelper.isTokenExpired(token);
   }
 }

@@ -24,7 +24,7 @@ export class FileDialogComponent {
   displayedColumns = ['numAditivo',
                       'descricao',
                       'dataInsert',
-                      //'nome',
+                      // 'nome',
                       'btnActions'];
 
   files: Set<File>; // <...> Evita arquivos duplicados

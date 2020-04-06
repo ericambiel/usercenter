@@ -31,6 +31,9 @@ import { EditDialogComponent } from './components/edit/edit.dialog.component';
 import { DeleteDialogComponent } from './components/delete/delete.dialog.component';
 import { FileDialogComponent } from './components/file/file.dialog.component';
 
+/* Rota */
+import { ContratoRoutingModule } from './contrato-routing.module';
+
 /* Configurações da mascara para campo moéda*/
 const customNgxCurrencyModule = {
   align: 'left',
@@ -56,6 +59,7 @@ const customNgxCurrencyModule = {
     HttpClientModule,
     BrowserModule,
     BrowserAnimationsModule,
+    ContratoRoutingModule,
     FormsModule,
     ReactiveFormsModule,
     TextMaskModule,

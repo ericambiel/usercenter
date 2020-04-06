@@ -18,7 +18,7 @@ import { Departamento } from '../models/departamento';
 @Component({
   selector: 'app-contrato',
   templateUrl: 'contrato.componentl.html',
-  styleUrls: ['contrato.componentl.html']
+  styleUrls: ['contrato.component.scss']
 })
 
 export class ContratoComponent implements OnInit {
