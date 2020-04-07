@@ -1,7 +1,8 @@
 /* Componentes gerais da aplicação */
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http'; // Requests HTTP
+import { HttpClientModule } from '@angular/common/http'; // Requests HTTP.
+import { JwtModule } from '@auth0/angular-jwt'; // Ajudar com o JWT(helper e interceptor).
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TextMaskModule } from 'angular2-text-mask'; // Mascara campos, ex: CNPJ, CPF e etc.
 import { NgxCurrencyModule  } from 'ngx-currency'; // Trata campos para valores moéda/currency.
@@ -57,6 +58,11 @@ const customNgxCurrencyModule = {
   ],
   imports: [
     HttpClientModule,
+    JwtModule.forRoot({ // Intercepta requisições HttpClient e injeta JWT ao header.
+      config: {
+        tokenGetter: () => localStorage.getItem('Bearer')
+      }
+    }),
     BrowserModule,
     BrowserAnimationsModule,
     ContratoRoutingModule,

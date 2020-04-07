@@ -21,7 +21,7 @@ export class AppComponent implements OnInit {
    * Usuário pode recarregar/navegar entre as rotas sem perde-lo.
    */
   private retrievesBrowserToken(): void {
-    const token = localStorage.getItem('x-access-token');
+    const token = localStorage.getItem('Bearer');
     this.authService.decodedToken = this.jwtHelper.decodeToken(token) as User;
   }
 

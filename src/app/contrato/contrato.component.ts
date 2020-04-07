@@ -35,14 +35,14 @@ export class ContratoComponent implements OnInit {
                       'dataInicio',
                       'dataFim' ,
                       'btnActions'];
-  contratoDatabase: ContratoService | null;
+  contratoDatabase: ContratoService | null; // Dados temporários
   contratoDataSource: ContratoDataSource | null;
   // index: number; // Posição da lista selecionada
   _id: string;
 
   constructor(public httpClient: HttpClient,
               public dialog: MatDialog,
-              public dataService: ContratoService) {}
+              public contratoService: ContratoService) {}
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
@@ -65,7 +65,7 @@ export class ContratoComponent implements OnInit {
       if (result === 1) {
         // After dialog is closed we're doing frontend updates
         // For add we're just pushing a new row inside DataService
-        this.contratoDatabase.dataChange.value.push(this.dataService.getDialogData());
+        this.contratoDatabase.dataChange.value.push(this.contratoService.getDialogData());
         /* TODO: Necessário verificar meio de após inserir no banco, retornar para dataContrato,
            novo id do Banco para edição do novo contrato sem necessidade de dar refresh() */
         // this.refreshTable();
@@ -127,11 +127,22 @@ export class ContratoComponent implements OnInit {
         // When using an edit things are little different, firstly we find record inside DataService by _id
         const foundIndex = this.contratoDatabase.dataChange.value.findIndex(x => x._id === this._id);
         // Then you update that record using data from dialogData (values you enetered)
-        this.contratoDatabase.dataChange.value[foundIndex] = this.dataService.getDialogData();
+        this.contratoDatabase.dataChange.value[foundIndex] = this.contratoService.getDialogData();
         // And lastly refresh table
         this.refreshTable();
       }
     });
+  }
+
+  /** Atualiza sempre a tabela sempre q um end point for requisitado. */
+  public refreshAfterEndPointAction() {
+    const foundIndex = this.contratoDatabase.dataChange.value.findIndex(x => x._id === this._id);
+    // Then you update that record using data from dialogData (values you enetered)
+    console.log('Contrato.component.ts ---- 3º');
+    console.log(this.contratoService.getDialogData());
+    this.contratoDatabase.dataChange.value[foundIndex] = this.contratoService.getDialogData();
+    // And lastly refresh table
+    this.refreshTable();
   }
 
   deleteContrato( i: number,
@@ -270,7 +281,7 @@ export class ContratoDataSource extends DataSource<Contrato> {
       let propertyB: number | Date | string = '';
       // Campos que seram usados para ordenação;
       switch (this.sort.active) {
-        // case '_id': [propertyA, propertyB] = [a._id, b._id]; break;
+        case '_id': [propertyA, propertyB] = [a._id, b._id]; break;
         // case 'idSecondary': [propertyA, propertyB] = [a.idSecondary, b.idSecondary]; break;
         case 'objeto': [propertyA, propertyB] = [a.objeto, b.objeto]; break;
         case 'estabFiscal' : [propertyA, propertyB] = [a.estabFiscal, b.estabFiscal]; break;

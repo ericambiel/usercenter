@@ -117,8 +117,10 @@ export class ContratoService {
   // ----------------
   // TODO: Tratar mensagens de erro e conclusão em TOAST
   insertContrato(contrato: Contrato): void {
+    this.dialogData = contrato;
+
     this.httpClient.post(`api/${this.API_URL}`, contrato).subscribe(data => {
-      this.dialogData = contrato;
+      // this.dialogData = contrato;
       console.log('Contrato adicionado com sucesso');
       // this.toasterService.showToaster('Successfully added', 3000);
     },
@@ -130,8 +132,13 @@ export class ContratoService {
 
    // UPDATE, patch METHOD
    updateContrato(contrato: Contrato): void {
+    /* TODO: Verificar modo de atualizar tabela de contratos após algum retorno do endPoint
+        contrato tabela estava sendo atualizada antes do retorno do endPoint, causando erros.
+    */
+    this.dialogData = contrato;
+
     this.httpClient.patch(`api/${this.API_URL}/${contrato._id}`, contrato).subscribe(data => {
-        this.dialogData = contrato;
+        // this.dialogData = contrato;
         console.log('Contrato atualizado com sucesso');
         // this.toasterService.showToaster('Successfully edited', 3000);
       },

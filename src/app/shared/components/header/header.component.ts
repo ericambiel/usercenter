@@ -17,7 +17,7 @@ export class HeaderComponent implements OnInit {
 
   /** Sair com usuário do sistema, apaga token do navegador */
   logOut(): void {
-    localStorage.removeItem('x-access-token');
+    localStorage.removeItem('Bearer');
     this.router.navigate(['login']);
   }
 }
