@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { Contrato } from '../models/contrato';
-import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import { Contrato } from '../../models/contrato';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 // import { AppConfig } from '../../config/app.config.js';
 
 // import { ResponseContentType } from '@angular/common/http';
 
 @Injectable()
-export class DataService {
-  private readonly API_URL = 'contratos'; // 'https://api.github.com/repos/angular/angular';
+export class ContratoService {
+  private readonly API_URL = 'contratos';
 
   // private appConfig = new AppConfig();
 
@@ -29,7 +29,7 @@ export class DataService {
   /** CRUD METHODS */
 
   /* ///////////////////////////////////////////////////////////////
-    INÍCIO - Criar nova classe de serviço para colocar esses metodos
+    INÍCIO - Refatorar e passar para file.service.ts
   /////////////////////////////////////////////////////////////// */
 
   // getFileContrato(nome: string): void {
@@ -53,7 +53,7 @@ export class DataService {
     );
   }
 
-  // * Nomeia e entrega arquivo para navegado * /
+  // * Nomeia e entrega arquivo para navegador * /
   handleFileDownload(res: any, fileName: string) {
     const file = new Blob([res], {
       type: res.type
@@ -79,7 +79,7 @@ export class DataService {
     })); // Baixa arquivo.
 
     // window.open(link.href, '_blank'); // Abrir em uma nova janela e exibir.
-
+    // Após usar link, revoga-o.
     setTimeout(() => {
       URL.revokeObjectURL(blob); // Revoga link blob gerado
       link.remove(); // Revoga link virtual gerado
@@ -87,7 +87,7 @@ export class DataService {
   }
 
   /* ///////////////////////////////////////////////////////////////
-    FIM - Criar nova classe de serviço para colocar esses metodos
+    FIM - Refatorar e passar para file.service.ts
   /////////////////////////////////////////////////////////////// */
 
   getTodosContratos(): void {
@@ -99,7 +99,7 @@ export class DataService {
     });
   }
 
-  // // DEMO ONLY, you can find working methods below
+  // // Métodos demonstrativos, não exigem endPoint.
   // addContrato(contrato: Contrato): void {
   //   this.dialogData = contrato;
   // }
@@ -115,9 +115,12 @@ export class DataService {
   // ----------------
   // ADD, POST METHOD
   // ----------------
+  // TODO: Tratar mensagens de erro e conclusão em TOAST
   insertContrato(contrato: Contrato): void {
+    this.dialogData = contrato;
+
     this.httpClient.post(`api/${this.API_URL}`, contrato).subscribe(data => {
-      this.dialogData = contrato;
+      // this.dialogData = contrato;
       console.log('Contrato adicionado com sucesso');
       // this.toasterService.showToaster('Successfully added', 3000);
     },
@@ -129,8 +132,13 @@ export class DataService {
 
    // UPDATE, patch METHOD
    updateContrato(contrato: Contrato): void {
+    /* TODO: Verificar modo de atualizar tabela de contratos após algum retorno do endPoint
+        contrato tabela estava sendo atualizada antes do retorno do endPoint, causando erros.
+    */
+    this.dialogData = contrato;
+
     this.httpClient.patch(`api/${this.API_URL}/${contrato._id}`, contrato).subscribe(data => {
-        this.dialogData = contrato;
+        // this.dialogData = contrato;
         console.log('Contrato atualizado com sucesso');
         // this.toasterService.showToaster('Successfully edited', 3000);
       },
@@ -148,53 +156,9 @@ export class DataService {
       // this.toasterService.showToaster('Successfully deleted', 3000);
       },
       (err: HttpErrorResponse) => {
-        //this.toasterService.showToaster('Error occurred. Details: ' + err.name + ' ' + err.message, 8000);
+        // this.toasterService.showToaster('Error occurred. Details: ' + err.name + ' ' + err.message, 8000);
         console.log(`Um erro ocorreu ao apagar contrato: ${_id}, ${err.name} ${err.message}`);
       }
     );
   }
 }
-
-
-
-/* REAL LIFE CRUD Methods I've used in projects. ToasterService uses Material Toasts for displaying messages:
-
-    // ADD, POST METHOD
-    insertItem(kanbanItem: KanbanItem): void {
-    this.httpClient.post(this.appConfig.getRestBaseUrl(), kanbanItem).subscribe(data => {
-      this.dialogData = kanbanItem;
-      this.toasterService.showToaster('Successfully added', 3000);
-      },
-      (err: HttpErrorResponse) => {
-      this.toasterService.showToaster('Error occurred. Details: ' + err.name + ' ' + err.message, 8000);
-    });
-   }
-
-    // UPDATE, PUT METHOD
-     updateItem(kanbanItem: KanbanItem): void {
-    this.httpClient.put(this.appConfig.getRestBaseUrl() + kanbanItem._id, kanbanItem).subscribe(data => {
-        this.dialogData = kanbanItem;
-        this.toasterService.showToaster('Successfully edited', 3000);
-      },
-      (err: HttpErrorResponse) => {
-        this.toasterService.showToaster('Error occurred. Details: ' + err.name + ' ' + err.message, 8000);
-      }
-    );
-  }
-
-  // DELETE METHOD
-  deleteItem(_id: string): void {
-    this.httpClient.delete(this.appConfig.getRestBaseUrl() + _id).subscribe(data => {
-      console.log(data['']);
-        this.toasterService.showToaster('Successfully deleted', 3000);
-      },
-      (err: HttpErrorResponse) => {
-        this.toasterService.showToaster('Error occurred. Details: ' + err.name + ' ' + err.message, 8000);
-      }
-    );
-  }
-*/
-
-
-
-

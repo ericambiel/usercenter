@@ -1,22 +1,22 @@
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Component, Inject, ViewChild } from '@angular/core';
-import { DataService } from 'src/app/services/data.service';
+import { ContratoService } from '../../services/contrato.service';
 import { Contrato } from 'src/app/models/contrato';
 import { MatTable } from '@angular/material/table';
-import { FileService } from 'src/app/services/file.service';
 import { HttpEvent, HttpEventType } from '@angular/common/http';
 import { Documento } from 'src/app/models/documento';
+import { FileService } from '../../services/file.service';
 
 @Component({
-  selector: 'app-file',
-  templateUrl: './file.dialog.component.html',
-  styleUrls: ['./file.dialog.component.scss']
+  selector: 'app-file-contrato',
+  templateUrl: 'file.dialog.component.html',
+  styleUrls: ['file.dialog.component.scss']
 })
 export class FileDialogComponent {
  // TODO: Verifcar meio de habilitar para edição somente quando clicar em editar contrato.
   constructor(public dialogRef: MatDialogRef<FileDialogComponent>,
               @Inject(MAT_DIALOG_DATA) public dataContrato: Contrato,
-              public contratoDataService: DataService,
+              public contratoService: ContratoService,
               private fileService: FileService) { }
 
   @ViewChild(MatTable, {static: true}) table: MatTable<any>;
@@ -24,7 +24,7 @@ export class FileDialogComponent {
   displayedColumns = ['numAditivo',
                       'descricao',
                       'dataInsert',
-                      //'nome',
+                      // 'nome',
                       'btnActions'];
 
   files: Set<File>; // <...> Evita arquivos duplicados
@@ -89,8 +89,8 @@ export class FileDialogComponent {
 
   onDownloadFile(i: number,
                  nome: string): void {
-    this.contratoDataService.getFileContrato(nome).subscribe(res => {
-      this.contratoDataService.handleFileDownload(res, nome);
+    this.contratoService.getFileContrato(nome).subscribe(res => {
+      this.contratoService.handleFileDownload(res, nome);
     });
   }
 

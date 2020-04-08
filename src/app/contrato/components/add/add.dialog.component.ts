@@ -1,19 +1,19 @@
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import {Component, Inject} from '@angular/core';
-import {DataService} from '../../services/data.service';
+import {ContratoService} from '../../services/contrato.service';
 import {FormControl, Validators} from '@angular/forms';
-import {Contrato} from '../../models/contrato';
+import {Contrato} from '../../../models/contrato';
 
 @Component({
-  selector: 'app-add.dialog',
-  templateUrl: '../../dialogs/add/add.dialog.html',
-  styleUrls: ['../../dialogs/add/add.dialog.css']
+  selector: 'app-add-contrato',
+  templateUrl: 'add.dialog.html',
+  styleUrls: ['add.dialog.css']
 })
 
 export class AddDialogComponent {
   constructor(public dialogRef: MatDialogRef<AddDialogComponent>,
               @Inject(MAT_DIALOG_DATA) public dataContrato: Contrato,
-              public dataService: DataService) { }
+              public dataService: ContratoService) { }
 
   formControl = new FormControl('', [
     Validators.required
