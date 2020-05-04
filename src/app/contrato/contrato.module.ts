@@ -7,6 +7,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TextMaskModule } from 'angular2-text-mask'; // Mascara campos, ex: CNPJ, CPF e etc.
 import { NgxCurrencyModule  } from 'ngx-currency'; // Trata campos para valores moéda/currency.
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'; // Animações dos componentes Material
+import { CnpjCpfMaskPipe } from '../libs/cnpj-cpf-mask.pipe';
 
 /* Material Desing */
 import { MatButtonModule } from '@angular/material/button';
@@ -54,7 +55,8 @@ const customNgxCurrencyModule = {
     AddDialogComponent,
     EditDialogComponent,
     DeleteDialogComponent,
-    FileDialogComponent
+    FileDialogComponent,
+    CnpjCpfMaskPipe
   ],
   imports: [
     HttpClientModule,

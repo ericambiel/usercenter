@@ -23,6 +23,7 @@ import { Departamento } from '../models/departamento';
 
 export class ContratoComponent implements OnInit {
   displayedColumns = [// '_id',
+                      'id',
                       // 'idSecondary',
                       'objeto',
                       'estabFiscal',
@@ -47,6 +48,10 @@ export class ContratoComponent implements OnInit {
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
   @ViewChild('filter',  {static: true}) filter: ElementRef;
+
+
+
+
 
   ngOnInit() {
     this.loadData();
@@ -76,6 +81,7 @@ export class ContratoComponent implements OnInit {
 
   editContrato( i: number,
                 _id: string,
+                id: string,
                 idSecondary: number,
                 objeto: string,
                 estabFiscal: string,
@@ -101,6 +107,7 @@ export class ContratoComponent implements OnInit {
     // console.log(this.index);
     const dialogRef = this.dialog.open(EditDialogComponent, {
       data: { _id,
+              id,
               idSecondary,
               objeto,
               estabFiscal,
@@ -138,8 +145,6 @@ export class ContratoComponent implements OnInit {
   public refreshAfterEndPointAction() {
     const foundIndex = this.contratoDatabase.dataChange.value.findIndex(x => x._id === this._id);
     // Then you update that record using data from dialogData (values you enetered)
-    console.log('Contrato.component.ts ---- 3º');
-    console.log(this.contratoService.getDialogData());
     this.contratoDatabase.dataChange.value[foundIndex] = this.contratoService.getDialogData();
     // And lastly refresh table
     this.refreshTable();
@@ -243,6 +248,7 @@ export class ContratoDataSource extends DataSource<Contrato> {
         this.filteredData = this.contratoDatabase.data.slice().filter((contrato: Contrato) => {
           // searchStr recebe campos do objeto contrato que serão usados para serem filtrados.
           const searchStr = ( contrato._id +
+                              contrato.id +
                               // contrato.idSecondary +
                               contrato.objeto +
                               contrato.estabFiscal +
@@ -282,6 +288,7 @@ export class ContratoDataSource extends DataSource<Contrato> {
       // Campos que seram usados para ordenação;
       switch (this.sort.active) {
         case '_id': [propertyA, propertyB] = [a._id, b._id]; break;
+        case 'id': [propertyA, propertyB] = [a.id, b.id]; break;
         // case 'idSecondary': [propertyA, propertyB] = [a.idSecondary, b.idSecondary]; break;
         case 'objeto': [propertyA, propertyB] = [a.objeto, b.objeto]; break;
         case 'estabFiscal' : [propertyA, propertyB] = [a.estabFiscal, b.estabFiscal]; break;
@@ -290,13 +297,18 @@ export class ContratoDataSource extends DataSource<Contrato> {
         case 'status': [propertyA, propertyB] = [a.status, b.status]; break;
         case 'situacao' : [propertyA, propertyB] = [a.situacao, b.situacao]; break;
         // case 'valTotal' : [propertyA, propertyB] = [a.valTotal, b.valTotal]; break; // Não é necessário segundo usuário
-        case 'deptoResponsavel' : [propertyA, propertyB] = [a.deptoResponsavel[0], b.deptoResponsavel[0]]; break;
+        case 'deptoResponsavel' : [propertyA, propertyB] = [a.deptoResponsavel, b.deptoResponsavel]; break;
         case 'dataInicio': [propertyA, propertyB] = [a.dataInicio, b.dataInicio]; break;
         case 'dataFim': [propertyA, propertyB] = [a.dataFim, b.dataFim]; break;
       }
 
-      const valueA = isNaN(+propertyA) ? propertyA : +propertyA;
-      const valueB = isNaN(+propertyB) ? propertyB : +propertyB;
+      // TODO: Melhorar logica, sempre jogar valores nulos e undefined por ultimo ao ordenar
+      const valueA = isNaN(+propertyA)
+        ? ( propertyA === undefined ? '' : propertyA ) // ^ caso queira datas maiores ordenadas após null/unde
+        : ( propertyA === null ? '' : +propertyA );
+      const valueB = isNaN(+propertyB)
+        ? ( propertyB === undefined ? '' : propertyB )
+        : ( propertyB === null ? '' : +propertyB );
 
       return (valueA < valueB ? -1 : 1) * (this.sort.direction === 'asc' ? 1 : -1);
     });

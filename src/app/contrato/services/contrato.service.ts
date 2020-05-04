@@ -91,8 +91,11 @@ export class ContratoService {
   /////////////////////////////////////////////////////////////// */
 
   getTodosContratos(): void {
-    this.httpClient.get<Contrato[]>(`api/${this.API_URL}`).subscribe(data => {
-      this.dataChange.next(data);
+    this.httpClient.get<Contrato[]>(`api/${this.API_URL}`).subscribe(contratos => {
+      // contratos.forEach(contrato => {
+      //   if (contrato.dataFim === null) { contrato.dataFim = new Date('1900-01-01').toISOString(); }
+      // });
+      this.dataChange.next(contratos);
     },
     (error: HttpErrorResponse) => {
       console.log (error.name + ' ' + error.message);

@@ -30,45 +30,50 @@
       <mat-cell *matCellDef="let row" >{{row._id}}</mat-cell><!--Dado na celular vindo de "contratoDataSource"-->
     </ng-container>
 
-    <!-- <ng-container matColumnDef="idSecondary">
+    <ng-container matColumnDef="id">
       <mat-header-cell *matHeaderCellDef mat-sort-header>ID</mat-header-cell>
+      <mat-cell *matCellDef="let row" >{{row.id}}</mat-cell>
+    </ng-container>
+
+    <!-- <ng-container matColumnDef="idSecondary">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>ID CQ</mat-header-cell>
       <mat-cell *matCellDef="let row" >{{row.idSecondary}}</mat-cell>
     </ng-container> -->
 
     <ng-container matColumnDef="objeto">
       <mat-header-cell *matHeaderCellDef mat-sort-header>Objeto</mat-header-cell>
-      <mat-cell *matCellDef="let row"> {{row.objeto}}</mat-cell>
+      <mat-cell *matCellDef="let row">{{row.objeto}}</mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="estabFiscal">
       <mat-header-cell *matHeaderCellDef mat-sort-header>Estab. Fiscal</mat-header-cell>
-      <mat-cell *matCellDef="let row"> {{row.estabFiscal}}</mat-cell>
+      <mat-cell *matCellDef="let row">{{row.estabFiscal}}</mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="parceiro">
       <mat-header-cell *matHeaderCellDef mat-sort-header>Parceiro</mat-header-cell>
-      <mat-cell *matCellDef="let row"> {{row.parceiro}}</mat-cell>
+      <mat-cell *matCellDef="let row">{{row.parceiro}}</mat-cell>
     </ng-container>
 
     <!-- TODO: Mascarar campo CNPJ usar [textMask] -->
     <ng-container matColumnDef="cnpj">
-      <mat-header-cell *matHeaderCellDef mat-sort-header>CNPJ</mat-header-cell>
-      <mat-cell *matCellDef="let row"> {{row.cnpj}}</mat-cell>
+      <mat-header-cell *matHeaderCellDef mat-sort-header>CNPJ / CPF</mat-header-cell>
+      <mat-cell  *matCellDef="let row">{{row.cnpj | cnpjCpfMask}}</mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="status">
       <mat-header-cell *matHeaderCellDef mat-sort-header>Status</mat-header-cell>
-      <mat-cell *matCellDef="let row"> {{row.status}}</mat-cell>
+      <mat-cell *matCellDef="let row">{{row.status}}</mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="situacao">
       <mat-header-cell *matHeaderCellDef mat-sort-header>Situação</mat-header-cell>
-      <mat-cell *matCellDef="let row" >{{row.situacao}}</mat-cell>
+      <mat-cell *matCellDef="let row">{{row.situacao}}</mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="deptoResponsavel">
-      <mat-header-cell *matHeaderCellDef mat-sort-header>Depto. Responsável</mat-header-cell>
-      <mat-cell *matCellDef="let row" >{{row.deptoResponsavel}}</mat-cell>
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Depto. Res.</mat-header-cell>
+      <mat-cell *matCellDef="let row">{{row.deptoResponsavel}}</mat-cell>
     </ng-container>
 
     <!-- <ng-container matColumnDef="valTotal">
@@ -77,13 +82,13 @@
     </ng-container> -->
 
     <ng-container matColumnDef="dataInicio">
-      <mat-header-cell *matHeaderCellDef mat-sort-header>Início Contrato</mat-header-cell>
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Dt. Início</mat-header-cell>
       <mat-cell *matCellDef="let row" >{{row.dataInicio | date:'shortDate'}}</mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="dataFim">
-      <mat-header-cell *matHeaderCellDef mat-sort-header>Fim Contrato</mat-header-cell>
-      <mat-cell *matCellDef="let row" >{{row.dataFim | date: 'shortDate'}}</mat-cell>
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Dt. Fim</mat-header-cell>
+      <mat-cell *matCellDef="let row" >{{row.dataFim | date:'shortDate'}}</mat-cell>
     </ng-container>
 
     <!-- actions -->
@@ -95,27 +100,29 @@
       </mat-header-cell>
 
       <mat-cell *matCellDef="let row; let i=index;">
-        <button mat-icon-button color="accent" (click)="editContrato(i,
-                                                                     row._id,
-                                                                     row.idSecondary,
-                                                                     row.objeto,
-                                                                     row.estabFiscal,
-                                                                     row.parceiro,
-                                                                     row.cnpj,
-                                                                     row.status,
-                                                                     row.situacao,
-                                                                     row.deptoResponsavel,
-                                                                     row.deptoPartList,
-                                                                     row.valTotal,
-                                                                     row.valMensal,
-                                                                     row.indReajuste,
-                                                                     row.anaJuridico,
-                                                                     row.diaAntecedencia,
-                                                                     row.dataInicio,
-                                                                     row.dataFim,
-                                                                     row.obs,
-                                                                     row.documentoList,
-                                                                     row.natureza)">
+        <button mat-icon-button color="accent"
+                (click)= "editContrato(i,
+                          row._id,
+                          row.id,
+                          row.idSecondary,
+                          row.objeto,
+                          row.estabFiscal,
+                          row.parceiro,
+                          row.cnpj,
+                          row.status,
+                          row.situacao,
+                          row.deptoResponsavel,
+                          row.deptoPartList,
+                          row.valTotal,
+                          row.valMensal,
+                          row.indReajuste,
+                          row.anaJuridico,
+                          row.diaAntecedencia,
+                          row.dataInicio,
+                          row.dataFim,
+                          row.obs,
+                          row.documentoList,
+                          row.natureza)">
           <mat-icon aria-label="Editar">edit</mat-icon>
         </button>
 
