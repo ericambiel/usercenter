@@ -1,0 +1,37 @@
+<mat-toolbar color="primary">
+  <mat-toolbar-row>
+    <button mat-icon-button *ngIf="!authService.isTokenExpired();">
+      <mat-icon (click)="sidenav.toggle();">menu</mat-icon>
+    </button>
+    <h1>TUBERFIL</h1>
+    <span class="menu-spacer"></span>
+    <!--TODO: Add rotas aqui-->
+    <a mat-button
+        [routerLink]="['login']"
+        routerLinkActive="active"
+        *ngIf="authService.isTokenExpired();"> Entrar </a>
+    <!-- <a mat-button> Contato </a> -->
+    <span class="spacer"></span>
+    <a *ngIf="!authService.isTokenExpired();">Bem vindo {{authService.decodedToken?.name}}</a> <!-- ? - diz ao angular que pode ser opcional -->
+    <button mat-icon-button *ngIf="!authService.isTokenExpired();" (click)="logOut()">
+      <mat-icon>exit_to_app</mat-icon>
+    </button>
+  </mat-toolbar-row>
+</mat-toolbar>
+
+<mat-sidenav-container>
+  <mat-sidenav #sidenav>
+    <mat-nav-list>
+      <a mat-list-item [routerLink]="['contratos']"> Contratos </a>
+      <a mat-list-item> Patrimônio </a>
+      <a mat-list-item (click)="sidenav.toggle();">
+        <mat-icon>keyboard_backspace</mat-icon>
+      </a>
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <div style="height: 100%;">
+      <router-outlet></router-outlet>
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>

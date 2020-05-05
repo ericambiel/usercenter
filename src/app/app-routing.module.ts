@@ -1,15 +1,17 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
-import { BasicUserInfoComponent } from './basic-user-info/basic-user-info.component';
-
+import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
-  // acessa a classe BasicUserInfoComponent colocando na URL /basic-user-info
-  {path: 'basic-user-info', component: BasicUserInfoComponent}
+  { path: '', redirectTo: '/', pathMatch: 'full' } // <- Pagina inicial em /
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [
+    RouterModule.forRoot(
+      routes,
+      // { enableTracing: true } // <-- Para Debug, apresenta informações em console do Browser
+    )
+  ],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

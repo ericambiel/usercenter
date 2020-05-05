@@ -4,6 +4,7 @@ import { Documento } from './documento';
 export class Contrato {
   // Dados exibido quando Mostar/Deletar
   _id: string;
+  id: string;
   idSecondary: number;          // QC Id, desconsiderar
   objeto: string;
   estabFiscal: string;

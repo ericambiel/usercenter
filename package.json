@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
-    "build": "ng build",
+    "start": "ng serve --proxy-config src/proxy.conf.js",
+    "build": "ng build --prod",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
@@ -23,11 +23,13 @@
     "@angular/platform-browser": "^9.1.0-next.4",
     "@angular/platform-browser-dynamic": "^9.1.0-next.4",
     "@angular/router": "^9.1.0-next.4",
+    "@auth0/angular-jwt": "^4.0.0",
     "angular2-text-mask": "^9.0.0",
-    "moment": "^2.24.0",
+    "classlist.js": "^1.1.20150312",
     "ngx-currency": "^2.2.2",
     "rxjs": "~6.5.4",
     "tslib": "^1.10.0",
+    "web-animations-js": "^2.3.2",
     "zone.js": "~0.10.2"
   },
   "devDependencies": {
