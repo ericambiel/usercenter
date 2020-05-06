@@ -4,6 +4,7 @@ import { ContratoService } from '../../services/contrato.service';
 import { FormControl, Validators } from '@angular/forms';
 import { Contrato } from 'src/app/models/contrato';
 import { MatTable } from '@angular/material/table';
+import { mask } from '../../../libs/Mask';
 
 @Component({
   selector: 'app-edit-contrato',
@@ -127,18 +128,13 @@ export class EditDialogComponent {
     Validators.required
     // Validators.email,
   ]);
-  // TODO: Criar uma classe "common" para colocar métodos incomuns
-  cpfCnpjMask = (fild: string) => {
-    const fildWithoutMask = fild.replace(/[^0-9]+/g, '');
-    if (fildWithoutMask.length <=  11 ) {
-      return [ /\d/, /\d/, /\d/, '.', /\d/, /\d/, /\d/, '.', /\d/, /\d/, /\d/, '-', /\d/, /\d/ ];
-    } else {
-      return [ /\d/, /\d/, '.', /\d/, /\d/, /\d/, '.', /\d/, /\d/, /\d/, '/', /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/ ];
-    }
+
+  cpfCnpjMask = (field: number) => {
+    return mask.maskCnpjCpf(field);
   }
 
-  unmask(fildMasked) {
-    return fildMasked.replace(/\D+/g, '');
+  unmask(fieldMasked): string {
+    return mask.unmask(fieldMasked.toString());
   }
 
   getErrorMessage() {

@@ -9,7 +9,7 @@ Gera relatórios, visualizações e controle para dados de uma empresa.
 - [ ] **Modulo - Usuário**
    - [x] View Log-In.
    - [ ] View Sign-Up.(Registro)
-   - [ ] View Recovery.(Resete Senha)
+   - [ ] View Recovery.(Reset Senha)
    - [ ] View Controle de usuários.
    - [x] Acesso ao sistema utilizando JWT. 
    
