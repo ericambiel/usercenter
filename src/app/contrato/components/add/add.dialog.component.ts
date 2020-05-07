@@ -3,6 +3,7 @@ import {Component, Inject} from '@angular/core';
 import {ContratoService} from '../../services/contrato.service';
 import {FormControl, Validators} from '@angular/forms';
 import {Contrato} from '../../../models/contrato';
+import { mask } from 'src/app/libs/Mask';
 
 @Component({
   selector: 'app-add-contrato',
@@ -20,19 +21,18 @@ export class AddDialogComponent {
     // Validators.email,
   ]);
 
-  // TODO: Criar uma classe "common" para colocar métodos incomuns
-  cpfCnpjMask = (fild: string) => {
-    const fildWithoutMask = fild.replace(/[^0-9]+/g, '');
-    if (fildWithoutMask.length <=  11 ) {
-      return [ /\d/, /\d/, /\d/, '.', /\d/, /\d/, /\d/, '.', /\d/, /\d/, /\d/, '-', /\d/, /\d/ ];
-    } else {
-      return [ /\d/, /\d/, '.', /\d/, /\d/, /\d/, '.', /\d/, /\d/, /\d/, '/', /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/ ];
-    }
+  cpfCnpjMask = (field) => {
+    return mask.maskCnpjCpf(field);
   }
 
-  unmask(fildMasked) {
-    return fildMasked.replace(/\D+/g, '');
+  unmask(fieldMasked) {
+    return mask.unmask(fieldMasked);
   }
+
+  // Remove zeros a esquerda no inicio da digitação
+  // unmask(fieldMasked): number {
+  //   return Number(mask.unmask(fieldMasked.toString()));
+  // }
 
   getErrorMessage() {
     return this.formControl.hasError('required') ? 'Campo obrigatório' :

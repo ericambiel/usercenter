@@ -24,6 +24,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker'; // Campo esp
 import { MatNativeDateModule } from '@angular/material/core';
 // tslint:disable-next-line: max-line-length
 // import { MatMomentDateModule } from '@angular/material-moment-adapter'; // MatDatepickerModule(Add + opções) Erro após compilar, não abre no navegador.
+import {MatTooltipModule} from '@angular/material/tooltip';
 
 /* Componentes internos Criados */
 import { ContratoComponent } from './contrato.component';
@@ -85,7 +86,8 @@ const customNgxCurrencyModule = {
     MatDatepickerModule,
     MatSelectModule,
     MatNativeDateModule,
-    // MatMomentDateModule
+    // MatMomentDateModule,
+    MatTooltipModule
   ],
   entryComponents: [
     AddDialogComponent,

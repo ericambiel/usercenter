@@ -33,7 +33,6 @@
                name="cnpj"
                required
                [textMask]="{ mask: cpfCnpjMask, guide: false }"
-               maxlength="18"
                #inputstate>
         <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
         <mat-hint align="end">{{inputstate.value?.length || 0}}/18</mat-hint>

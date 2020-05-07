@@ -13,7 +13,12 @@
     <!-- <a mat-button> Contato </a> -->
     <span class="spacer"></span>
     <a *ngIf="!authService.isTokenExpired();">Bem vindo {{authService.decodedToken?.name}}</a> <!-- ? - diz ao angular que pode ser opcional -->
-    <button mat-icon-button *ngIf="!authService.isTokenExpired();" (click)="logOut()">
+    <button matTooltip="Sair"
+            matTooltipShowDelay="500"
+            matTooltipPosition="left"
+            mat-icon-button
+            *ngIf="!authService.isTokenExpired();"
+            (click)="logOut()">
       <mat-icon>exit_to_app</mat-icon>
     </button>
   </mat-toolbar-row>

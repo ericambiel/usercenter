@@ -133,8 +133,8 @@ export class EditDialogComponent {
     return mask.maskCnpjCpf(field);
   }
 
-  unmask(fieldMasked): string {
-    return mask.unmask(fieldMasked.toString());
+  unmask(fieldMasked): number {
+    return Number(mask.unmask(fieldMasked.toString()));
   }
 
   getErrorMessage() {

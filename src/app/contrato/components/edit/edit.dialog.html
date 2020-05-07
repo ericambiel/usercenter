@@ -101,7 +101,6 @@
                            [ngModel]="dataContrato.cnpj"
                            (ngModelChange)="dataContrato.cnpj = unmask($event)"
                            name="cnpj"
-                           maxlength="18 "
                            required>
                     <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
                     <mat-hint align="end">{{inputstate.value?.length || 0}}/18</mat-hint>

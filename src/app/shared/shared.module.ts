@@ -12,6 +12,7 @@ import { MatListModule } from '@angular/material/list';
 
 import { HeaderComponent } from './components/header/header.component';
 import { ColumnOneComponent } from './layouts/column-one/column-one.component';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @NgModule({
   declarations: [ColumnOneComponent, HeaderComponent],
@@ -25,7 +26,8 @@ import { ColumnOneComponent } from './layouts/column-one/column-one.component';
     MatSidenavModule,
     MatListModule,
     MatButtonModule,
-    MatIconModule
+    MatIconModule,
+    MatTooltipModule
   ],
   exports: [
     ColumnOneComponent

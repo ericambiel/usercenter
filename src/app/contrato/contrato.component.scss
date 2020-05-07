@@ -99,9 +99,13 @@
   &:nth-child(11) {
 		flex: 0 0 7%;
   }
+  .mat-icon-button {
+    @extend %distance-icon-button;
+  }
 }
 
-.mat-icon-button {
+// % Placeholder, export class
+%distance-icon-button {
   padding: 0 2px 0 2px;
   width: fit-content;
   height: auto;

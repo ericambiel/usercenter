@@ -1,12 +1,18 @@
 <mat-toolbar color="primary">
-  <mat-toolbar-row>
+  <!-- <mat-toolbar-row> -->
     <span>Contratos</span>
     <span class="spacer"></span>
-    Recarregar
-    <button mat-icon-button (click)="refresh()">
+    <button matTooltip="Recarregar"
+            matTooltipShowDelay="500"
+            mat-icon-button (click)="refresh()">
       <mat-icon>refresh</mat-icon>
     </button>
-  </mat-toolbar-row>
+    <button matTooltip="Relatório"
+            matTooltipShowDelay="500"
+            mat-icon-button (click)="refresh()">
+      <mat-icon>list_alt</mat-icon>
+    </button>
+  <!-- </mat-toolbar-row> -->
 </mat-toolbar>
 
 <div class="container mat-elevation-z8">
@@ -94,13 +100,18 @@
     <!-- actions -->
     <ng-container matColumnDef="btnActions">
       <mat-header-cell *matHeaderCellDef>
-        <button mat-icon-button color="primary" (click)="insertContrato()">
-          <mat-icon aria-label="Example icon-button with a heart icon">add</mat-icon>
+        <button matTooltip="Adicionar Contrato"
+                matTooltipShowDelay="500"
+                mat-icon-button
+                color="primary" (click)="insertContrato()">
+          <mat-icon>add</mat-icon>
         </button>
       </mat-header-cell>
 
       <mat-cell *matCellDef="let row; let i=index;">
-        <button mat-icon-button color="accent"
+        <button matTooltip="Editar Contrato"
+                matTooltipShowDelay="500"
+                mat-icon-button color="accent"
                 (click)= "editContrato(i,
                           row._id,
                           row.id,
@@ -126,11 +137,17 @@
           <mat-icon aria-label="Editar">edit</mat-icon>
         </button>
 
-        <button mat-icon-button color="accent" (click)="deleteContrato(i, row._id, row.objeto, row.cnpj, row.parceiro)">
+        <button matTooltip="Apagar Contrato"
+                matTooltipShowDelay="500"
+                mat-icon-button color="accent"
+                (click)="deleteContrato(i, row._id, row.objeto, row.cnpj, row.parceiro)">
           <mat-icon aria-label="Apagar">delete</mat-icon>
         </button>
 
-        <button mat-icon-button color="accent" (click)="showFile(i, row._id, row.objeto, row.documentoList)">
+        <button matTooltip="Documentos"
+                matTooltipShowDelay="500"
+                mat-icon-button color="accent"
+                (click)="showFile(i, row._id, row.objeto, row.documentoList)">
           <mat-icon aria-label="Documentos">folder</mat-icon>
         </button>
       </mat-cell>
