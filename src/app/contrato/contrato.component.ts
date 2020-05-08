@@ -15,6 +15,9 @@ import { map } from 'rxjs/operators';
 import { Documento } from '../models/documento';
 import { Departamento } from '../models/departamento';
 
+import * as XLSX from 'xlsx';
+import { sheet } from '../libs/Sheet';
+
 @Component({
   selector: 'app-contrato',
   templateUrl: 'contrato.componentl.html',
@@ -48,10 +51,6 @@ export class ContratoComponent implements OnInit {
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
   @ViewChild('filter',  {static: true}) filter: ElementRef;
-
-
-
-
 
   ngOnInit() {
     this.loadData();
@@ -206,6 +205,97 @@ export class ContratoComponent implements OnInit {
         this.contratoDataSource.filter = this.filter.nativeElement.value;
       });
   }
+
+  onDownloadReport() {
+    // Clona objeto desassociando do BehaviorSubjects
+    let copyContracts = this.cloneBehaviorSubjectsObj(this.contratoDataSource.contratoDatabase.data);
+    // Normaliza dados para criação da planilha
+    copyContracts = this.normalizeContratoReporte(copyContracts);
+    // Cria planilha e retorna buffer
+    const wbout: ArrayBuffer = this.createReportSheet(copyContracts);
+    // Devolve para navegador
+    const file = new Blob([wbout], {type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'});
+    this.contratoService.handleFileDownload(file, 'Relatório Contrato');
+  }
+
+  // TODO: desacoplar para class Sheet
+  private createReportSheet(copyContracts: any) {
+    const header = [
+      ['ID', 'Natureza', 'Objeto', 'Estab. Fiscal', 'Parceiro', 'CNPJ / CPF', 'Status', 'Situação',
+        'Depto. Responsável', 'Valor Total', 'Valor Mensal', 'Data Início', 'Data Fim',
+        'Deptos participantes', 'Índice de Reajuste', 'Analise Jurídico', 'Dias de antecedência',
+        'Nº Docs', 'OBS', 'Histórico'],
+    ];
+
+    const workBook = XLSX.utils.book_new();
+    let workSheet = XLSX.utils.aoa_to_sheet(header);
+
+    XLSX.utils.sheet_add_json(workSheet, copyContracts, {
+      header: ['id', 'natureza', 'objeto', 'estabFiscal', 'parceiro', 'cnpj', 'status', 'situacao',
+        'deptoResponsavel', 'valTotal', 'valMensal', 'dataInicio', 'dataFim', 'deptosParticipantes',
+        'indReajuste', 'anaJuridico', 'diaAntecedencia', 'qtdDocumentos', 'obs', 'historico'],
+      skipHeader: true,
+      origin: 'A2'
+    });
+
+    workSheet = sheet.toMaskXLSX(workSheet, ['J', 'K'], '_-R$ * #,##0.00_-;-R$ * #,##0.00_-;_-R$ * "-"??_-;_-@_-');
+    workSheet = sheet.toMaskXLSX(workSheet, ['F'], '[<=9999]0000;[>=999999999999]00\\.000\\.000\\/0000-00;000\\.000\\.000-00');
+
+    XLSX.utils.book_append_sheet(workBook, workSheet, 'Contratos');
+
+    return XLSX.write(workBook, { bookType: 'xlsx', type: 'array' });
+  }
+
+  // TODO: Criar classe util para esta função.
+  /**
+   * Clona objeto BehaviorSubjects
+   * @param obj Objeto a ser clonado
+   */
+  cloneBehaviorSubjectsObj(obj) {
+    return Array.isArray(obj)
+    ? obj.map(item => this.cloneBehaviorSubjectsObj(item))
+    : obj instanceof Date
+    ? new Date(obj.getTime())
+    : obj && typeof obj === 'object'
+    ? Object.getOwnPropertyNames(obj).reduce((o, prop) => {
+        o[prop] = this.cloneBehaviorSubjectsObj(obj[prop]);
+        return o;
+      }, {})
+    : obj;
+  }
+
+  private normalizeContratoReporte(contratos: Array<any>): Array<any> {
+    contratos.forEach(contrato => {
+      contrato.dataInicio = contrato.dataInicio !== undefined ? this.hotFixConvertDateXLSX(contrato.dataInicio) : 'Ñ Atribuído';
+      contrato.dataFim = contrato.dataFim !== undefined ? this.hotFixConvertDateXLSX(contrato.dataFim) : 'Indeterminado';
+      contrato.anaJuridico = contrato.anaJuridico === true ? 'Sim' : 'Não';
+      contrato.documentoList.forEach((documento) => {
+        contrato.qtdDocumentos = contrato.qtdDocumentos === undefined
+          ? contrato.qtdDocumentos = 1
+          : ++contrato.qtdDocumentos;
+      });
+      contrato.deptoPartList.forEach(depart => {
+        contrato.deptosParticipantes = contrato.deptosParticipantes === undefined
+          ? contrato.deptosParticipantes = `| ${depart.departamento} |`
+          : contrato.deptosParticipantes += `| ${depart.departamento} |`;
+      });
+      delete contrato.documentoList;
+      delete contrato.deptoPartList;
+      delete contrato._id;
+      delete contrato.idSecondary;
+      delete contrato.options;
+      delete contrato.logEmail;
+      delete contrato.__v;
+      delete contrato.createdAt;
+      delete contrato.updatedAt;
+    });
+    return contratos;
+  }
+
+  private hotFixConvertDateXLSX(date: string|Date): Date {
+    if (typeof date === 'string') { date = new Date (date); }
+    return new Date(date.setSeconds(date.getSeconds() + 28));
+  }
 }
 
 export class ContratoDataSource extends DataSource<Contrato> {
@@ -274,7 +364,6 @@ export class ContratoDataSource extends DataSource<Contrato> {
   }
 
   disconnect() {}
-
 
   /** Returns a sorted copy of the database data. */
   sortData(dataContrato: Contrato[]): Contrato[] {
