@@ -15,7 +15,7 @@ Gera relatórios, visualizações e controle para dados de uma empresa.
    
 ---
 
-- [ ] **Modulo - Contratos**
+- [x] **Modulo - Contratos**
   - [x] CRUD contratos.
   - [x] Extrair relatórios dos contratos exibidos. (XLSX)
 
