@@ -1,42 +1,44 @@
 <mat-toolbar color="primary">
   <mat-toolbar-row>
-    <button mat-icon-button *ngIf="!authService.isTokenExpired();">
-      <mat-icon (click)="sidenav.toggle();">menu</mat-icon>
-    </button>
-    <h1>TUBERFIL</h1>
-    <span class="menu-spacer"></span>
-    <!--TODO: Add rotas aqui-->
-    <a mat-button
-        [routerLink]="['login']"
-        routerLinkActive="active"
-        *ngIf="authService.isTokenExpired();"> Entrar </a>
-    <!-- <a mat-button> Contato </a> -->
-    <span class="spacer"></span>
-    <a *ngIf="!authService.isTokenExpired();">Bem vindo {{authService.decodedToken?.name}}</a> <!-- ? - diz ao angular que pode ser opcional -->
-    <button matTooltip="Sair"
-            matTooltipShowDelay="500"
-            matTooltipPosition="left"
-            mat-icon-button
+    <button mat-icon-button
             *ngIf="!authService.isTokenExpired();"
-            (click)="logOut()">
-      <mat-icon>exit_to_app</mat-icon>
+            (click)="toggleSideBar()">
+      <mat-icon>menu</mat-icon>
     </button>
+
+    <span>TUBERFIL</span>
+
+    <!--TODO: Add rotas aqui-->
+    <!-- <a mat-button> Contato </a> -->
+    <!-- <span class="spacer"></span> -->
+
+    <div fxFlex fxLayout="row" fxLayoutAlign="flex-end">
+      <ul fxLayout="row" fxLayoutGap="20px">
+        <li>
+          <a mat-button
+             [routerLink]="['login']"
+             routerLinkActive="active"
+             *ngIf="authService.isTokenExpired();"> Entrar
+          </a>
+          <a *ngIf="!authService.isTokenExpired();">Bem vindo {{authService.decodedToken?.name}}</a> <!-- ? - diz ao angular que pode ser opcional -->
+        </li>
+        <li>
+          <button mat-button [matMenuTriggerFor]="menu"
+                      *ngIf="!authService.isTokenExpired();"
+                      matTooltip="Opções do usuário"
+                      matTooltipShowDelay="500"
+                      matTooltipPosition="left">
+            <mat-icon>person_outline</mat-icon>
+          </button>
+          <mat-menu #menu="matMenu">
+            <button mat-menu-item
+                    (click)="logOut()">
+              <mat-icon>exit_to_app</mat-icon>
+              Sair
+            </button>
+          </mat-menu>
+        </li>
+      </ul>
+    </div>
   </mat-toolbar-row>
 </mat-toolbar>
-
-<mat-sidenav-container>
-  <mat-sidenav #sidenav>
-    <mat-nav-list>
-      <a mat-list-item [routerLink]="['contratos']"> Contratos </a>
-      <a mat-list-item> Patrimônio </a>
-      <a mat-list-item (click)="sidenav.toggle();">
-        <mat-icon>keyboard_backspace</mat-icon>
-      </a>
-    </mat-nav-list>
-  </mat-sidenav>
-  <mat-sidenav-content>
-    <div style="height: 100%;">
-      <router-outlet></router-outlet>
-    </div>
-  </mat-sidenav-content>
-</mat-sidenav-container>
