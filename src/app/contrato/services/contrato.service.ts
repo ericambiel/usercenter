@@ -12,7 +12,9 @@ export class ContratoService {
 
   // private appConfig = new AppConfig();
 
+  // Objeto com contratos, ouve mudanças em qualquer lugar da aplicação que o estiver usando.
   dataChange: BehaviorSubject<Contrato[]> = new BehaviorSubject<Contrato[]>([]);
+
   // Temporarily stores data from dialogs
   dialogData: Contrato;
 

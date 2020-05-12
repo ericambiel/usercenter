@@ -28,6 +28,7 @@ export class LoginComponent implements OnInit {
 
   goToHome() {
     console.log('Usuário entrou ');
-    this.router.navigate(['']);
+    // this.router.navigate(['']); // Pagina principal
+    this.router.navigate(['/contratos']);
   }
 }

@@ -15,9 +15,9 @@ Gera relatórios, visualizações e controle para dados de uma empresa.
    
 ---
 
-- [ ] **Modulo - Contratos**
+- [x] **Modulo - Contratos**
   - [x] CRUD contratos.
-  - [ ] Extrair relatórios com contratos exibidos. (XLSX/CSV)  ***IMPLEMENTANDO***
+  - [x] Extrair relatórios dos contratos exibidos. (XLSX)
 
 ---
 
@@ -27,5 +27,5 @@ Gera relatórios, visualizações e controle para dados de uma empresa.
 ---
 
 - [ ] **Modulo - Impressão Patrimônio**
-   - [ ] View para impressão de relatório.
+   - [ ] View para impressão de relatório. ***IMPLEMENTANDO***
    - [ ] Impressão de etiquetas em impressora Zebra.
