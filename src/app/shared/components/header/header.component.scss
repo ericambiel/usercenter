@@ -4,6 +4,11 @@
 //   text-align: right;
 // }
 
+mat-toolbar{
+  position: relative;
+  z-index: 2;
+}
+
 ul li {
   list-style: none;
 }

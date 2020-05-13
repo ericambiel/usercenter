@@ -1,1 +1,92 @@
-<p>inventory works!</p>
+<mat-toolbar color="primary">
+  <mat-toolbar-row>
+    <span>Impressão de Patrimônio</span>
+  </mat-toolbar-row>
+</mat-toolbar>
+
+<form class="container" fxLayout="column" [formGroup]="contactForm">
+
+  <div class="input-row">
+    <mat-form-field color="accent" fxFlex>
+      <input matInput  type="text"  placeholder="Denominação" formControlName="designation">
+    </mat-form-field>
+  </div>
+
+  <div class="input-row" fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px" fxLayoutGap.lt-md="0px">
+    <mat-form-field color="accent" fxFlex>
+      <input matInput type="number" placeholder="N° do Imobilizado (De)" formControlName="patrimonyNumberFrom">
+    </mat-form-field>
+
+    <mat-form-field color="accent" fxFlex>
+      <input matInput type="number" placeholder="N° do Imobilizado (Até)" formControlName="patrimonyNumberTo">
+    </mat-form-field>
+  </div>
+
+  <div class="input-row" fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px" fxLayoutGap.lt-md="0px">
+    <mat-form-field color="accent" fxFlex>
+      <input matInput type="number" placeholder="Sub Nº (De)" formControlName="subNumberFrom">
+    </mat-form-field>
+
+    <mat-form-field color="accent" fxFlex>
+      <input matInput type="number" placeholder="Sub N° (Até)" formControlName="subNumberTo">
+    </mat-form-field>
+  </div>
+
+  <div class="input-row" fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px" fxLayoutGap.lt-md="0px">
+    <mat-form-field color="accent" fxFlex>
+      <input matInput type="number" placeholder="Nº Inventário (De)" formControlName="inventoryNumberFrom">
+    </mat-form-field>
+
+    <mat-form-field color="accent" fxFlex>
+      <input matInput type="number" placeholder="Nº Inventário (Até)" formControlName="inventoryNumberTo">
+    </mat-form-field>
+  </div>
+
+  <div class="input-row" fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px" fxLayoutGap.lt-md="0px">
+    <mat-form-field color="accent" fxFlex>
+      <input matInput type="text" placeholder="Centro de custo (De)" formControlName="costCenterFrom">
+    </mat-form-field>
+
+    <mat-form-field color="accent" fxFlex>
+      <input matInput type="text" placeholder="Centro de custo (Até)" formControlName="costCenterFrom">
+    </mat-form-field>
+  </div>
+
+  <div class="input-row" fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px" fxLayoutGap.lt-md="0px">
+    <mat-form-field color="accent" fxFlex>
+      <input matInput
+             placeholder="Incorporação (de)"
+             [matDatepicker]="dpIncorporationDateFrom"
+             name="dpIncorporationDateFrom"
+             formControlName="incorporationDateFrom">
+      <mat-datepicker-toggle matSuffix [for]="dpIncorporationDateFrom"></mat-datepicker-toggle>
+      <mat-datepicker #dpIncorporationDateFrom></mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field color="accent" fxFlex>
+      <input matInput
+             placeholder="Incorporação (Até)"
+             [matDatepicker]="dpIncorporationDateTo"
+             name="dpIncorporationDateTo"
+             formControlName="incorporationDateTo">
+      <mat-datepicker-toggle matSuffix [for]="dpIncorporationDateTo"></mat-datepicker-toggle>
+      <mat-datepicker #dpIncorporationDateTo></mat-datepicker>
+    </mat-form-field>
+  </div>
+
+  <div fxFlex fxLayout="row" fxLayoutAlign="flex-end">
+    <ul fxLayout="row" fxLayoutGap="20px">
+      <button class="mat-elevation-z2"
+              matTooltip="Imprimir Etiqueta"
+              matTooltipShowDelay="500"
+              mat-button>
+        <mat-icon>printer</mat-icon>
+      Imprimir</button>
+    </ul>
+  </div>
+
+</form>
+<!-- <div fxLayout="column" fxLayout.gt-sm="row" fxLayoutAlign="start center" fxLayoutAlign.gt-sm="center start">
+  <div fxFlex="50%" fxFlex.gt-sm="75%">Item 1</div>
+  <div fxFlex="50%" fxFlex.gt-sm="25%">Item 2</div>
+</div> -->
