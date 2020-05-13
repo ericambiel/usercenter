@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-inventory',
@@ -8,22 +8,40 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 })
 
 export class InventoryComponent implements OnInit {
-  contactForm: FormGroup;
 
-  constructor(private fb: FormBuilder){
-    this.contactForm = fb.group({
-      designation: '11',
-      patrimonyNumberFrom: '1',
-      patrimonyNumberTo: '1',
-      subNumberFrom: '1',
-      subNumberTo: '1',
-      inventoryNumberFrom: '1',
-      inventoryNumberTo: '1',
-      costCenterFrom: '1',
-      costCenterTo: '1',
-      incorporationDateFrom: new Date('01-25-1990'),
-      incorporationDateTo: new Date('02-15-2000')
-    });
+  dpCapitalizedOn: Date;
+
+  constructor() {  }
+
+  // TODO: Criar Classe util para validação de formes
+  /**
+   * Descritor dos tipos de validação
+   */
+  formControl = new FormControl('', [
+    // Validators.email,
+    Validators.required
+  ]);
+
+  true = true;
+
+  // TODO: Criar Classe util para validação de formes
+  /**
+   * Validação de campos obrigatórios na FORM
+   */
+  getErrorMessage() {
+    return this.formControl.hasError('required')
+      ? 'Campo obrigatório'
+      : this.formControl.hasError('email')
+        ? 'Não é um e-mail valido'
+        : '';
+  }
+
+  submit() {
+    console.log('submit');
+  }
+
+  onPrint() {
+    console.log('imprimir');
   }
 
   ngOnInit(): void {

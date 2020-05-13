@@ -21,10 +21,10 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatSelectModule } from '@angular/material/select'; // Caixa de seleção
 import { MatDatepickerModule } from '@angular/material/datepicker'; // Campo especializado em data/hora
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatNativeDateModule } from '@angular/material/core';
 // tslint:disable-next-line: max-line-length
 // import { MatMomentDateModule } from '@angular/material-moment-adapter'; // MatDatepickerModule(Add + opções) Erro após compilar, não abre no navegador.
-import {MatTooltipModule} from '@angular/material/tooltip';
 
 /* Componentes internos Criados */
 import { ContratoComponent } from './contrato.component';

@@ -124,10 +124,26 @@ export class EditDialogComponent {
   selectedOptionSituacao = this.optionsSituacao[0].value;
  ////////////////////////////////// FIM OPTIONS //////////////////////////////////////
 
+  // TODO: Criar Classe util para validação de formes
+  /**
+   * Descritor dos tipos de validação
+   */
   formControl = new FormControl('', [
-    Validators.required
     // Validators.email,
+    Validators.required
   ]);
+
+  // TODO: Criar Classe util para validação de formes
+  /**
+   * Validação de campos obrigatórios na FORM
+   */
+  getErrorMessage() {
+    return this.formControl.hasError('required')
+      ? 'Campo obrigatório'
+      : this.formControl.hasError('email')
+        ? 'Não é um e-mail valido'
+        : '';
+  }
 
   cpfCnpjMask = (field: number) => {
     return mask.maskCnpjCpf(field);
@@ -135,12 +151,6 @@ export class EditDialogComponent {
 
   unmask(fieldMasked): number {
     return Number(mask.unmask(fieldMasked.toString()));
-  }
-
-  getErrorMessage() {
-    return this.formControl.hasError('required') ? 'Campo obrigatório' :
-      this.formControl.hasError('email') ? 'Não é um e-mail valido' :
-        '';
   }
 
   removeDeptoPart( i: number, departamento: string) {
