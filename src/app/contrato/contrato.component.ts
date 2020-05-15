@@ -72,8 +72,8 @@ export class ContratoComponent implements OnInit {
         this.contratoDatabase.dataChange.value.push(this.contratoService.getDialogData());
         /* TODO: Necessário verificar meio de após inserir no banco, retornar para dataContrato,
            novo id do Banco para edição do novo contrato sem necessidade de dar refresh() */
-        // this.refreshTable();
         this.refresh();
+        // this.refreshTable();
       }
     });
   }
@@ -141,13 +141,13 @@ export class ContratoComponent implements OnInit {
   }
 
   /** Atualiza sempre a tabela sempre q um end point for requisitado. */
-  public refreshAfterEndPointAction() {
-    const foundIndex = this.contratoDatabase.dataChange.value.findIndex(x => x._id === this._id);
-    // Then you update that record using data from dialogData (values you enetered)
-    this.contratoDatabase.dataChange.value[foundIndex] = this.contratoService.getDialogData();
-    // And lastly refresh table
-    this.refreshTable();
-  }
+  // public refreshAfterEndPointAction() {
+  //   const foundIndex = this.contratoDatabase.dataChange.value.findIndex(x => x._id === this._id);
+  //   // Then you update that record using data from dialogData (values you enetered)
+  //   this.contratoDatabase.dataChange.value[foundIndex] = this.contratoService.getDialogData();
+  //   // And lastly refresh table
+  //   this.refreshTable();
+  // }
 
   deleteContrato( i: number,
                   _id: string,
@@ -263,7 +263,7 @@ export class ContratoComponent implements OnInit {
       }, {})
     : obj;
   }
-
+  // TODO: Criar classe util para esta função.
   private normalizeContratoReporte(contratos: Array<any>): Array<any> {
     contratos.forEach(contrato => {
       contrato.dataInicio = contrato.dataInicio !== undefined ? this.hotFixConvertDateXLSX(contrato.dataInicio) : 'Ñ Atribuído';
@@ -291,7 +291,7 @@ export class ContratoComponent implements OnInit {
     });
     return contratos;
   }
-
+  // TODO: Criar classe util para esta função.
   private hotFixConvertDateXLSX(date: string|Date): Date {
     if (typeof date === 'string') { date = new Date (date); }
     return new Date(date.setSeconds(date.getSeconds() + 28));

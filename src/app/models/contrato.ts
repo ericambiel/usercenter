@@ -25,11 +25,11 @@ export class Contrato {
   anaJuridico: boolean;         // Analise juridica
   documentoList: [Documento];   // Mudar diretorio
   natureza: string;
-  options: {sendEmailAlerts: boolean};
+  options: { sendEmailAlerts: boolean };
   logEmail: [
-    {expiredEmailSent: boolean},
-    {expiringEmailSent: boolean},
-    {indeterminateEmailSent: boolean},
+    { expiredEmailSent: boolean },
+    { expiringEmailSent: boolean },
+    { indeterminateEmailSent: boolean },
     { message: string } ];
   __v: number;
   createdAt: Date;

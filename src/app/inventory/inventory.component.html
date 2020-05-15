@@ -8,45 +8,45 @@
 
   <div class="input-row">
     <mat-form-field class="form-control" color="accent" fxFlex>
-      <input matInput type="text" placeholder="Denominação" required>
+      <input matInput ype="text" placeholder="Denominação" [(ngModel)]="dataAsset.description" required>
       <mat-error *ngIf="formControl.invalid">{{ getErrorMessage() }}</mat-error>
     </mat-form-field>
   </div>
 
   <div class="input-row">
     <mat-form-field color="accent" fxFlex>
-      <input matInput type="text"  placeholder="Denominação Complementar">
+      <input matInput type="text" placeholder="Denominação Complementar" [(ngModel)]="dataAsset.descriptionComp" >
     </mat-form-field>
   </div>
 
   <div class="input-row" fxLayout="row" fxLayout.lt-sm="column" fxLayoutGap="20px" fxLayoutGap.lt-sm="0px">
     <mat-form-field color="accent" fxFlex="80%">
-      <input matInput class="form-control" type="number" placeholder="N° do Imobilizado" required>
+      <input matInput class="form-control" type="number" placeholder="N° do Imobilizado" [(ngModel)]="dataAsset.assetNum" required>
       <mat-error *ngIf="formControl.invalid">{{ getErrorMessage() }}</mat-error>
     </mat-form-field>
 
     <mat-form-field color="accent" fxFlex>
-      <input matInput class="form-control" type="number" placeholder="Sub Nº" required>
+      <input matInput class="form-control" type="number" placeholder="Sub Nº" [(ngModel)]="dataAsset.subAssetNum" required>
       <mat-error *ngIf="formControl.invalid">{{ getErrorMessage() }}</mat-error>
     </mat-form-field>
   </div>
 
   <div class="input-row">
     <mat-form-field color="accent" fxFlex>
-      <input matInput class="form-control" type="text" placeholder="Classe" required>
+      <input matInput class="form-control" type="text" placeholder="Classe" [(ngModel)]="dataAsset.class" required>
       <mat-error *ngIf="formControl.invalid">{{ getErrorMessage() }}</mat-error>
     </mat-form-field>
   </div>
 
   <div class="input-row"> <!-- Não vai para etiqueta -->
     <mat-form-field color="accent" fxFlex>
-      <input matInput type="number" placeholder="Nº Inventário">
+      <input matInput type="number" placeholder="Nº Inventário" [(ngModel)]="dataAsset.inventoryNum">
     </mat-form-field>
   </div>
 
   <div class="input-row"> <!-- Não vai para etiqueta -->
     <mat-form-field color="accent" fxFlex>
-      <input matInput type="text" placeholder="Centro de custo">
+      <input matInput type="text" placeholder="Centro de custo" [(ngModel)]="dataAsset.costCenter">
     </mat-form-field>
   </div>
 
@@ -55,10 +55,9 @@
       <input class="form-control"
              matInput
              placeholder="Incorporação"
-             [matDatepicker]="dpCapitalizedOn"
-             name="dpCapitalizedOn"
+             [matDatepicker]="dataAsset.capitalizedOn"
              required>
-      <mat-datepicker-toggle matSuffix [for]="dpCapitalizedOn"></mat-datepicker-toggle>
+      <mat-datepicker-toggle matSuffix [for]="dataAsset.capitalizedOn"></mat-datepicker-toggle>
       <mat-datepicker #dpCapitalizedOn></mat-datepicker>
       <mat-error *ngIf="formControl.invalid">{{ getErrorMessage() }}</mat-error>
     </mat-form-field>
