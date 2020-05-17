@@ -46,9 +46,11 @@
     <mat-form-field color="accent" fxFlex="0 0 auto">
       <input matInput
              placeholder="Incorporação"
-             [matDatepicker]="dataAsset.capitalizedOn"
+             [matDatepicker]="dpCapitalizedOn"
+             [(ngModel)]="dataAsset.capitalizedOn"
+             name="capitalizedOn"
              required>
-      <mat-datepicker-toggle matSuffix [for]="dataAsset.capitalizedOn"></mat-datepicker-toggle>
+      <mat-datepicker-toggle matSuffix [for]="dpCapitalizedOn"></mat-datepicker-toggle>
       <mat-datepicker #dpCapitalizedOn></mat-datepicker>
       <mat-error *ngIf="formControl.invalid">{{ getErrorMessage() }}</mat-error>
     </mat-form-field>
