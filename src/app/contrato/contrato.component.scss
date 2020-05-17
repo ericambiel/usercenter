@@ -10,18 +10,19 @@
 }
 
 /* Filter */
-.form {
-	min-height: 56px;
-	max-height: 56px;
+.filter {
+	// min-height: 56px;
+	// max-height: 56px;
 	display: flex;
 	align-items: center;
-	padding: 8px 24px 0;
-	font-size: 20px;
+	padding: 0px 24px 0;
 	justify-content: space-between;
-	border-bottom: 1px solid transparent;
+  border-bottom: 1px solid transparent;
+  margin-top: 8px;
+  font-size: 16px;
 }
 
-/* Mat table */
+/* Mat table - paginator */
 .no-results {
   display: flex;
 	justify-content: center;
@@ -30,13 +31,9 @@
 	font-style: italic;
 }
 
-/* Barra de busca*/
-.mat-form-field {
-  font-size: 16px;
-  flex-grow: 1;
-  margin-top: 8px;
-}
 
+
+/* Cabeçalho da Tabela */
 .mat-header-cell {
   font-weight: bold;
   font-size: 13px; // Não existia
@@ -66,6 +63,7 @@
   }
 }
 
+/* Células da Tabela */
 .mat-cell {
   font-size: 12px; // Não existia
   overflow: hidden;

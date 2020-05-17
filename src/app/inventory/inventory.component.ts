@@ -8,7 +8,7 @@ import { InventoryDataSource } from './inventory.data.source';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { fromEvent } from 'rxjs';
-import { Inventory } from '../../../.history/src/app/models/inventory_20200515161904';
+import { Inventory } from '../models/inventory';
 
 
 @Component({
@@ -19,7 +19,7 @@ import { Inventory } from '../../../.history/src/app/models/inventory_2020051516
 
 export class InventoryComponent implements OnInit {
   inventoryDatabase: InventoryService | null; // Dados temporários
-  InventoryDataSource: InventoryDataSource | null;
+  inventoryDataSource: InventoryDataSource | null;
 
   dataAsset: Inventory; // Objeto que fara bind com a View e que possuirá valores digitados.
 
@@ -30,7 +30,11 @@ export class InventoryComponent implements OnInit {
     Validators.required
   ]);
 
-  dpCapitalizedOn: Date;
+  // Colunas que serão exibidas na tabela
+  displayedColumns = [ 'id', 'description', 'descriptionComp', 'assetNum', 'subAssetNum',
+  'class', 'inventoryNum', 'costCenter', 'capitalizedOn', 'btnActions' ];
+
+  // dpCapitalizedOn: Date;
 
   constructor(public httpClient: HttpClient,
               // public dialog: MatDialog,
@@ -68,9 +72,8 @@ export class InventoryComponent implements OnInit {
   }
 
   onPrint() {
-    console.log('imprimir');
+    this.insertAssetToBD();
     this.insertAssetToTable();
-
   }
 
   /** Insere contrato ao BD via endPoint */
@@ -78,7 +81,7 @@ export class InventoryComponent implements OnInit {
     this.inventoryService.insertAsset(this.dataAsset);
   }
 
-  /** Insere Ativo no sistema via EndPoint no service */
+  /** Insere Ativo na tabela */
   insertAssetToTable() {
     // Para adicionar um Ativo a tabela insira uma nova linha ao DataService
     // getDialogData() possui dados temporários da Form preenchida
@@ -89,21 +92,28 @@ export class InventoryComponent implements OnInit {
     // this.refreshTable();
   }
 
+  // i to debug
+  onReprint(i, _id, description, assetNum, subAssetNum) {
+    // TODO: Descrever método de reimpressão.
+  }
+
   /**
    * Carrega objeto com Ativos
    */
   loadData() {
+    this.dataAsset = new Inventory(); // TODO: Verificar se isso aqui esta certo aqui.
+
     this.inventoryDatabase = new InventoryService(this.httpClient);
     // Toda vez q é atualizado tambem atualiza mat-table em app.component.html através dos propertyBind
-    this.InventoryDataSource = new InventoryDataSource(this.inventoryDatabase, this.paginator, this.sort);
+    this.inventoryDataSource = new InventoryDataSource(this.inventoryDatabase, this.paginator, this.sort);
     fromEvent(this.filter.nativeElement, 'keyup')
       // .debounceTime(150)
       // .distinctUntilChanged()
       .subscribe(() => {
-        if (!this.InventoryDataSource) {
+        if (!this.inventoryDataSource) {
           return;
         }
-        this.InventoryDataSource.filter = this.filter.nativeElement.value;
+        this.inventoryDataSource.filter = this.filter.nativeElement.value;
       });
   }
 
