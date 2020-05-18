@@ -9,6 +9,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { fromEvent } from 'rxjs';
 import { Inventory } from '../models/inventory';
+import { AlertService } from 'ngx-alerts';
 
 
 @Component({
@@ -93,8 +94,8 @@ export class InventoryComponent implements OnInit {
   }
 
   // i to debug
-  onReprint(i, _id, description, assetNum, subAssetNum) {
-    // TODO: Descrever método de reimpressão.
+  onReprint(i, _id, description, assetNum, subAssetNum, classe, capitalizedOn) {
+    this.inventoryService.rePrint(_id); // Imprimir.
   }
 
   /**
@@ -102,8 +103,7 @@ export class InventoryComponent implements OnInit {
    */
   loadData() {
     this.dataAsset = new Inventory(); // TODO: Verificar se isso aqui esta certo aqui.
-
-    this.inventoryDatabase = new InventoryService(this.httpClient);
+    this.inventoryDatabase = new InventoryService(this.httpClient, new AlertService({}));
     // Toda vez q é atualizado tambem atualiza mat-table em app.component.html através dos propertyBind
     this.inventoryDataSource = new InventoryDataSource(this.inventoryDatabase, this.paginator, this.sort);
     fromEvent(this.filter.nativeElement, 'keyup')

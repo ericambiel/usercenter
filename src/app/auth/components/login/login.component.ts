@@ -35,6 +35,6 @@ export class LoginComponent implements OnInit {
   }
 
   showAlerts(): void {
-    this.alertService.warning({html: '<b>Usuário ou senha incorreto</b>'});
+    // this.alertService.warning({html: '<b>Usuário ou senha incorreto</b>'});
   }
 }

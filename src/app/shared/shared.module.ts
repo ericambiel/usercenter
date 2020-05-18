@@ -44,7 +44,7 @@ import { InterceptorService } from './services/intercepetor.service';
     MatMenuModule,
     FlexLayoutModule,
     // Timeout to -1 for unlimited timeout, closed by the user clicking on it
-    AlertModule.forRoot({maxMessages: 5, timeout: 5000, position: 'right'})
+    AlertModule.forRoot({maxMessages: 5, timeout: 10000, position: 'right'})
   ],
   exports: [
     ColumnOneComponent

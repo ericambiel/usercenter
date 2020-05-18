@@ -5,7 +5,6 @@ import { map, catchError } from 'rxjs/operators';
 
 import { JwtHelperService } from '@auth0/angular-jwt'; // Ira verificar e decodificar o JWT enviado pelo rest
 import { User } from '../../models/user';
-import { throwError } from 'rxjs/internal/observable/throwError';
 
 @Injectable({
   providedIn: 'root'

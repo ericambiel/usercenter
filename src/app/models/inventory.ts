@@ -12,4 +12,5 @@ export class Inventory {
   inventoryNum: number;
   capitalizedOn: Date;
   costCenter: number;
+  logPrinter: [{ message: string }];
 }

@@ -1,10 +1,9 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 import { Inventory } from '../../models/inventory';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { AlertService } from 'ngx-alerts';
 // import { AppConfig } from '../../config/app.config.js';
-
-// import { ResponseContentType } from '@angular/common/http';
 
 @Injectable()
 export class InventoryService {
@@ -16,7 +15,9 @@ export class InventoryService {
   // Temporarily stores data from dialogs
   dialogData: Inventory;
 
-  constructor(private httpClient: HttpClient) {}
+  constructor(private httpClient: HttpClient,
+              private alert: AlertService) {  }
+
 
   get data(): Inventory[] {
     return this.dataChange.value;
@@ -35,6 +36,15 @@ export class InventoryService {
     });
   }
 
+  rePrint(asset: Inventory): void {
+    this.httpClient.post(`api/${this.API_URL}/reprint`, asset).subscribe(data => {
+      this.alert.info(data['logPrinter'][data['logPrinter'].length - 1].message);
+    },
+    (err: HttpErrorResponse) => {
+      console.log(`Um erro ocorreu ao reimprimir Ativo, ${err.name} ${err.message}`);
+   });
+  }
+
   // ----------------
   // ADD, POST METHOD
   // ----------------
@@ -46,11 +56,11 @@ export class InventoryService {
       // this.dialogData = asset;
       console.log('Ativo adicionado com sucesso');
       console.log(data);
-      // this.toasterService.showToaster('Successfully added', 3000);
+      this.alert.info(data['logPrinter'][data['logPrinter'].length - 1].message);
     },
     (err: HttpErrorResponse) => {
-      console.log(`Um erro ocorreu ao adicionar asset, ${err.name} ${err.message}`);
-      // this.toasterService.showToaster('Error occurred. Details: ' + err.name + ' ' + err.message, 8000);
+      console.log(`Um erro ocorreu ao adicionar Ativo, ${err.name} ${err.message}`);
+      // this.alert.showToaster('Error occurred. Details: ' + err.name + ' ' + err.message, 8000);
    });
   }
 

@@ -3,21 +3,24 @@ import {HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/co
 import {Observable, throwError} from 'rxjs';
 import {catchError} from 'rxjs/operators';
 
-@Injectable()
+import { AlertService } from 'ngx-alerts'; // Alertas para usuário
+
+@Injectable({
+  providedIn: 'root'
+})
 export class InterceptorService implements HttpInterceptor {
 
-  constructor() { }
+  constructor(private alert: AlertService) { }
 
   /**
    * Ira interceptar todos os erros de resposta de um verbo HTTP.
    */
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-
     return next.handle(req).pipe(
       catchError((error) => {
-        console.log('error is intercept');
         // console.error(error);
-        return throwError(error.message);
+        this.alert.warning(error.error.errorMessage);
+        return throwError(error);
       })
     );
   }
