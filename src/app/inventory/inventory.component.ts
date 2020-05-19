@@ -94,8 +94,8 @@ export class InventoryComponent implements OnInit {
   }
 
   // i to debug
-  onReprint(i, _id, description, assetNum, subAssetNum, classe, capitalizedOn) {
-    this.inventoryService.rePrint(_id); // Imprimir.
+  onReprint(i, asset) {
+    this.inventoryService.rePrint(asset); // Imprimir.
   }
 
   /**

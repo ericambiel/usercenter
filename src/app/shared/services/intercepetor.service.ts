@@ -19,7 +19,11 @@ export class InterceptorService implements HttpInterceptor {
     return next.handle(req).pipe(
       catchError((error) => {
         // console.error(error);
-        this.alert.warning(error.error.errorMessage);
+        if (error.status >= 500) {
+          this.alert.danger('Um erro de processamento interno ocorreu contate o ADM');
+        } else {
+          this.alert.warning(error.error.errorMessage);
+        }
         return throwError(error);
       })
     );
