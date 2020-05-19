@@ -55,12 +55,10 @@ export class InventoryService {
     this.httpClient.post(`api/${this.API_URL}`, asset).subscribe(data => {
       // this.dialogData = asset;
       console.log('Ativo adicionado com sucesso');
-      console.log(data);
       this.alert.info(data['logPrinter'][data['logPrinter'].length - 1].message);
     },
     (err: HttpErrorResponse) => {
       console.log(`Um erro ocorreu ao adicionar Ativo, ${err.name} ${err.message}`);
-      // this.alert.showToaster('Error occurred. Details: ' + err.name + ' ' + err.message, 8000);
    });
   }
 
@@ -84,15 +82,18 @@ export class InventoryService {
   // }
 
   // DELETE METHOD
-  // deleteContrato(_id: string): void {
-  //   this.httpClient.delete(`api/${this.API_URL}/${_id}`).subscribe(data => {
-  //     console.log(`Inventory apagado ${data['']}`);
-  //     // this.toasterService.showToaster('Successfully deleted', 3000);
-  //     },
-  //     (err: HttpErrorResponse) => {
-  //       // this.toasterService.showToaster('Error occurred. Details: ' + err.name + ' ' + err.message, 8000);
-  //       console.log(`Um erro ocorreu ao apagar asset: ${_id}, ${err.name} ${err.message}`);
-  //     }
-  //   );
-  // }
+  deleteAtivo(_id: string): void {
+    this.httpClient.delete(`api/${this.API_URL}/${_id}`).subscribe(data => {
+      // Se foi apagado do banco então apagar da tabela
+      // for delete we use splice in order to remove single object from DataService
+      const foundIndex = this.dataChange.value.findIndex(x => x._id === _id);
+      this.dataChange.value.splice(foundIndex, 1);
+
+      this.alert.info(data['message']);
+      },
+      (err: HttpErrorResponse) => {
+        console.log(`Um erro ocorreu ao apagar Ativo: ${_id}, ${err.name} ${err.message}`);
+      }
+    );
+  }
 }

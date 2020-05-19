@@ -10,7 +10,8 @@ import { MatSort } from '@angular/material/sort';
 import { fromEvent } from 'rxjs';
 import { Inventory } from '../models/inventory';
 import { AlertService } from 'ngx-alerts';
-
+import { DeleteDialogComponent } from './components/delete/delete.dialog.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-inventory',
@@ -23,6 +24,8 @@ export class InventoryComponent implements OnInit {
   inventoryDataSource: InventoryDataSource | null;
 
   dataAsset: Inventory; // Objeto que fara bind com a View e que possuirá valores digitados.
+
+  _id: string; // Caso remova ou altere um componente, usar para atualizar a tabela.
 
   // TODO: Criar Classe util para validação de formes
   /** Descritor dos tipos de validação */
@@ -38,7 +41,7 @@ export class InventoryComponent implements OnInit {
   // dpCapitalizedOn: Date;
 
   constructor(public httpClient: HttpClient,
-              // public dialog: MatDialog,
+              public dialog: MatDialog,
               public inventoryService: InventoryService) {  }
 
   // ViewChildren que acessão propriedades da tabela na aplicação
@@ -48,11 +51,6 @@ export class InventoryComponent implements OnInit {
 
   /** Carrega dados na inicialização desse componente */
   ngOnInit(): void {
-    this.loadData();
-  }
-
-  /** Recarrega dados */
-  refresh() {
     this.loadData();
   }
 
@@ -89,8 +87,27 @@ export class InventoryComponent implements OnInit {
     this.inventoryDatabase.dataChange.value.push(this.inventoryService.getDialogData());
     /* TODO: Necessário verificar meio de após inserir no banco, retornar para dataContrato,
            novo id do Banco para edição do novo contrato sem necessidade de dar refresh() */
-    this.refresh();
+    this.loadData();
     // this.refreshTable();
+  }
+
+  editAsset(i, asset: Inventory) { }
+
+  deleteAsset(i, asset: Inventory) {
+    this._id = asset._id;
+    const dialogRef = this.dialog.open(
+      DeleteDialogComponent,
+      { data: { asset: asset, inventoryDatabase: this.inventoryDatabase } } );
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === 1) { // 1 Se clicou em apagou.
+        // // Já esta sendo feito pelo endpoint em serviço.
+        // const foundIndex = this.inventoryDatabase.dataChange.value.findIndex(x => x._id === this._id);
+        // // for delete we use splice in order to remove single object from DataService
+        // this.inventoryDatabase.dataChange.value.splice(foundIndex, 1);
+        this.refreshTable();
+      }
+    });
   }
 
   // i to debug
@@ -103,7 +120,8 @@ export class InventoryComponent implements OnInit {
    */
   loadData() {
     this.dataAsset = new Inventory(); // TODO: Verificar se isso aqui esta certo aqui.
-    this.inventoryDatabase = new InventoryService(this.httpClient, new AlertService({}));
+    // this.inventoryDatabase = new InventoryService(this.httpClient, new AlertService({})); // Não mostra Alerts
+    this.inventoryDatabase = this.inventoryService; // Agora service e database são a mesma instancia.
     // Toda vez q é atualizado tambem atualiza mat-table em app.component.html através dos propertyBind
     this.inventoryDataSource = new InventoryDataSource(this.inventoryDatabase, this.paginator, this.sort);
     fromEvent(this.filter.nativeElement, 'keyup')
@@ -117,4 +135,10 @@ export class InventoryComponent implements OnInit {
       });
   }
 
+  /**
+   * Atualiza somente tabela.
+   */
+  private refreshTable() {
+    this.paginator._changePageSize(this.paginator.pageSize);
+  }
 }

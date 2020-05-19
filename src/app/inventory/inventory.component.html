@@ -135,12 +135,28 @@
       <mat-header-cell *matHeaderCellDef></mat-header-cell>
 
       <mat-cell *matCellDef="let row; let i=index;">
+
         <button matTooltip="Reimprimir"
                 matTooltipShowDelay="500"
                 mat-icon-button color="accent"
                 (click)="onReprint(i, row)">
-          <mat-icon aria-label="Apagar">printer</mat-icon>
+          <mat-icon aria-label="Reimprimir">printer</mat-icon>
         </button>
+
+        <button matTooltip="Editar Ativo"
+                matTooltipShowDelay="500"
+                mat-icon-button color="accent"
+                (click)= "editAsset(i, row)">
+          <mat-icon aria-label="Editar">edit</mat-icon>
+        </button>
+
+        <button matTooltip="Apagar Ativo"
+                matTooltipShowDelay="500"
+                mat-icon-button color="accent"
+                (click)="deleteAsset(i, row)">
+          <mat-icon aria-label="Apagar">delete</mat-icon>
+        </button>
+
       </mat-cell>
     </ng-container>
 

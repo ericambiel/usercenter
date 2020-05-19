@@ -1,11 +1,13 @@
+/* Componentes gerais da aplicação */
+import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { InventoryComponent } from './inventory.component';
-import { InventoryRoutingModule } from './inventory-routing.module';
+import { BrowserModule } from '@angular/platform-browser';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FlexLayoutModule } from '@angular/flex-layout';
 
+/* Material Desing */
 import { MatInputModule } from '@angular/material/input';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -16,15 +18,19 @@ import { MatTableModule } from '@angular/material/table';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
+import { MatDialogModule } from '@angular/material/dialog';
 
-import { CommonModule } from '@angular/common';
-import { BrowserModule } from '@angular/platform-browser';
+/* Componentes internos do modulo Criados */
 import { InventoryService } from './service/inventory.service';
+import { InventoryComponent } from './inventory.component';
+import { InventoryRoutingModule } from './inventory-routing.module';
+import { DeleteDialogComponent } from './components/delete/delete.dialog.component';
 
 
 @NgModule({
   declarations: [
-    InventoryComponent
+    InventoryComponent,
+    DeleteDialogComponent
   ],
   imports: [
     CommonModule,
@@ -34,6 +40,9 @@ import { InventoryService } from './service/inventory.service';
     ReactiveFormsModule,
     FlexLayoutModule,
 
+    InventoryRoutingModule,
+
+    MatDialogModule,
     MatButtonModule,
     MatInputModule,
     MatIconModule,
@@ -45,9 +54,9 @@ import { InventoryService } from './service/inventory.service';
     MatTableModule,
     MatPaginatorModule,
     MatSortModule,
-
-    InventoryRoutingModule
   ],
+  entryComponents: [
+    DeleteDialogComponent ],
   providers: [
     InventoryService
   ],

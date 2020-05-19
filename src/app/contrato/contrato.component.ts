@@ -56,10 +56,6 @@ export class ContratoComponent implements OnInit {
     this.loadData();
   }
 
-  refresh() {
-    this.loadData();
-  }
-
   insertContrato() {
     const dialogRef = this.dialog.open(AddDialogComponent, {
       data: { contrato: {} }
@@ -72,7 +68,7 @@ export class ContratoComponent implements OnInit {
         this.contratoDatabase.dataChange.value.push(this.contratoService.getDialogData());
         /* TODO: Necessário verificar meio de após inserir no banco, retornar para dataContrato,
            novo id do Banco para edição do novo contrato sem necessidade de dar refresh() */
-        this.refresh();
+        this.loadData();
         // this.refreshTable();
       }
     });
@@ -187,6 +183,9 @@ export class ContratoComponent implements OnInit {
     });
   }
 
+  /**
+   * Atualiza somente tabela.
+   */
   private refreshTable() {
     this.paginator._changePageSize(this.paginator.pageSize);
   }
