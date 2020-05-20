@@ -12,6 +12,8 @@ import { Inventory } from '../models/inventory';
 import { AlertService } from 'ngx-alerts';
 import { DeleteDialogComponent } from './components/delete/delete.dialog.component';
 import { MatDialog } from '@angular/material/dialog';
+import { async } from '@angular/core/testing';
+import { InventoryService } from '../../../.history/src/app/inventory/service/inventory.service_20200520085747';
 
 @Component({
   selector: 'app-inventory',
@@ -42,7 +44,13 @@ export class InventoryComponent implements OnInit {
 
   constructor(public httpClient: HttpClient,
               public dialog: MatDialog,
-              public inventoryService: InventoryService) {  }
+              public inventoryService: InventoryService) {
+    /** Insere Ativo na tabela após receber resposta positiva do endPoint - Observable */
+    this.inventoryService.updateTable$.subscribe(() => {
+      // this.inventoryDatabase.dataChange.value.push(this.inventoryService.getDialogData());
+      this.refreshTable();
+    });
+  }
 
   // ViewChildren que acessão propriedades da tabela na aplicação
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
@@ -70,25 +78,14 @@ export class InventoryComponent implements OnInit {
     console.log('submit');
   }
 
-  onPrint() {
-    this.insertAssetToBD();
-    this.insertAssetToTable();
+  async onPrint() {
+    await this.insertAssetToBD();
+    // this.updateTable();
   }
 
   /** Insere contrato ao BD via endPoint */
-  insertAssetToBD(): void {
-    this.inventoryService.insertAsset(this.dataAsset);
-  }
-
-  /** Insere Ativo na tabela */
-  insertAssetToTable() {
-    // Para adicionar um Ativo a tabela insira uma nova linha ao DataService
-    // getDialogData() possui dados temporários da Form preenchida
-    this.inventoryDatabase.dataChange.value.push(this.inventoryService.getDialogData());
-    /* TODO: Necessário verificar meio de após inserir no banco, retornar para dataContrato,
-           novo id do Banco para edição do novo contrato sem necessidade de dar refresh() */
-    this.loadData();
-    // this.refreshTable();
+  async insertAssetToBD(): Promise<void> {
+    await this.inventoryService.insertAsset(this.dataAsset);
   }
 
   editAsset(i, asset: Inventory) { }
@@ -97,7 +94,7 @@ export class InventoryComponent implements OnInit {
     this._id = asset._id;
     const dialogRef = this.dialog.open(
       DeleteDialogComponent,
-      { data: { asset: asset, inventoryDatabase: this.inventoryDatabase } } );
+      { data: { asset, inventoryDatabase: this.inventoryDatabase } } );
 
     dialogRef.afterClosed().subscribe(result => {
       if (result === 1) { // 1 Se clicou em apagou.

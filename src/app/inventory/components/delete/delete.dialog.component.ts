@@ -18,8 +18,8 @@ export class DeleteDialogComponent {
     this.dialogRef.close();
   }
 
-  confirmDelete(): void {
-    this.data.inventoryDatabase.deleteAtivo(this.data.asset._id);
+  async confirmDelete(): Promise<void> {
+    await this.data.inventoryDatabase.deleteAtivo(this.data.asset._id);
     // this.dataService.deleteAtivo(this.data.asset._id);
   }
 

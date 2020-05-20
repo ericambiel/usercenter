@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Subject } from 'rxjs';
 import { Inventory } from '../../models/inventory';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { AlertService } from 'ngx-alerts';
@@ -11,9 +11,14 @@ export class InventoryService {
 
   // Objeto com contratos, ouve mudanças em qualquer lugar da aplicação que o estiver usando.
   dataChange: BehaviorSubject<Inventory[]> = new BehaviorSubject<Inventory[]>([]);
+  // Observable string sources
+  private componentMethodCallSource = new Subject<any>();
+
+  // Observable string streams
+  updateTable$ = this.componentMethodCallSource.asObservable();
 
   // Temporarily stores data from dialogs
-  dialogData: Inventory;
+  // dialogData: Inventory;
 
   constructor(private httpClient: HttpClient,
               private alert: AlertService) {  }
@@ -23,9 +28,15 @@ export class InventoryService {
     return this.dataChange.value;
   }
 
-  getDialogData() {
-    return this.dialogData;
+  updateTable(data: Inventory) {
+    // Para adicionar um Ativo a tabela insira uma nova linha ao dataChange
+    this.dataChange.value.push(data);
+    this.componentMethodCallSource.next();
   }
+
+  // getDialogData() {
+  //   return this.dialogData;
+  // }
 
   getAllAssets(): void {
     this.httpClient.get<Inventory[]>(`api/${this.API_URL}`).subscribe(assets => {
@@ -49,11 +60,10 @@ export class InventoryService {
   // ADD, POST METHOD
   // ----------------
   // TODO: Tratar mensagens de erro e conclusão em TOAST
-  insertAsset(asset: Inventory): void {
-    this.dialogData = asset;
+  async insertAsset(asset: Inventory): Promise<void> {
+    await this.httpClient.post(`api/${this.API_URL}`, asset).subscribe( (data: Inventory) => {
+      this.updateTable(data);
 
-    this.httpClient.post(`api/${this.API_URL}`, asset).subscribe(data => {
-      // this.dialogData = asset;
       console.log('Ativo adicionado com sucesso');
       this.alert.info(data['logPrinter'][data['logPrinter'].length - 1].message);
     },
@@ -82,8 +92,8 @@ export class InventoryService {
   // }
 
   // DELETE METHOD
-  deleteAtivo(_id: string): void {
-    this.httpClient.delete(`api/${this.API_URL}/${_id}`).subscribe(data => {
+  async deleteAtivo(_id: string): Promise<void> {
+    await this.httpClient.delete(`api/${this.API_URL}/${_id}`).subscribe(data => {
       // Se foi apagado do banco então apagar da tabela
       // for delete we use splice in order to remove single object from DataService
       const foundIndex = this.dataChange.value.findIndex(x => x._id === _id);
