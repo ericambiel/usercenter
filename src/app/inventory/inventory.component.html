@@ -1,6 +1,13 @@
 <mat-toolbar color="primary">
   <mat-toolbar-row>
     <span>Impressão de Patrimônio</span>
+    <div fxFlex fxLayout="row" fxLayoutAlign="flex-end">
+      <button matTooltip="Recarregar"
+              matTooltipShowDelay="500"
+              mat-icon-button (click)="loadData()">
+        <mat-icon>refresh</mat-icon>
+      </button>
+    </div>
   </mat-toolbar-row>
 </mat-toolbar>
 
@@ -136,14 +143,8 @@
 
       <mat-cell *matCellDef="let row; let i=index;">
 
-        <button matTooltip="Reimprimir"
-                matTooltipShowDelay="500"
-                mat-icon-button color="accent"
-                (click)="onReprint(i, row)">
-          <mat-icon aria-label="Reimprimir">printer</mat-icon>
-        </button>
-
-        <button matTooltip="Editar Ativo"
+        <button disabled
+                matTooltip="Editar Ativo"
                 matTooltipShowDelay="500"
                 mat-icon-button color="accent"
                 (click)= "editAsset(i, row)">
@@ -155,6 +156,13 @@
                 mat-icon-button color="accent"
                 (click)="deleteAsset(i, row)">
           <mat-icon aria-label="Apagar">delete</mat-icon>
+        </button>
+
+        <button matTooltip="Reimprimir"
+                matTooltipShowDelay="500"
+                mat-icon-button color="accent"
+                (click)="onReprint(i, row)">
+          <mat-icon aria-label="Reimprimir">printer</mat-icon>
         </button>
 
       </mat-cell>

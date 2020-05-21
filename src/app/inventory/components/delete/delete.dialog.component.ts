@@ -11,16 +11,14 @@ export class DeleteDialogComponent {
 
   constructor(public dialogRef: MatDialogRef<DeleteDialogComponent>,
               @Inject(MAT_DIALOG_DATA) public data: any,
-              // public dataService: InventoryService
-              ) { }
+              public dataService: InventoryService) { }
 
   onNoClick(): void {
     this.dialogRef.close();
   }
 
   async confirmDelete(): Promise<void> {
-    await this.data.inventoryDatabase.deleteAtivo(this.data.asset._id);
-    // this.dataService.deleteAtivo(this.data.asset._id);
+    this.dataService.deleteAtivo(this.data.asset._id);
   }
 
 }
