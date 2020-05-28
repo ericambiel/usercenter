@@ -9,13 +9,14 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 
 /* Material Desing */
 import { MatInputModule } from '@angular/material/input';
-import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTableModule } from '@angular/material/table';
-import { MatNativeDateModule } from '@angular/material/core';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+// import { MatNativeDateModule } from '@angular/material/core';
+import { MatMomentDateModule } from '@angular/material-moment-adapter';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { MatDialogModule } from '@angular/material/dialog';
@@ -48,8 +49,8 @@ import { DeleteDialogComponent } from './components/delete/delete.dialog.compone
     MatIconModule,
     MatToolbarModule,
     MatDatepickerModule,
-    MatNativeDateModule,
-    // MatMomentDateModule,
+    // MatNativeDateModule,
+    MatMomentDateModule,
     MatTooltipModule,
     MatTableModule,
     MatPaginatorModule,

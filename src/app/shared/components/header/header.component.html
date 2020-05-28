@@ -24,10 +24,10 @@
         </li>
         <li>
           <button mat-button [matMenuTriggerFor]="menu"
-                      *ngIf="!authService.isTokenExpired();"
-                      matTooltip="Opções do usuário"
-                      matTooltipShowDelay="500"
-                      matTooltipPosition="left">
+                  *ngIf="!authService.isTokenExpired();"
+                  matTooltip="Opções do usuário"
+                  matTooltipShowDelay="500"
+                  matTooltipPosition="left">
             <mat-icon>person_outline</mat-icon>
           </button>
           <mat-menu #menu="matMenu">
