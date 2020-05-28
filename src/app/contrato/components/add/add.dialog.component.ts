@@ -16,10 +16,26 @@ export class AddDialogComponent {
               @Inject(MAT_DIALOG_DATA) public dataContrato: Contrato,
               public dataService: ContratoService) { }
 
+  // TODO: Criar Classe util para validação de formes
+  /**
+   * Descritor dos tipos de validação
+   */
   formControl = new FormControl('', [
-    Validators.required
     // Validators.email,
+    Validators.required
   ]);
+
+  // TODO: Criar Classe util para validação de formes
+  /**
+   * Validação de campos obrigatórios na FORM
+   */
+  getErrorMessage() {
+    return this.formControl.hasError('required')
+      ? 'Campo obrigatório'
+      : this.formControl.hasError('email')
+        ? 'Não é um e-mail valido'
+        : '';
+  }
 
   cpfCnpjMask = (field) => {
     return mask.maskCnpjCpf(field);
@@ -33,12 +49,6 @@ export class AddDialogComponent {
   // unmask(fieldMasked): number {
   //   return Number(mask.unmask(fieldMasked.toString()));
   // }
-
-  getErrorMessage() {
-    return this.formControl.hasError('required') ? 'Campo obrigatório' :
-      this.formControl.hasError('email') ? 'Não é um e-mail válido' :
-        '';
-  }
 
   submit() {
   // emppty stuff

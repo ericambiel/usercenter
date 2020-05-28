@@ -3,7 +3,8 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+
 import { MatButtonModule } from '@angular/material/button';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
@@ -18,6 +19,8 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { FooterComponent } from './components/footer/footer.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { AlertModule } from 'ngx-alerts';
+import { InterceptorService } from './services/intercepetor.service';
 
 @NgModule({
   declarations: [
@@ -28,9 +31,8 @@ import { FlexLayoutModule } from '@angular/flex-layout';
   ],
   imports: [
     CommonModule,
-    // BrowserModule,
-    // BrowserAnimationsModule,
-    // HttpClientModule,
+    BrowserModule,
+    BrowserAnimationsModule,
     RouterModule,
     MatToolbarModule,
     MatSidenavModule,
@@ -40,10 +42,15 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     MatTooltipModule,
     MatDividerModule,
     MatMenuModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    // Timeout to -1 for unlimited timeout, closed by the user clicking on it
+    AlertModule.forRoot({maxMessages: 5, timeout: 10000, position: 'right'})
   ],
   exports: [
     ColumnOneComponent
   ],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: InterceptorService, multi: true  }
+]
 })
 export class SharedModule { }

@@ -1,0 +1,24 @@
+<div class="container">
+  <h3 mat-dialog-title>Tem certeza que deseja APAGAR esse Ativo?</h3>
+  <div mat-dialog-content>
+    ID: {{data.asset.id}}
+    <p></p>
+    Denominação: {{ data.asset.description }}
+    <p></p>
+    Nº do Imobilizado: {{ data.asset.assetNum }}
+    <p></p>
+    Sub Nº {{ data.asset.subAssetNum }}
+    <p></p>
+    Classe {{ data.asset.class }}
+    <p></p>
+    Nº Inventário {{ data.asset.inventoryNum }}
+    <p></p>
+    Centro de custo {{ data.asset.costCenter }}
+    <p></p>
+  </div>
+
+  <div mat-dialog-actions>
+    <button mat-button [mat-dialog-close]="1" (click)="confirmDelete()">APAGAR!!!</button>
+    <button mat-button (click)="onNoClick()" tabindex="-1">Cancelar</button>
+  </div>
+</div>

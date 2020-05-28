@@ -1,1 +1,192 @@
-<p>inventory works!</p>
+<mat-toolbar color="primary">
+  <mat-toolbar-row>
+    <span>Impressão de Patrimônio</span>
+    <div fxFlex fxLayout="row" fxLayoutAlign="flex-end">
+      <button matTooltip="Recarregar"
+              matTooltipShowDelay="500"
+              mat-icon-button (click)="loadData()">
+        <mat-icon>refresh</mat-icon>
+      </button>
+    </div>
+  </mat-toolbar-row>
+</mat-toolbar>
+
+<form #formControl="ngForm" (ngSubmit)="submit" class="container" fxLayout="column">
+
+  <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutGap="20px" fxLayoutGap.lt-sm="0px">
+    <mat-form-field color="accent" fxFlex="60%">
+      <input matInput type="text" placeholder="Denominação" [(ngModel)]="dataAsset.description" name="description" required>
+      <mat-error *ngIf="formControl.invalid">{{ getErrorMessage() }}</mat-error>
+    </mat-form-field>
+
+    <mat-form-field color="accent" fxFlex>
+      <input matInput type="text" placeholder="Denominação Complementar" [(ngModel)]="dataAsset.descriptionComp" name="descriptionComp" >
+    </mat-form-field>
+  </div>
+
+  <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutGap="20px" fxLayoutGap.lt-sm="0px">
+    <mat-form-field color="accent" fxFlex="80%">
+      <input matInput type="number" placeholder="Nº do Imobilizado" [(ngModel)]="dataAsset.assetNum"  name="assetNum" required>
+      <mat-error *ngIf="formControl.invalid">{{ getErrorMessage() }}</mat-error>
+    </mat-form-field>
+
+    <mat-form-field color="accent" fxFlex>
+      <input matInput type="number" placeholder="Sub Nº" [(ngModel)]="dataAsset.subAssetNum" name="subAssetNum" required>
+      <mat-error *ngIf="formControl.invalid">{{ getErrorMessage() }}</mat-error>
+    </mat-form-field>
+
+    <mat-form-field color="accent" fxFlex>
+      <input matInput type="number" placeholder="Classe" [(ngModel)]="dataAsset.class" name="class" required>
+      <mat-error *ngIf="formControl.invalid">{{ getErrorMessage() }}</mat-error>
+    </mat-form-field>
+  </div>
+
+  <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutGap="20px" fxLayoutGap.lt-sm="0px">
+    <mat-form-field color="accent" fxFlex> <!-- Não vai para etiqueta -->
+      <input matInput type="number" placeholder="Nº Inventário" [(ngModel)]="dataAsset.inventoryNum" name="inventoryNum">
+    </mat-form-field>
+
+    <mat-form-field color="accent" fxFlex> <!-- Não vai para etiqueta -->
+      <input matInput type="number" placeholder="Centro de custo" [(ngModel)]="dataAsset.costCenter" name="costCenter" >
+    </mat-form-field>
+
+    <mat-form-field color="accent" fxFlex="0 0 auto">
+      <input matInput
+             placeholder="Incorporação"
+             [matDatepicker]="dpCapitalizedOn"
+             [(ngModel)]="dataAsset.capitalizedOn"
+             name="capitalizedOn"
+             required>
+      <mat-datepicker-toggle matSuffix [for]="dpCapitalizedOn"></mat-datepicker-toggle>
+      <mat-datepicker #dpCapitalizedOn></mat-datepicker>
+      <mat-error *ngIf="formControl.invalid">{{ getErrorMessage() }}</mat-error>
+    </mat-form-field>
+  </div>
+
+  <div fxFlex fxLayout="row" fxLayoutAlign="flex-end">
+    <ul fxLayout="row" fxLayoutGap="20px">
+      <button class="mat-elevation-z2"
+              matTooltip="Imprimir Etiqueta"
+              matTooltipShowDelay="500"
+              mat-button
+              [type]="submit"
+              [disabled]="!formControl.valid"
+              (click)="onPrint()">
+        <mat-icon>printer</mat-icon>
+      Imprimir</button>
+    </ul>
+  </div>
+
+</form>
+
+<div class="container mat-elevation-z8">
+
+  <div class="filter">
+    <mat-form-field floatPlaceholder="never" color="accent">
+      <input matInput #filter placeholder="Buscar algo :)">
+    </mat-form-field>
+  </div>
+
+  <mat-table #table [dataSource]="inventoryDataSource"
+           matSort class="mat-cell"
+           matSortActive="created"
+           matSortDirection="desc">
+
+    <ng-container matColumnDef="id"> <!--Coluna-->
+      <mat-header-cell *matHeaderCellDef mat-sort-header>ID</mat-header-cell><!--Nome coluna-->
+      <mat-cell *matCellDef="let row" >{{row.id}}</mat-cell><!--Dado na celular vindo de "contratoDataSource"-->
+    </ng-container>
+
+    <ng-container matColumnDef="description"> <!--Coluna-->
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Denominação</mat-header-cell><!--Nome coluna-->
+      <mat-cell *matCellDef="let row" >{{row.description}}</mat-cell><!--Dado na celular vindo de "contratoDataSource"-->
+    </ng-container>
+
+    <ng-container matColumnDef="descriptionComp"> <!--Coluna-->
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Denominação Complementar</mat-header-cell><!--Nome coluna-->
+      <mat-cell *matCellDef="let row" >{{row.descriptionComp}}</mat-cell><!--Dado na celular vindo de "contratoDataSource"-->
+    </ng-container>
+
+    <ng-container matColumnDef="assetNum"> <!--Coluna-->
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Imobilizado</mat-header-cell><!--Nome coluna-->
+      <mat-cell *matCellDef="let row" >{{row.assetNum}}</mat-cell><!--Dado na celular vindo de "contratoDataSource"-->
+    </ng-container>
+
+    <ng-container matColumnDef="subAssetNum"> <!--Coluna-->
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Sub Nº</mat-header-cell><!--Nome coluna-->
+      <mat-cell *matCellDef="let row" >{{row.subAssetNum}}</mat-cell><!--Dado na celular vindo de "contratoDataSource"-->
+    </ng-container>
+
+    <ng-container matColumnDef="class"> <!--Coluna-->
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Classe</mat-header-cell><!--Nome coluna-->
+      <mat-cell *matCellDef="let row" >{{row.class}}</mat-cell><!--Dado na celular vindo de "contratoDataSource"-->
+    </ng-container>
+
+    <ng-container matColumnDef="inventoryNum"> <!--Coluna-->
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Inventário</mat-header-cell><!--Nome coluna-->
+      <mat-cell *matCellDef="let row" >{{row.inventoryNum}}</mat-cell><!--Dado na celular vindo de "contratoDataSource"-->
+    </ng-container>
+
+    <ng-container matColumnDef="costCenter"> <!--Coluna-->
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Centro de custo</mat-header-cell><!--Nome coluna-->
+      <mat-cell *matCellDef="let row" >{{row.costCenter}}</mat-cell><!--Dado na celular vindo de "contratoDataSource"-->
+    </ng-container>
+
+    <ng-container matColumnDef="capitalizedOn"> <!--Coluna-->
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Incorporação</mat-header-cell><!--Nome coluna-->
+      <mat-cell *matCellDef="let row" >{{row.capitalizedOn | date:'shortDate'}}</mat-cell><!--Dado na celular vindo de "contratoDataSource"-->
+    </ng-container>
+
+    <!-- Buttons Actions -->
+    <ng-container matColumnDef="btnActions">
+      <mat-header-cell *matHeaderCellDef></mat-header-cell>
+
+      <mat-cell *matCellDef="let row; let i=index;">
+
+        <button disabled
+                matTooltip="Editar Ativo"
+                matTooltipShowDelay="500"
+                mat-icon-button color="accent"
+                (click)= "editAsset(i, row)">
+          <mat-icon aria-label="Editar">edit</mat-icon>
+        </button>
+
+        <button matTooltip="Apagar Ativo"
+                matTooltipShowDelay="500"
+                mat-icon-button color="accent"
+                (click)="deleteAsset(i, row)">
+          <mat-icon aria-label="Apagar">delete</mat-icon>
+        </button>
+
+        <button matTooltip="Reimprimir"
+                matTooltipShowDelay="500"
+                mat-icon-button color="accent"
+                (click)="onReprint(i, row)">
+          <mat-icon aria-label="Reimprimir">printer</mat-icon>
+        </button>
+
+      </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row><!--Recebe Array de string com o nome/ordem das colunas que seram mostradas ou não acima-->
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
+
+  <div class="no-results" [style.display]="inventoryDataSource.renderedData.length == 0 ? '' : 'none'">
+    Sem resultado(s)
+  </div>
+
+  <mat-paginator #paginator
+                 [length]="inventoryDataSource.filteredData.length"
+                 [pageIndex]="0"
+                 [pageSize]="3"
+                 [pageSizeOptions]="[3, 6, 15, 240]">
+  </mat-paginator>
+
+</div>
+
+
+<!-- <div fxLayout="column" fxLayout.gt-sm="row" fxLayoutAlign="start center" fxLayoutAlign.gt-sm="center start">
+  <div fxFlex="50%" fxFlex.gt-sm="75%">Item 1</div>
+  <div fxFlex="50%" fxFlex.gt-sm="25%">Item 2</div>
+</div> -->

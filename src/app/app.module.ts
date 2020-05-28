@@ -7,6 +7,7 @@ import localeBr from '@angular/common/locales/pt'; // Localizar para sistema bra
 import { SharedModule } from './shared/shared.module'; // Ira conter módulos que serão comuns a todos como Toolbar/Sidebar
 import { AuthModule } from './auth/auth.module'; // Login no sistema
 import { ContratoModule } from './contrato/contrato.module'; // CRUD Contratos.
+import { InventoryModule } from './inventory/inventory.module'; // Patrimônio
 
 
 import { AppComponent } from './app.component';
@@ -29,6 +30,7 @@ registerLocaleData(localeBr, 'pt'); // Onde 'pt'-> appConfig.getLocaleId()
     SharedModule,
     AuthModule,
     ContratoModule,
+    InventoryModule,
     AppRoutingModule
   ],
   entryComponents: [

@@ -102,7 +102,7 @@
                            (ngModelChange)="dataContrato.cnpj = unmask($event)"
                            name="cnpj"
                            required>
-                    <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+                    <mat-error *ngIf="formControl.invalid">{{ getErrorMessage() }}</mat-error>
                     <mat-hint align="end">{{inputstate.value?.length || 0}}/18</mat-hint>
                   </mat-form-field>
                 <!-- </div> -->
@@ -126,7 +126,7 @@
               <mat-form-field color="accent" style="width:100%;">
                 <input matInput #input class="form-control" placeholder="Objeto" [(ngModel)]="dataContrato.objeto"
                   name="objeto" required>
-                <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+                <mat-error *ngIf="formControl.invalid">{{ getErrorMessage() }}</mat-error>
               </mat-form-field>
             <!-- </div> -->
           </td>
@@ -171,8 +171,11 @@
                 <td align="right" class="label">
                   <!-- <div class="form"> -->
                     <mat-form-field color="accent" style="width:8vw">
-                      <input matInput placeholder="Início Contrato" [matDatepicker]="dpDataInicio"
-                        [(ngModel)]="dataContrato.dataInicio" name="dataInicio">
+                      <input matInput
+                             placeholder="Início Contrato"
+                             [matDatepicker]="dpDataInicio"
+                             [(ngModel)]="dataContrato.dataInicio"
+                             name="dataInicio">
                       <mat-datepicker-toggle matSuffix [for]="dpDataInicio"></mat-datepicker-toggle>
                       <mat-datepicker #dpDataInicio></mat-datepicker>
                     </mat-form-field>
@@ -181,8 +184,11 @@
                 <td align="right" class="label">
                   <!-- <div class="form"> -->
                     <mat-form-field color="accent" style="width:8vw">
-                      <input matInput placeholder="Fim Contrato" [matDatepicker]="dpDataFim"
-                        [(ngModel)]="dataContrato.dataFim" name="dataFim">
+                      <input matInput
+                             placeholder="Fim Contrato"
+                             [matDatepicker]="dpDataFim"
+                             [(ngModel)]="dataContrato.dataFim"
+                             name="dataFim">
                       <mat-datepicker-toggle matSuffix [for]="dpDataFim"></mat-datepicker-toggle>
                       <mat-datepicker #dpDataFim></mat-datepicker>
                     </mat-form-field>
@@ -246,7 +252,7 @@
           <td align="left" class="label">
             <!-- <div class="form"> -->
               <mat-form-field color="accent" style="width:100%;">
-                <textarea matInput #input class="form-control" placeholder="Observações" [(ngModel)]="dataContrato.obs"
+                <textarea matInput placeholder="Observações" [(ngModel)]="dataContrato.obs"
                   name="obs"></textarea>
               </mat-form-field>
             <!-- </div> -->
@@ -258,18 +264,18 @@
       </tbody>
     </table>
   </form>
-      <div mat-dialog-actions>
-        <!-- <button mat-button>
-          Editar
-          <mat-icon aria-label="Documentos">edit</mat-icon>
-        </button> -->
-        <button mat-button [type]="submit" [disabled]="!formControl.valid" [mat-dialog-close]="1" (click)="stopEdit()">
-          Salvar
-          <mat-icon aria-label="Documentos">save</mat-icon>
-        </button>
-        <button mat-button (click)="onCancelarClick()" tabindex="-1">
-          Cancelar
-          <mat-icon aria-label="Documentos">cancel</mat-icon>
-        </button>
-      </div>
+    <div mat-dialog-actions>
+      <!-- <button mat-button>
+        Editar
+        <mat-icon aria-label="Documentos">edit</mat-icon>
+      </button> -->
+      <button mat-button [type]="submit" [disabled]="!formControl.valid" [mat-dialog-close]="1" (click)="stopEdit()">
+        Salvar
+        <mat-icon aria-label="Documentos">save</mat-icon>
+      </button>
+      <button mat-button (click)="onCancelarClick()" tabindex="-1">
+        Cancelar
+        <mat-icon aria-label="Documentos">cancel</mat-icon>
+      </button>
+    </div>
 </div>
