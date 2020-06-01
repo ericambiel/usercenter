@@ -94,9 +94,6 @@ export class ContratoService {
 
   getTodosContratos(): void {
     this.httpClient.get<Contrato[]>(`api/${this.API_URL}`).subscribe(contratos => {
-      // contratos.forEach(contrato => {
-      //   if (contrato.dataFim === null) { contrato.dataFim = new Date('1900-01-01').toISOString(); }
-      // });
       this.dataChange.next(contratos);
     },
     (error: HttpErrorResponse) => {
@@ -135,8 +132,8 @@ export class ContratoService {
    });
   }
 
-   // UPDATE, patch METHOD
-   updateContrato(contrato: Contrato): void {
+  // UPDATE, patch METHOD
+  updateContrato(contrato: Contrato): void {
     /* TODO: Verificar modo de atualizar tabela de contratos após algum retorno do endPoint
         contrato tabela estava sendo atualizada antes do retorno do endPoint, causando erros.
     */

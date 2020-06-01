@@ -12,7 +12,7 @@ import { User } from '../../models/user';
 })
 export class AuthService {
 
-  private readonly AUTH_URL = 'auth';
+  private readonly API_URL = 'auth';
   private readonly LOGIN_PATH = '/login';
   private readonly LDAP_CHECK_PATH = '/ldap_status';
   private jwtHelper = new JwtHelperService();
@@ -30,7 +30,7 @@ export class AuthService {
    */
   login(user: User) {
     // this.decodedToken = new User();
-    return this.httpClient.post( `api/${this.AUTH_URL}${this.LOGIN_PATH}`, user)
+    return this.httpClient.post( `api/${this.API_URL}${this.LOGIN_PATH}`, user)
       .pipe(
         map((response: Auth) => {
           if (response.user.token) {
@@ -42,11 +42,12 @@ export class AuthService {
       );
   }
 
+  // TODO: Usar service de LDAP para fazer esta checagem.
   /**
    * Checa estado do servidor LDAP Remoto
    */
   checkLDAPStatus() {
-    return this.httpClient.get(`api/${this.AUTH_URL}${this.LDAP_CHECK_PATH}`)
+    return this.httpClient.get(`api/${this.API_URL}${this.LDAP_CHECK_PATH}`)
       .pipe(map((response: any) => {
         return response; })
       );

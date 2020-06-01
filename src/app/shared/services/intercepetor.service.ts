@@ -23,15 +23,17 @@ export class InterceptorService implements HttpInterceptor {
         }
         return event;
       }),
-      catchError((error) => {
-        if (error.status < 500 && typeof error.error.message === 'string') {
-          this.alert.warning(error.error.message);
-        } else if (error.status < 600 && typeof error.error.message === 'string') {
-          this.alert.danger(error.error.message);
-        } else if (error.status === 403) {
-          this.alert.warning('Você não tem autorização para acessar esse modulo');
-        } else if (typeof error.error.message !== 'string') {
-          this.alert.danger('Um erro de processamento interno ocorreu contate o ADM');
+      catchError(error => {
+        if (typeof error.error.message === 'string') {
+          switch (true) {
+            case error.status >= 500 : this.alert.danger(error.error.message); break;
+            case error.status >= 400 : this.alert.warning(error.error.message); break;
+          }
+        } else {
+          switch (true) {
+            case error.status === 403 : this.alert.warning('Você não tem autorização para acessar esse modulo'); break;
+            case error.status >= 500 : this.alert.danger('Ocorreu um erro interno, contate o administrador'); break;
+          }
         }
         return throwError(error);
       })

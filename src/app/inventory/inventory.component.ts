@@ -19,8 +19,8 @@ import { MatDialog } from '@angular/material/dialog';
 })
 
 export class InventoryComponent implements OnInit {
-  inventoryDatabase: InventoryService | null; // Dados temporários
-  inventoryDataSource: InventoryDataSource | null;
+  inventoryDatabase: InventoryService | null;
+  inventoryDataSource: InventoryDataSource | null; // Dados em memória da Tabela
 
   dataAsset: Inventory; // Objeto que fara bind com a View e que possuirá valores digitados.
 

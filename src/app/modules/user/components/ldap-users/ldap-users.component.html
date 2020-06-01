@@ -1,0 +1,111 @@
+<div class="container mat-elevation-z8">
+
+  <div class="filter">
+    <mat-form-field floatPlaceholder="never" color="accent">
+      <input matInput #filter placeholder="Buscar algo :)">
+    </mat-form-field>
+  </div>
+
+  <mat-table #table [dataSource]="LDAPDataSource"
+           matSort class="mat-cell"
+           matSortActive="created"
+           matSortDirection="desc">
+
+    <ng-container matColumnDef="objectGUID"> <!--Coluna-->
+      <mat-header-cell *matHeaderCellDef mat-sort-header>ID</mat-header-cell><!--Nome coluna-->
+      <mat-cell *matCellDef="let row" >{{row.objectGUID}}</mat-cell><!--Dado na celular vindo de "LDAPDataSource"-->
+    </ng-container>
+
+    <ng-container matColumnDef="objectSid"> <!--Coluna-->
+      <mat-header-cell *matHeaderCellDef mat-sort-header>SID</mat-header-cell><!--Nome coluna-->
+      <mat-cell *matCellDef="let row" >{{row.objectSid}}</mat-cell><!--Dado na celular vindo de "LDAPDataSource"-->
+    </ng-container>
+
+    <ng-container matColumnDef="cn"> <!--Coluna-->
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Nome Completo</mat-header-cell><!--Nome coluna-->
+      <mat-cell *matCellDef="let row" >{{row.cn}}</mat-cell><!--Dado na celular vindo de "LDAPDataSource"-->
+    </ng-container>
+
+    <ng-container matColumnDef="sn"> <!--Coluna-->
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Ultimo Nome</mat-header-cell><!--Nome coluna-->
+      <mat-cell *matCellDef="let row" >{{row.sn}}</mat-cell><!--Dado na celular vindo de "LDAPDataSource"-->
+    </ng-container>
+
+    <ng-container matColumnDef="givenName"> <!--Coluna-->
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Primeiro Nome</mat-header-cell><!--Nome coluna-->
+      <mat-cell *matCellDef="let row" >{{row.givenName}}</mat-cell><!--Dado na celular vindo de "LDAPDataSource"-->
+    </ng-container>
+
+    <ng-container matColumnDef="sAMAccountName"> <!--Coluna-->
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Usuário Windows(Pré)</mat-header-cell><!--Nome coluna-->
+      <mat-cell *matCellDef="let row" >{{row.sAMAccountName}}</mat-cell><!--Dado na celular vindo de "LDAPDataSource"-->
+    </ng-container>
+
+    <ng-container matColumnDef="userPrincipalName"> <!--Coluna-->
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Usuário Windows(Pós)</mat-header-cell><!--Nome coluna-->
+      <mat-cell *matCellDef="let row" >{{row.class}}</mat-cell><!--Dado na celular vindo de "LDAPDataSource"-->
+    </ng-container>
+
+    <ng-container matColumnDef="displayName"> <!--Coluna-->
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Nome de exibição</mat-header-cell><!--Nome coluna-->
+      <mat-cell *matCellDef="let row" >{{row.displayName}}</mat-cell><!--Dado na celular vindo de "LDAPDataSource"-->
+    </ng-container>
+
+    <ng-container matColumnDef="mail"> <!--Coluna-->
+      <mat-header-cell *matHeaderCellDef mat-sort-header>E-Mail</mat-header-cell><!--Nome coluna-->
+      <mat-cell *matCellDef="let row" >{{row.mail}}</mat-cell><!--Dado na celular vindo de "LDAPDataSource"-->
+    </ng-container>
+
+    <!-- <ng-container matColumnDef="memberOf">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Membro de (Depto. / Grupo)</mat-header-cell>
+      <mat-cell *matCellDef="let row" >{{row.memberOf}</mat-cell>
+    </ng-container> -->
+
+    <ng-container matColumnDef="lastLogon"> <!--Coluna-->
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Ultimo Logon</mat-header-cell><!--Nome coluna-->
+      <mat-cell *matCellDef="let row" >{{row.lastLogon | date:'shortDate'}</mat-cell><!--Dado na celular vindo de "LDAPDataSource"-->
+    </ng-container>
+
+    <ng-container matColumnDef="whenCreated"> <!--Coluna-->
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Criado em</mat-header-cell><!--Nome coluna-->
+      <mat-cell *matCellDef="let row" >{{row.whenCreated | date:'shortDate'}</mat-cell><!--Dado na celular vindo de "LDAPDataSource"-->
+    </ng-container>
+
+    <ng-container matColumnDef="whenChanged"> <!--Coluna-->
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Modificado em</mat-header-cell><!--Nome coluna-->
+      <mat-cell *matCellDef="let row" >{{row.whenChanged | date:'shortDate'}</mat-cell><!--Dado na celular vindo de "LDAPDataSource"-->
+    </ng-container>
+
+    <ng-container matColumnDef="userAccountControl"> <!--Coluna-->
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Estado</mat-header-cell><!--Nome coluna-->
+      <mat-cell *matCellDef="let row" >{{row.userAccountControl}</mat-cell><!--Dado na celular vindo de "LDAPDataSource"-->
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row><!--Recebe Array de string com o nome/ordem das colunas que serão mostradas ou não acima-->
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+
+    <!-- actions -->
+    <ng-container matColumnDef="btnActions">
+      <mat-header-cell *matHeaderCellDef>
+        <button matTooltip="Recarregar"
+                matTooltipShowDelay="500"
+                mat-icon-button
+                color="primary" (click)="loadData()">
+          <mat-icon>reload</mat-icon>
+        </button>
+      </mat-header-cell>
+    </ng-container>
+  </mat-table>
+
+  <div class="no-results" [style.display]="LDAPDataSource.renderedData.length == 0 ? '' : 'none'">
+    Sem resultado(s)
+  </div>
+
+  <mat-paginator #paginator
+                 [length]="LDAPDataSource.filteredData.length"
+                 [pageIndex]="0"
+                 [pageSize]="100"
+                 [pageSizeOptions]="[5, 10, 25, 100, 400, 800]">
+  </mat-paginator>
+
+</div>
