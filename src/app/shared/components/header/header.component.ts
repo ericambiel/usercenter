@@ -12,7 +12,7 @@ export class HeaderComponent implements OnInit {
   @Input() sidebar: SidebarComponent;
 
   constructor(private router: Router,
-              public authService: AuthService) { }
+              public authService: AuthService) { } // Service no HTML
 
   ngOnInit(): void { }
 

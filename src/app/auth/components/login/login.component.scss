@@ -13,10 +13,13 @@
 }
 
 mat-card {
-  max-width: 400px;
+  display: block;
+  margin: auto;
+  width: 85%;
+  max-width: 380px;
   min-width: 242px;
-  margin: 10% auto;
-  border-radius: 8px;
+
+  border-radius: 12px;
 }
 
 mat-form-field, mat-checkbox {
@@ -34,4 +37,15 @@ mat-card-content {
   display: block;
   width: 80%;
   margin: 20px auto;
+}
+
+.ldap-status {
+  // margin-top: 20px;
+  display: block;
+  width: 85%;
+  //margin: 0px auto;
+}
+
+ul {
+  list-style-type: none;
 }

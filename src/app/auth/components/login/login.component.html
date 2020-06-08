@@ -1,9 +1,11 @@
-<div class="login-page">
+<div fxLayout="column" class="login-page">
   <mat-card class="mat-elevation-z12">
     <mat-card-title style="text-align:center;">Identifique-se</mat-card-title>
     <mat-tab-group mat-stretch-tabs class="example-stretched-tabs">
       <mat-tab label="Entrar">
-          <mat-card-content>
+
+
+          <mat-card-content >
             <form #fEntrar="ngForm" (ngSubmit)="onSubmit(fEntrar)">
               <mat-form-field>
                 <input
@@ -36,7 +38,6 @@
                   </mat-error>
                 <mat-icon matSuffix>lock</mat-icon>
               </mat-form-field>
-              <mat-checkbox disabled>Lembrar-me</mat-checkbox>
               <button
                 mat-raised-button
                 color="primary"
@@ -44,91 +45,30 @@
                 class="login-button">
                 Entrar
               </button>
-
-              <button
-                mat-raised-button
-                disabled="true"
-                class="login-button">
-                Entra com Web-Mail
-              </button>
             </form>
+
+            <div class="ldap-status" fxLayout="row">
+              <ul fxLayout="row">
+                <li>
+                  <a mat-button
+                          [disabled]="!isLDAPServerOk"
+                          matTooltip="Estado de conexão com servidor LDAP"
+                          matTooltipShowDelay="500">
+                    <mat-icon>domain</mat-icon>
+                  </a>
+                  <!-- <mat-icon *ngIf="isLDAPServerOk">domain</mat-icon> -->
+                </li>
+                <li>
+                  <a >{{ statusLDAPServer }}</a>
+                </li>
+              </ul>
+            </div>
+
           </mat-card-content>
-      </mat-tab>
-      <mat-tab label="Registrar-se" disabled="true">
-        <!-- <mat-card-content>
-          <form action="">
-            <mat-form-field>
-              <input
-                matInput
-                placeholder="User Name"
-                required
-                name="username"
-                ngModel
-                #username="ngModel">
-              <mat-icon matSuffix>perm_identity</mat-icon>
-              <mat-error
-                *ngIf="username.invalid">
-                Username is required
-              </mat-error>
 
-            </mat-form-field>
-            <mat-form-field>
-              <input
-                matInput
-                placeholder="userName"
-                required
-                name="userName"
-                ngModel
-                #userName="ngModel">
-                <mat-error *ngIf="userName.invalid">userName is required</mat-error>
-              <mat-icon matSuffix>userName</mat-icon>
-            </mat-form-field>
-            <mat-form-field>
-              <input
-                matInput
-                placeholder="Password"
-                type="password"
-                required
-                minlength="8"
-                name="password"
-                ngModel
-                #password="ngModel">
-                <mat-error
-                  *ngIf="password.errors && password.errors.required">
-                  Password is required
-                </mat-error>
-                <mat-error
-                  *ngIf="password.errors && password.errors.minlength">
-                  Password must be of length 8
-                </mat-error>
-              <mat-icon matSuffix>lock</mat-icon>
 
-            </mat-form-field>
-            <mat-form-field>
-                <input
-                matInput
-                placeholder="Password"
-                type="password"
-                required
-                minlength="6"
-                name="repassword"
-                ngModel
-                #repassword="ngModel">
-                <mat-error
-                  *ngIf="repassword.errors && repassword.errors.required">
-                  Re-Enter Password is required
-                </mat-error>
-              <mat-icon matSuffix>lock</mat-icon>
-            </mat-form-field>
-            <button
-              mat-raised-button
-              color="primary"
-              class="login-button">
-              Sign Up
-            </button>
-          </form>
-        </mat-card-content> -->
       </mat-tab>
+
     </mat-tab-group>
   </mat-card>
 </div>

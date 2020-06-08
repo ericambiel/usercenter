@@ -11,7 +11,8 @@ Gera relatórios, visualizações e controle para dados de uma empresa.
    - [ ] View Sign-Up.(Registro)
    - [ ] View Recovery.(Reset Senha)
    - [ ] View Controle de usuários.
-   - [x] Acesso ao sistema utilizando JWT. 
+   - [x] Acesso ao sistema utilizando JWT.
+   - [X] Autenticação por LDAP (AD Microsoft). ***TESTANDO***
    
 ---
 
@@ -27,5 +28,8 @@ Gera relatórios, visualizações e controle para dados de uma empresa.
 ---
 
 - [ ] **Modulo - Impressão Patrimônio**
-   - [ ] View para impressão de relatório. ***IMPLEMENTANDO***
-   - [ ] Impressão de etiquetas em impressora Zebra.
+   - [x] View para impressão de relatório.
+   - [x] Inserir.
+   - [X] Apagar.
+   - [ ] Alterar.
+   - [x] Impressão de etiquetas em impressora Zebra.
