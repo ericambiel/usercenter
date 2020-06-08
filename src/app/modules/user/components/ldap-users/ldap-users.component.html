@@ -63,22 +63,22 @@
 
     <ng-container matColumnDef="lastLogon"> <!--Coluna-->
       <mat-header-cell *matHeaderCellDef mat-sort-header>Ultimo Logon</mat-header-cell><!--Nome coluna-->
-      <mat-cell *matCellDef="let row" >{{row.lastLogon | date:'shortDate'}</mat-cell><!--Dado na celular vindo de "LDAPDataSource"-->
+      <mat-cell *matCellDef="let row" >{{row.lastLogon | date:'short'}}</mat-cell><!--Dado na celular vindo de "LDAPDataSource"-->
     </ng-container>
 
     <ng-container matColumnDef="whenCreated"> <!--Coluna-->
       <mat-header-cell *matHeaderCellDef mat-sort-header>Criado em</mat-header-cell><!--Nome coluna-->
-      <mat-cell *matCellDef="let row" >{{row.whenCreated | date:'shortDate'}</mat-cell><!--Dado na celular vindo de "LDAPDataSource"-->
+      <mat-cell *matCellDef="let row" >{{row.whenCreated | date:'short'}}</mat-cell><!--Dado na celular vindo de "LDAPDataSource"-->
     </ng-container>
 
     <ng-container matColumnDef="whenChanged"> <!--Coluna-->
       <mat-header-cell *matHeaderCellDef mat-sort-header>Modificado em</mat-header-cell><!--Nome coluna-->
-      <mat-cell *matCellDef="let row" >{{row.whenChanged | date:'shortDate'}</mat-cell><!--Dado na celular vindo de "LDAPDataSource"-->
+      <mat-cell *matCellDef="let row" >{{row.whenChanged | date:'short'}}</mat-cell><!--Dado na celular vindo de "LDAPDataSource"-->
     </ng-container>
 
     <ng-container matColumnDef="userAccountControl"> <!--Coluna-->
       <mat-header-cell *matHeaderCellDef mat-sort-header>Estado</mat-header-cell><!--Nome coluna-->
-      <mat-cell *matCellDef="let row" >{{row.userAccountControl}</mat-cell><!--Dado na celular vindo de "LDAPDataSource"-->
+      <mat-cell *matCellDef="let row" >{{row.userAccountControl}}</mat-cell><!--Dado na celular vindo de "LDAPDataSource"-->
     </ng-container>
 
     <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row><!--Recebe Array de string com o nome/ordem das colunas que serão mostradas ou não acima-->

@@ -21,13 +21,13 @@ export class LdapUsersComponent implements OnInit {
 
   // Colunas que serão exibidas na tabela
   displayedColumns = [ 'objectGUID',
-                       'objectSid',
+                      //  'objectSid',
                        'cn',
-                       'sn',
-                       'givenName',
+                      //  'sn',
+                      //  'givenName',
                        'sAMAccountName',
-                       'userPrincipalName',
-                       'displayName',
+                      //  'userPrincipalName',
+                      //  'displayName',
                        'mail',
                       //  'memberOf',
                        'lastLogon',

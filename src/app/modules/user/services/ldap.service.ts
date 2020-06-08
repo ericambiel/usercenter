@@ -21,6 +21,7 @@ export class LDAPService {
     return this.dataChange.value;
   }
 
+
   // public dialogData;
 
   constructor(private httpClient: HttpClient) { }
@@ -29,10 +30,19 @@ export class LDAPService {
    * Retorna usuários do Microsoft AD em um server LDAP.
    */
   getAllUsersAD() {
-    return this.httpClient.get<LDAPUserAD[]>(`api/${this.API_URL}${this.LDAP_AD_USERS}`)
-    .subscribe(assets => {
-      this.dataChange.next(assets);
-    });
+    this.httpClient.get(`api/${this.API_URL}${this.LDAP_AD_USERS}`)
+      .pipe(
+        map((response: [LDAPUserAD]) => {
+          const userADArray = new Array<LDAPUserAD>();
+          response.map(userAD =>
+            userADArray.push(new LDAPUserAD().fromObject(userAD))
+          );
+          return userADArray;
+        }
+      ))
+      .subscribe(userADArray => {
+        this.dataChange.next(userADArray);
+      });
   }
 
   // TODO: remover de serviço Auth e migra para este endpoint.
