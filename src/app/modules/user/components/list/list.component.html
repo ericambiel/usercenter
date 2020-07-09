@@ -1,0 +1,99 @@
+<div class="container mat-elevation-z8">
+
+  <div class="filter">
+    <mat-form-field floatPlaceholder="never" color="accent">
+      <input matInput #filter placeholder="Buscar algo :)">
+    </mat-form-field>
+  </div>
+
+  <mat-table #table [dataSource]="UserDataSource"
+            class="mat-cell"
+            matSort
+            matSortActive="created"
+            matSortDirection="desc">
+
+    <ng-container matColumnDef="name">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Nome</mat-header-cell>
+      <mat-cell *matCellDef="let row" >{{row.name}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="surname">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Sobrenome</mat-header-cell>
+      <mat-cell *matCellDef="let row" >{{row.surname}}</mat-cell>
+    </ng-container>
+    
+    <ng-container matColumnDef="userName">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Nome de usuário</mat-header-cell>
+      <mat-cell *matCellDef="let row" >{{row.userName}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="adUser">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Usuário AD</mat-header-cell>
+      <mat-cell *matCellDef="let row" >{{row.adUser}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="email">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>E-Mail</mat-header-cell>
+      <mat-cell *matCellDef="let row" >{{row.email}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="departments">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Departamento</mat-header-cell>
+      <mat-cell *matCellDef="let row" >{{row.class}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="departResponsible">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Responsável por</mat-header-cell>
+      <mat-cell *matCellDef="let row" >{{row.departResponsible}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="estabFiscal">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Estab. Fiscal</mat-header-cell>
+      <mat-cell *matCellDef="let row" >{{row.estabFiscal}}</mat-cell>
+    </ng-container>
+
+      <!-- actions -->
+      <ng-container matColumnDef="btnActions">
+        <mat-header-cell *matHeaderCellDef>
+          <button matTooltip="Adicionar Usuário"
+                  matTooltipShowDelay="500"
+                  mat-icon-button
+                  color="primary" (click)="insertUser()">
+            <mat-icon>add</mat-icon>
+          </button>
+        </mat-header-cell>
+  
+        <mat-cell *matCellDef="let row; let i=index;">
+          <button matTooltip="Editar Usuário"
+                  matTooltipShowDelay="500"
+                  mat-icon-button color="accent"
+                  (click)="editUser(i, row)">
+            <mat-icon aria-label="Editar">edit</mat-icon>
+          </button>
+  
+          <button matTooltip="Apagar Usuário"
+                  matTooltipShowDelay="500"
+                  mat-icon-button color="accent"
+                  (click)="deleteUser(i, row)">
+            <mat-icon aria-label="Apagar">delete</mat-icon>
+          </button>
+
+        </mat-cell>
+      </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row><!--Recebe Array de string com o nome/ordem das colunas que serão mostradas ou não acima-->
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
+
+  <div class="no-results" [style.display]="UserDataSource.renderedData.length == 0 ? '' : 'none'">
+    Sem resultado(s)
+  </div>
+
+  <mat-paginator #paginator
+                 [length]="UserDataSource.filteredData.length"
+                 [pageIndex]="0"
+                 [pageSize]="25"
+                 [pageSizeOptions]="[5, 10, 25, 100, 400, 800]">
+  </mat-paginator>
+
+</div>

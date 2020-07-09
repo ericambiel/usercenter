@@ -1,0 +1,123 @@
+/* Structure */
+.container {
+	display: flex;
+	flex-direction: column;
+}
+
+form {
+  padding-top: 10px;
+  padding-bottom: 0px;
+  padding-left: 20%;
+  padding-right: 20%;
+}
+
+/* Barra de busca */
+.filter {
+	// min-height: 56px;
+	// max-height: 56px;
+	display: flex;
+	align-items: center;
+	padding: 0px 24px 0;
+	justify-content: space-between;
+  border-bottom: 1px solid transparent;
+  margin-top: 8px;
+  font-size: 16px;
+  flex-grow: 1;
+}
+
+/* Mat table */
+.no-results {
+  display: flex;
+	justify-content: center;
+	padding: 14px;
+	font-size: 14px;
+	font-style: italic;
+}
+
+/* Cabeçalho da Tabela */
+.mat-header-cell {
+  font-weight: bold;
+  font-size: 13px; // Não existia
+  //padding: 0 0 0 1;
+  margin: 0 4px 0 4px;
+
+  &:nth-child(1) {
+    flex: 0 0 3%;
+  }
+  &:nth-child(2) {
+    flex: 0 0 20%;
+  }
+  &:nth-child(3) {
+    flex: 0 0 15%;
+  }
+  // &:nth-child(4) {
+  //   flex: 0 0 5%;
+  // }
+  // &:nth-child(5) {
+  //   flex: 0 0 5%;
+  // }
+  // &:nth-child(6) {
+  //   flex: 0 0 6%;
+  // }
+  // &:nth-child(7) {
+  //   flex: 0 0 9%;
+  // }
+  // &:nth-child(8) {
+  //   flex: 0 0 8%;
+  // }
+  &:nth-child(10) {
+		flex: 0 0 7em;
+  }
+}
+
+/* Células da Tabela */
+.mat-cell {
+  font-size: 12px; // Não existia
+  overflow: hidden;
+  min-height: initial;
+  display:inline-block;
+  align-content: flex-end;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+
+  //padding: 0px 16px 0px 0;
+  margin: 0 4px 0 4px;
+
+	&:nth-child(1) {
+		flex: 0 0 3%;
+	}
+	&:nth-child(2) {
+    flex: 0 0 20%;
+  }
+  &:nth-child(3) {
+    flex: 0 0 15%;
+  }
+  // &:nth-child(4) {
+  //   flex: 0 0 5%;
+  // }
+  // &:nth-child(5) {
+  // 	flex: 0 0 5%;
+  // }
+  // &:nth-child(6) {
+  //   flex: 0 0 6%;
+  // }
+  // &:nth-child(7) {
+  //   flex: 0 0 9%;
+  // }
+  // &:nth-child(8) {
+	// 	flex: 0 0 8%;
+  // }
+  &:nth-child(10) {
+		flex: 0 0 7em;
+  }
+  .mat-icon-button {
+    @extend %distance-icon-button;
+  }
+}
+
+// % Placeholder, export class
+%distance-icon-button {
+  padding: 0 2px 0 2px;
+  width: fit-content;
+  height: auto;
+}

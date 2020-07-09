@@ -1,3 +1,5 @@
+import { Departamento } from './departamento';
+
 class EstabFiscal {
   _id: string;
   escricao: string;
@@ -27,7 +29,7 @@ export class User {
   image: string;
   isActive: boolean;
   // tslint:disable-next-line: max-line-length
-  departments: [{ _id: string, description: string, departResponsible: string }]; // TODO: Verificar model departamento e associar contrato ao usuário
+  departments: [ Departamento ]; // TODO: Verificar model departamento e associar contrato ao usuário
   estabFiscal: EstabFiscal;
   permissions: [ Permission ];
   refreshToken: string;

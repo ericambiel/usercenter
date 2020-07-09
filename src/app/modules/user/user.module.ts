@@ -15,12 +15,14 @@ import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { LDAPService } from './services/ldap.service';
+import { ListComponent } from './components/list/list.component';
 
 
 @NgModule({
   declarations: [
     MainComponent,
-    LdapUsersComponent ],
+    LdapUsersComponent,
+    ListComponent ],
   imports: [
     CommonModule,
     UserRoutingModule,
